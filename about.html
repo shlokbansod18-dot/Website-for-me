@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VELORA — The Atelier</title>
+<meta name="description" content="How a Velora run is made: five mills, three ateliers, two hundred units, and a pattern that retires when the cloth does.">
+<meta name="theme-color" content="#0B0A09">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VELORA — The Atelier">
+<meta property="og:description" content="How a Velora run is made: five mills, three ateliers, two hundred units, and a pattern that retires when the cloth does.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0A09'/%3E%3Cpath d='M8 9l8 15 8-15' fill='none' stroke='%23E1542B' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/fabric.css">
+<link rel="modulepreload" href="assets/js/main.js">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="svg-defs" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-ember" x1="0" y1="0" x2="0.85" y2="1">
+      <stop offset="0%"   stop-color="#25170F"/>
+      <stop offset="34%"  stop-color="#7C5A47"/>
+      <stop offset="66%"  stop-color="#E1542B"/>
+      <stop offset="100%" stop-color="#150E0A"/>
+    </linearGradient>
+    <linearGradient id="g-bone" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0%"   stop-color="#F3EFE8"/>
+      <stop offset="45%"  stop-color="#B8AC9C"/>
+      <stop offset="78%"  stop-color="#5A5047"/>
+      <stop offset="100%" stop-color="#141210"/>
+    </linearGradient>
+    <linearGradient id="g-clay" x1="0" y1="0.15" x2="1" y2="0.9">
+      <stop offset="0%"   stop-color="#1A120D"/>
+      <stop offset="40%"  stop-color="#7C5A47"/>
+      <stop offset="72%"  stop-color="#B8977F"/>
+      <stop offset="100%" stop-color="#221913"/>
+    </linearGradient>
+    <linearGradient id="g-ash" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0%"   stop-color="#2C2822"/>
+      <stop offset="48%"  stop-color="#6E655A"/>
+      <stop offset="80%"  stop-color="#3A342C"/>
+      <stop offset="100%" stop-color="#100E0C"/>
+    </linearGradient>
+    <linearGradient id="g-ink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#0B0A09"/>
+      <stop offset="52%"  stop-color="#3A2C22"/>
+      <stop offset="86%"  stop-color="#E1542B"/>
+      <stop offset="100%" stop-color="#0B0A09"/>
+    </linearGradient>
+
+    <!-- Cloth recipe, in three moves:
+         (1) low-frequency turbulence displaces the gradient into drape shapes,
+         (2) a second, softened turbulence is lit as a height field so the
+             folds gain relief without turning grainy,
+         (3) the lighting is blended back over the gradient (k3 keeps the
+             brand colour from washing out) and clipped to the drape. -->
+    <filter id="drape-a" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0038 0.0100" numOctaves="4" seed="11" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="150" xChannelSelector="R" yChannelSelector="G" result="draped"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.0020 0.0068" numOctaves="3" seed="17" result="rel"/>
+      <feGaussianBlur in="rel" stdDeviation="1.4" result="relS"/>
+      <feDiffuseLighting in="relS" lighting-color="#ffffff" surfaceScale="2.4" diffuseConstant="1.0" result="lit">
+        <feDistantLight azimuth="118" elevation="56"/>
+      </feDiffuseLighting>
+      <feComposite in="lit" in2="draped" operator="arithmetic" k1="0.92" k2="0" k3="0.30" k4="-0.05" result="cloth"/>
+      <feComposite in="cloth" in2="draped" operator="in"/>
+    </filter>
+    <filter id="drape-b" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0068 0.0055" numOctaves="5" seed="29" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="185" xChannelSelector="R" yChannelSelector="B" result="draped"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.0042 0.0026" numOctaves="3" seed="41" result="rel"/>
+      <feGaussianBlur in="rel" stdDeviation="1.6" result="relS"/>
+      <feDiffuseLighting in="relS" lighting-color="#ffffff" surfaceScale="2.8" diffuseConstant="1.0" result="lit">
+        <feDistantLight azimuth="142" elevation="52"/>
+      </feDiffuseLighting>
+      <feComposite in="lit" in2="draped" operator="arithmetic" k1="0.95" k2="0" k3="0.28" k4="-0.05" result="cloth"/>
+      <feComposite in="cloth" in2="draped" operator="in"/>
+    </filter>
+    <filter id="drape-c" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feTurbulence type="turbulence" baseFrequency="0.0050 0.0125" numOctaves="3" seed="53" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="120" xChannelSelector="G" yChannelSelector="R" result="draped"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0058" numOctaves="3" seed="61" result="rel"/>
+      <feGaussianBlur in="rel" stdDeviation="1.3" result="relS"/>
+      <feDiffuseLighting in="relS" lighting-color="#ffffff" surfaceScale="2.1" diffuseConstant="1.05" result="lit">
+        <feDistantLight azimuth="96" elevation="60"/>
+      </feDiffuseLighting>
+      <feComposite in="lit" in2="draped" operator="arithmetic" k1="0.90" k2="0" k3="0.32" k4="-0.05" result="cloth"/>
+      <feComposite in="cloth" in2="draped" operator="in"/>
+    </filter>
+    <filter id="drape-d" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0150" numOctaves="4" seed="71" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="200" xChannelSelector="R" yChannelSelector="G" result="draped"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.0024 0.0080" numOctaves="3" seed="83" result="rel"/>
+      <feGaussianBlur in="rel" stdDeviation="1.5" result="relS"/>
+      <feDiffuseLighting in="relS" lighting-color="#ffffff" surfaceScale="2.6" diffuseConstant="1.0" result="lit">
+        <feDistantLight azimuth="128" elevation="54"/>
+      </feDiffuseLighting>
+      <feComposite in="lit" in2="draped" operator="arithmetic" k1="0.93" k2="0" k3="0.30" k4="-0.05" result="cloth"/>
+      <feComposite in="cloth" in2="draped" operator="in"/>
+    </filter>
+  </defs>
+</svg><!-- ============ PRELOADER ============ -->
+<div class="preloader" role="status" aria-live="polite">
+  <div class="preloader__inner">
+    <div class="preloader__word" aria-hidden="true">
+      <span style="animation-delay:.05s">V</span><span style="animation-delay:.11s">E</span><span style="animation-delay:.17s">L</span><span style="animation-delay:.23s">O</span><span style="animation-delay:.29s">R</span><span style="animation-delay:.35s">A</span>
+    </div>
+    <div class="preloader__bar"><i></i></div>
+    <div class="preloader__pct">
+      <span>Loading the collection</span>
+      <span data-pct>000</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CURSOR + GRAIN ============ -->
+<div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="index.html" aria-label="Velora — home">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M6 8 L16 26 L26 8" fill="none" stroke="var(--ember)" stroke-width="2.4" stroke-linecap="square"/>
+      </svg>
+      Velora
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      <a class="nav__link" href="#collection">Collection</a>
+      <a class="nav__link" href="lookbook.html">Lookbook</a>
+      <a class="nav__link" href="#material">Material</a>
+      <a class="nav__link" href="about.html" aria-current="page">Atelier</a>
+    </nav>
+
+    <div class="nav__actions">
+      <a class="btn btn--ghost" href="#collection" data-magnetic="0.28">
+        <span>Shop SS26</span><span class="btn__arrow" aria-hidden="true">→</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <ul class="menu__list">
+    <li class="menu__item"><a href="#collection">Collection</a></li>
+    <li class="menu__item"><a href="lookbook.html">Lookbook</a></li>
+    <li class="menu__item"><a href="#material">Material</a></li>
+    <li class="menu__item"><a href="about.html" aria-current="page">Atelier</a></li>
+    <li class="menu__item"><a href="#journal">Journal</a></li>
+  </ul>
+  <div class="menu__foot">
+    <p class="meta">Mumbai — Porto — Kyoto</p>
+    <p class="meta">hello@velora.studio</p>
+  </div>
+</div>
+
+
+<main id="main">
+
+  <!-- ============ PAGE HEAD ============ -->
+  <section class="pagehead">
+    <div class="bloom" style="width:48vw;height:30vw;left:-6vw;top:-4%;opacity:.30"></div>
+    <div class="shell" style="position:relative;z-index:1">
+      <p class="eyebrow" data-reveal>The Atelier — since 2019</p>
+      <h1 class="display h1 pagehead__title" data-lines style="margin-top:var(--sp-3)">
+        <span class="rv-line"><span class="rv-inner" style="--i:0">A run closes</span></span>
+        <span class="rv-line"><span class="rv-inner" style="--i:1">when the cloth</span></span>
+        <span class="rv-line"><span class="rv-inner" style="--i:2"><em class="serif accent-word">runs out</em></span></span>
+      </h1>
+      <div class="pagehead__meta">
+        <p class="lede" data-reveal style="--i:1">
+          Velora was started in a two-room studio in Mumbai with a single bolt of
+          cupro-silk and a stubborn idea: that a garment should be designed around
+          how the cloth wants to fall, not around a delivery calendar.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee marquee--accent marquee--slow" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Two hundred per run</span><span class="marquee__star">✦</span>
+      <span class="marquee__ghost">No restock</span><span class="marquee__star">✦</span>
+      <span>No markdown</span><span class="marquee__star">✦</span>
+      <span class="marquee__ghost">No repeats</span><span class="marquee__star">✦</span>
+    </div>
+  </div>
+
+  <!-- ============ PROCESS ============ -->
+  <section class="section">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" data-reveal>Process — 001</p>
+          <h2 class="display h3" data-split style="margin-top:var(--sp-3)">From bolt to <em class="serif">box</em></h2>
+        </div>
+        <p class="meta" data-reveal>Roughly eleven weeks</p>
+      </div>
+
+      <div class="steps">
+        <article class="step" data-reveal>
+          <span class="step__num">01</span>
+          <h3 class="step__title">Cloth first</h3>
+          <p class="step__body">We buy the cloth before there is a pattern. Five mills, the same five every season, and whatever they can spin that year sets the size of the run.</p>
+        </article>
+        <article class="step" data-reveal style="--i:1">
+          <span class="step__num">02</span>
+          <h3 class="step__title">Drape on the stand</h3>
+          <p class="step__body">Every piece is draped on a half-scale stand before it is drawn. If the cloth will not hold the line on the stand, the line changes — not the cloth.</p>
+        </article>
+        <article class="step" data-reveal style="--i:2">
+          <span class="step__num">03</span>
+          <h3 class="step__title">Three toiles</h3>
+          <p class="step__body">Three fittings on three different bodies. A piece that only works on one of them does not go into the run.</p>
+        </article>
+        <article class="step" data-reveal style="--i:3">
+          <span class="step__num">04</span>
+          <h3 class="step__title">Cut in one place</h3>
+          <p class="step__body">The whole run is cut and sewn in a single atelier so the hand stays consistent from the first unit to the two-hundredth.</p>
+        </article>
+        <article class="step" data-reveal style="--i:4">
+          <span class="step__num">05</span>
+          <h3 class="step__title">Retire the pattern</h3>
+          <p class="step__body">When the cloth is gone the pattern is archived and never re-cut. It is the only way we know to keep a limited run honest.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ATELIERS ============ -->
+  <section class="section">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" data-reveal>Partners — 002</p>
+          <h2 class="display h3" data-split style="margin-top:var(--sp-3)">Three <em class="serif">ateliers</em></h2>
+        </div>
+        <a class="link-sweep" href="mailto:hello@velora.studio" data-reveal>Traceability report →</a>
+      </div>
+
+      <div class="places">
+        <article class="place" data-reveal>
+          <div class="media" data-media-in><div class="media__inner" data-parallax="8">
+            <div class="fabric"><svg viewBox="0 0 400 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect x="-200" y="-200" width="800" height="920" fill="url(#g-clay)" filter="url(#drape-a)"/></svg></div>
+          </div></div>
+          <div class="place__meta"><span class="product__name">Mumbai</span><span class="meta">Studio · Pattern</span></div>
+        </article>
+        <article class="place" data-reveal style="--i:1">
+          <div class="media" data-media-in><div class="media__inner" data-parallax="11">
+            <div class="fabric"><svg viewBox="0 0 400 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect x="-200" y="-200" width="800" height="920" fill="url(#g-ash)" filter="url(#drape-b)"/></svg></div>
+          </div></div>
+          <div class="place__meta"><span class="product__name">Porto</span><span class="meta">Cut · Make</span></div>
+        </article>
+        <article class="place" data-reveal style="--i:2">
+          <div class="media" data-media-in><div class="media__inner" data-parallax="9">
+            <div class="fabric"><svg viewBox="0 0 400 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect x="-200" y="-200" width="800" height="920" fill="url(#g-ember)" filter="url(#drape-c)"/></svg></div>
+          </div></div>
+          <div class="place__meta"><span class="product__name">Kyoto</span><span class="meta">Dye · Finish</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VALUES ============ -->
+  <section class="section">
+    <div class="shell">
+      <p class="eyebrow" data-reveal>Position — 003</p>
+      <h2 class="display h3" data-split style="margin-top:var(--sp-3);margin-bottom:var(--sp-5)">What we will not <em class="serif accent-word">do</em></h2>
+      <div class="values">
+        <article class="value" data-reveal>
+          <h3>No virgin synthetics</h3>
+          <p>Not in the shell, not in the lining, not in the thread. Recycled cupro is as far as we go, and we say so on the label.</p>
+        </article>
+        <article class="value" data-reveal style="--i:1">
+          <h3>No markdown cycle</h3>
+          <p>A run is priced once. If it sells out in a week it sold out; if it takes a year, it takes a year. Nothing goes to a discount rail.</p>
+        </article>
+        <article class="value" data-reveal style="--i:2">
+          <h3>No mid-season filler</h3>
+          <p>Fourteen pieces, twice a year. Anything that exists only to fill a gap in the calendar does not get made.</p>
+        </article>
+      </div>
+
+      <div class="stats" style="margin-top:var(--sp-6)">
+        <div class="stat" data-reveal><b><span data-count="14">0</span></b><span class="meta">Pieces per season</span></div>
+        <div class="stat" data-reveal style="--i:1"><b><span data-count="200">0</span></b><span class="meta">Units per run</span></div>
+        <div class="stat" data-reveal style="--i:2"><b><span data-count="92">0</span>%</b><span class="meta">Traceable fibre</span></div>
+        <div class="stat" data-reveal style="--i:3"><b><span data-count="5">0</span></b><span class="meta">Mills, unchanged</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="section cta">
+    <div class="bloom" style="width:56vw;height:30vw;left:22vw;top:18%;opacity:.32"></div>
+    <div class="shell" style="position:relative;z-index:1">
+      <p class="eyebrow eyebrow--plain" data-reveal style="justify-content:center">Say hello</p>
+      <h2 class="display h2 cta__title" data-split style="margin-top:var(--sp-3)">Come and see the <em class="serif accent-word">cloth</em></h2>
+      <p class="lede" data-reveal style="--i:1;margin:var(--sp-3) auto 0;text-align:center">
+        The Mumbai studio is open by appointment on Thursdays. Bring the piece you
+        wear most and we will tell you honestly whether we make anything better.
+      </p>
+      <div style="display:flex;justify-content:center;gap:var(--sp-2);flex-wrap:wrap;margin-top:var(--sp-4)">
+        <a class="btn" href="mailto:hello@velora.studio" data-magnetic="0.3">
+          <span>Book a visit</span><span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn--ghost" href="lookbook.html" data-magnetic="0.28">
+          <span>See the lookbook</span><span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__grid">
+      <div class="footer__brandcol">
+        <p class="display h4">Velora</p>
+        <p class="lede" style="font-size:var(--step-0);margin-top:var(--sp-2)">
+          Soft architecture for a body in motion. Fourteen pieces a season, made to outlast it.
+        </p>
+        <a class="link-sweep" href="mailto:hello@velora.studio" style="margin-top:var(--sp-3);display:inline-block">hello@velora.studio</a>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="meta">Shop</h4>
+        <ul>
+          <li><a href="#collection">SS26 Collection</a></li>
+          <li><a href="lookbook.html">Lookbook</a></li>
+          <li><a href="#collection">Outerwear</a></li>
+          <li><a href="#collection">Archive</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4 class="meta">House</h4>
+        <ul>
+          <li><a href="about.html">Atelier</a></li>
+          <li><a href="#material">Materials</a></li>
+          <li><a href="about.html">Traceability</a></li>
+          <li><a href="about.html">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4 class="meta">Care</h4>
+        <ul>
+          <li><a href="about.html">Shipping</a></li>
+          <li><a href="about.html">Returns</a></li>
+          <li><a href="about.html">Repairs</a></li>
+          <li><a href="about.html">Size guide</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4 class="meta">Follow</h4>
+        <ul>
+          <li><a href="#main">Instagram</a></li>
+          <li><a href="#main">Pinterest</a></li>
+          <li><a href="#main">Substack</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="footer__wordmark" aria-hidden="true">Velora</p>
+
+    <div class="footer__legal">
+      <p class="meta">© <span data-year>2026</span> Velora Studio</p>
+      <p class="meta">Mumbai — Porto — Kyoto</p>
+      <p class="meta">Privacy — Terms</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
