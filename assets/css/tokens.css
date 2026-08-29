@@ -1,0 +1,79 @@
+/* ============================================================
+   VELORA — BRAND TOKENS
+   Single source of truth for colour, type, space and motion.
+   Swap the values here to re-skin the entire site.
+   ============================================================ */
+
+:root {
+  /* ---------- COLOUR ---------- *
+   * A warm-black fashion base with one molten accent.
+   * Warm black (not #000) keeps the palette editorial, not "tech". */
+  --ink:        #0B0A09;   /* base canvas — warm black            */
+  --ink-900:    #100E0C;   /* raised surface                       */
+  --ink-800:    #17140F;   /* cards                                */
+  --ink-700:    #221C16;   /* hairlines on dark                    */
+
+  --bone:       #F3EFE8;   /* primary type on dark / light canvas  */
+  --bone-dim:   #CFC6B7;   /* secondary type                       */
+  --sand:       #8C8175;   /* tertiary type, captions              */
+
+  --ember:      #E1542B;   /* THE accent — CTA, focus, highlight   */
+  --ember-lit:  #FF6E42;   /* accent hover / glow                  */
+  --clay:       #7C5A47;   /* accent partner for gradients         */
+
+  /* Functional aliases — components reference these, never raw hex */
+  --bg:            var(--ink);
+  --bg-elev:       var(--ink-900);
+  --fg:            var(--bone);
+  --fg-muted:      var(--bone-dim);
+  --fg-subtle:     var(--sand);
+  --accent:        var(--ember);
+  --accent-hover:  var(--ember-lit);
+  --rule:          color-mix(in oklab, var(--bone) 14%, transparent);
+  --rule-strong:   color-mix(in oklab, var(--bone) 28%, transparent);
+
+  /* Inverted section (light editorial blocks) */
+  --bg-invert: var(--bone);
+  --fg-invert: var(--ink);
+
+  /* ---------- TYPE ---------- */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-serif:   "Instrument Serif", "Times New Roman", serif;
+  --font-body:    "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Fluid scale — 380px → 1600px viewport */
+  --step--2: clamp(0.69rem, 0.67rem + 0.09vw,  0.75rem);
+  --step--1: clamp(0.80rem, 0.76rem + 0.18vw,  0.92rem);
+  --step-0:  clamp(0.95rem, 0.90rem + 0.24vw,  1.10rem);
+  --step-1:  clamp(1.15rem, 1.05rem + 0.45vw,  1.45rem);
+  --step-2:  clamp(1.45rem, 1.24rem + 0.92vw,  2.10rem);
+  --step-3:  clamp(1.85rem, 1.44rem + 1.78vw,  3.10rem);
+  --step-4:  clamp(2.40rem, 1.62rem + 3.40vw,  4.70rem);
+  --step-5:  clamp(3.10rem, 1.62rem + 6.45vw,  7.60rem);
+  --step-6:  clamp(2.20rem, 0.90rem + 7.2vw, 7.00rem);
+
+  /* ---------- SPACE ---------- */
+  --sp-1: 0.5rem;   --sp-2: 0.875rem; --sp-3: 1.25rem;
+  --sp-4: 2rem;     --sp-5: 3.25rem;  --sp-6: 5rem;
+  --sp-7: 7.5rem;   --sp-8: 11rem;
+  --gutter: clamp(1.15rem, 0.4rem + 3.2vw, 4rem);
+  --maxw: 1560px;
+
+  /* ---------- MOTION ---------- */
+  --ease-out:  cubic-bezier(0.16, 1, 0.30, 1);      /* expo-out — the house curve */
+  --ease-io:   cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --dur-1: 0.32s;  --dur-2: 0.6s;  --dur-3: 0.95s;  --dur-4: 1.4s;
+
+  /* ---------- OTHER ---------- */
+  --radius: 2px;          /* near-square: minimal, architectural */
+  --radius-lg: 4px;
+  --nav-h: 76px;
+  --grain-opacity: 0.05;
+}
+
+/* Honour system + user motion preferences everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-1: 0.01s; --dur-2: 0.01s; --dur-3: 0.01s; --dur-4: 0.01s; }
+}

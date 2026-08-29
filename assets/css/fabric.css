@@ -1,0 +1,28 @@
+/* ============================================================
+   VELORA — procedural fabric artwork
+   Zero image files: SVG turbulence warps a brand gradient into
+   cloth folds, then CSS adds weave + sheen on top.
+   To use real photography instead, replace the .fabric block
+   with <img> inside the same .media__inner wrapper.
+   ============================================================ */
+
+.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.fabric::after {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(112deg,
+      rgba(255,255,255,0.035) 0 1px, transparent 1px 4px),
+    radial-gradient(65% 55% at 28% 22%, rgba(243,239,232,0.18), transparent 62%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.fabric::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top,
+    color-mix(in oklab, var(--ink) 62%, transparent) 0%,
+    transparent 55%);
+  pointer-events: none;
+}
