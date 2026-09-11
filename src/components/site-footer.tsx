@@ -1,0 +1,87 @@
+import Link from "next/link";
+
+import { LogoMark } from "@/components/logo";
+
+const COLUMNS = [
+  {
+    title: "Shop",
+    links: [
+      { href: "/products", label: "All products" },
+      { href: "/products?sort=newest", label: "New this week" },
+      { href: "/products?category=UI+Kits", label: "UI kits" },
+      { href: "/products?category=Templates", label: "Templates" },
+      { href: "/cart", label: "Your bag" },
+    ],
+  },
+  {
+    title: "Creators",
+    links: [
+      { href: "/sell", label: "Start selling" },
+      { href: "/studio", label: "Creator studio" },
+      { href: "/help", label: "Seller help" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { href: "/security", label: "Security & privacy" },
+      { href: "/legal/privacy", label: "Privacy policy" },
+      { href: "/legal/terms", label: "Terms of service" },
+      { href: "/legal/refunds", label: "Refund policy" },
+    ],
+  },
+];
+
+export function SiteFooter() {
+  return (
+    <footer className="relative mt-24 border-t border-line bg-surface">
+      <div className="shell py-16">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
+          <div>
+            <div className="flex items-center gap-2.5">
+              <LogoMark className="size-8" />
+              <span className="font-display text-xl font-bold tracking-[-0.045em]">SoftSystem</span>
+            </div>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-dim">
+              A marketplace for the things people make on screens. Publish once, deliver
+              instantly, and keep your customers&rsquo; data out of everyone else&rsquo;s hands.
+            </p>
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-line px-3.5 py-1.5 text-[0.6875rem] text-dim">
+              <span className="pulse-dot size-1.5 rounded-full bg-acid" />
+              All systems operational
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+            {COLUMNS.map((column) => (
+              <div key={column.title}>
+                <h3 className="eyebrow mb-4">{column.title}</h3>
+                <ul className="space-y-2.5">
+                  {column.links.map((link) => (
+                    <li key={link.href + link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-dim transition-colors hover:text-acid"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-14 flex flex-col gap-4 border-t border-line pt-8 text-xs text-faint sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} SoftSystem. Built for people who make things.</p>
+          <p className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <span>Payments encrypted end to end</span>
+            <span aria-hidden className="text-line-strong">/</span>
+            <span>No third-party analytics on this site</span>
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}

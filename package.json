@@ -1,0 +1,36 @@
+{
+  "name": "softsystem",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SoftSystem — a premium marketplace for publishing and selling digital products.",
+  "scripts": {
+    "predev": "node scripts/setup.mjs",
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "setup": "node --env-file-if-exists=.env scripts/setup.mjs",
+    "seed": "node --env-file-if-exists=.env scripts/seed.mjs",
+    "reset": "node --env-file-if-exists=.env scripts/reset.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "next": "15.5.25",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "server-only": "^0.0.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20.12.0"
+  }
+}
