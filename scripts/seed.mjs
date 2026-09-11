@@ -16,6 +16,7 @@ import Database from "better-sqlite3";
 
 import { SCHEMA } from "../src/lib/schema.mjs";
 import { hashPassword } from "../src/lib/hash.mjs";
+import { encryptJSON } from "../src/lib/encryption.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.resolve(process.env.DATA_DIR || path.join(root, "data"));
@@ -70,7 +71,7 @@ function upsertUser(email, name, password, role) {
 }
 
 const sellerId = upsertUser(SELLER_EMAIL, "Studio SoftSystem", SELLER_PASSWORD, "owner");
-upsertUser(BUYER_EMAIL, "Sam Buyer", BUYER_PASSWORD, "customer");
+const buyerId = upsertUser(BUYER_EMAIL, "Sam Buyer", BUYER_PASSWORD, "customer");
 
 /* ── Sample downloads ───────────────────────────────────────────────────── */
 
@@ -380,10 +381,95 @@ const seedAll = db.transaction(() => {
 });
 
 seedAll();
+
+/* ── A little sales history ─────────────────────────────────────────────── */
+
+/**
+ * Two real orders for the demo customer, so the library, the order history,
+ * the invoice page and the seller's revenue figures all have something in
+ * them the first time you look. These go through the same tables a live
+ * purchase writes to — there is no separate "demo" path.
+ */
+function seedOrders() {
+  const key = (process.env.ENCRYPTION_KEY || "").trim();
+  if (!/^[0-9a-fA-F]{64}$/.test(key)) {
+    console.log("  (skipped demo orders: no ENCRYPTION_KEY yet — run `npm run seed` again after `npm run dev`)");
+    return 0;
+  }
+  const keyBuffer = Buffer.from(key, "hex");
+
+  const billing = encryptJSON(keyBuffer, {
+    fullName: "Sam Buyer",
+    country: "United Kingdom",
+    city: "Bristol",
+    postalCode: "BS1 4DJ",
+    addressLine: "8 Example Row",
+  });
+
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const code = (n) =>
+    Array.from(crypto.randomBytes(n), (b) => alphabet[b % alphabet.length]).join("");
+  const licence = () => `SS-${code(4)}-${code(4)}-${code(4)}`;
+
+  const baskets = [
+    { slugs: ["halcyon-icons", "kodak-ghost-presets"], daysAgo: 12, coupon: "LAUNCH20" },
+    { slugs: ["ledger-notion-os"], daysAgo: 3, coupon: null },
+  ];
+
+  const write = db.transaction(() => {
+    for (const basket of baskets) {
+      const rows = basket.slugs.map((slug) =>
+        db.prepare("SELECT id, title, price_cents FROM products WHERE slug = ?").get(slug),
+      );
+      if (rows.some((r) => !r)) continue;
+
+      const subtotal = rows.reduce((sum, r) => sum + r.price_cents, 0);
+      const discount = basket.coupon ? Math.round(subtotal * 0.2) : 0;
+      const placedAt = now - basket.daysAgo * day;
+      const orderId = id();
+
+      db.prepare(
+        `INSERT INTO orders (
+           id, order_number, user_id, status, subtotal_cents, discount_cents, tax_cents,
+           total_cents, currency, coupon_code, billing_enc, payment_brand, payment_last4, created_at
+         ) VALUES (?, ?, ?, 'paid', ?, ?, 0, ?, 'USD', ?, ?, 'Visa', '4242', ?)`,
+      ).run(
+        orderId,
+        `SS-${code(6)}`,
+        buyerId,
+        subtotal,
+        discount,
+        subtotal - discount,
+        basket.coupon,
+        billing,
+        placedAt,
+      );
+
+      for (const row of rows) {
+        const licenceKey = licence();
+        db.prepare(
+          `INSERT INTO order_items (id, order_id, product_id, title, price_cents, licence_key)
+           VALUES (?, ?, ?, ?, ?, ?)`,
+        ).run(id(), orderId, row.id, row.title, row.price_cents, licenceKey);
+
+        db.prepare(
+          `INSERT INTO entitlements (id, user_id, product_id, order_id, licence_key, created_at)
+           VALUES (?, ?, ?, ?, ?, ?)
+           ON CONFLICT(user_id, product_id) DO NOTHING`,
+        ).run(id(), buyerId, row.id, orderId, licenceKey, placedAt);
+      }
+    }
+  });
+
+  write();
+  return baskets.length;
+}
+
+const orderCount = seedOrders();
 db.close();
 
 console.log(`
-  Seeded ${products.length} products and 2 coupons.
+  Seeded ${products.length} products, 2 coupons${orderCount ? ` and ${orderCount} example orders` : ""}.
 
   Demo logins
     Seller / Studio    ${SELLER_EMAIL}

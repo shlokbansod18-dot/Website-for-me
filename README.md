@@ -33,7 +33,10 @@ up the database on first run, so there is no configuration step.
 | Seller (Studio access) | `studio@softsystem.test` | `SoftSystem!Studio1` |
 | Customer | `you@softsystem.test` | `SoftSystem!Demo1` |
 
-Or just create your own account — sign-up is a name, an email and a password.
+The customer account comes with two example orders already placed, so the
+library, order history and the seller's revenue figures all have something in
+them the first time you look. Or just create your own account — sign-up is a
+name, an email and a password.
 
 ### Test payments
 
@@ -140,7 +143,9 @@ src/
     auth.ts       sessions
     cart.ts       signed-cookie basket
     catalog.ts    product queries
-    crypto.ts     AES-256-GCM, signing, tokens
+    crypto.ts     signing, tokens, and the app's encryption bindings
+    encryption.mjs AES-256-GCM, shared with the seed script
+    hash.mjs      scrypt password hashing, shared with the seed script
     db.ts         the SQLite connection
     files.ts      upload storage, outside the web root
     orders.ts     placing orders, entitlements, licence keys
