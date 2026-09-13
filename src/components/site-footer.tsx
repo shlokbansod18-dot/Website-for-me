@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { LogoMark } from "@/components/logo";
+import { SITE, mailto } from "@/lib/site";
 
 const COLUMNS = [
   {
@@ -24,6 +25,7 @@ const COLUMNS = [
   {
     title: "Company",
     links: [
+      { href: mailto(SITE.email, "SoftSystem — hello"), label: "Contact us" },
       { href: "/security", label: "Security & privacy" },
       { href: "/legal/privacy", label: "Privacy policy" },
       { href: "/legal/terms", label: "Terms of service" },
@@ -46,6 +48,16 @@ export function SiteFooter() {
               A marketplace for the things people make on screens. Publish once, deliver
               instantly, and keep your customers&rsquo; data out of everyone else&rsquo;s hands.
             </p>
+            <p className="mt-5 text-sm">
+              <span className="text-faint">Get in touch: </span>
+              <a
+                href={mailto(SITE.email, "SoftSystem — hello")}
+                className="text-acid underline-offset-4 transition-opacity hover:underline"
+              >
+                {SITE.email}
+              </a>
+            </p>
+
             <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-line px-3.5 py-1.5 text-[0.6875rem] text-dim">
               <span className="pulse-dot size-1.5 rounded-full bg-acid" />
               All systems operational
@@ -59,12 +71,22 @@ export function SiteFooter() {
                 <ul className="space-y-2.5">
                   {column.links.map((link) => (
                     <li key={link.href + link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-dim transition-colors hover:text-acid"
-                      >
-                        {link.label}
-                      </Link>
+                      {/* next/link is for in-app routes; mailto needs a plain anchor. */}
+                      {link.href.startsWith("mailto:") ? (
+                        <a
+                          href={link.href}
+                          className="text-sm text-dim transition-colors hover:text-acid"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="text-sm text-dim transition-colors hover:text-acid"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

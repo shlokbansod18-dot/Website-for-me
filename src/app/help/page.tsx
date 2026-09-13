@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ButtonLink } from "@/components/ui/button";
+import { SITE, mailto } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Help",
@@ -106,7 +107,7 @@ const SECTIONS = [
     items: [
       {
         q: "I found a security problem.",
-        a: "Please tell us before telling anyone else, and give us a reasonable window to fix it. Send the details to security@softsystem.example with steps to reproduce. Do not test against other people's accounts or data — we would rather hear about a theoretical issue than have a real customer affected by a proof of concept.",
+        a: `Please tell us before telling anyone else, and give us a reasonable window to fix it. Send the details to ${SITE.securityEmail} with steps to reproduce. Do not test against other people's accounts or data — we would rather hear about a theoretical issue than have a real customer affected by a proof of concept.`,
       },
     ],
   },
@@ -120,7 +121,13 @@ export default function HelpPage() {
         <h1 className="display-sm mt-3">Questions, answered</h1>
         <p className="mt-5 text-[0.9375rem] leading-relaxed text-dim">
           If the answer is not here, email{" "}
-          <span className="text-text">support@softsystem.example</span> and a person will read it.
+          <a
+            href={mailto(SITE.supportEmail, "SoftSystem — question")}
+            className="text-acid underline-offset-4 hover:underline"
+          >
+            {SITE.supportEmail}
+          </a>{" "}
+          and a person will read it.
         </p>
       </header>
 

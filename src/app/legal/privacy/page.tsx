@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { SITE, mailto } from "@/lib/site";
+
 export const metadata: Metadata = {
   title: "Privacy policy",
   description: "What SoftSystem collects, why, how long it is kept, and how to get rid of it.",
@@ -136,8 +138,9 @@ export default function PrivacyPolicyPage() {
 
       <h2>Contact</h2>
       <p>
-        Privacy questions: <strong>privacy@softsystem.example</strong>. Security reports:{" "}
-        <strong>security@softsystem.example</strong> — please read the disclosure note on the{" "}
+        Privacy questions and security reports both go to{" "}
+        <a href={mailto(SITE.privacyEmail, "SoftSystem — privacy")}>{SITE.privacyEmail}</a>. For a
+        security issue, please read the disclosure note on the{" "}
         <a href="/help">help page</a> first.
       </p>
     </>

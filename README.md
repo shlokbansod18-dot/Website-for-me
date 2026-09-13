@@ -121,6 +121,13 @@ Two things to change:
    `ENCRYPTION_KEY`, `APP_URL`, `OWNER_EMAIL`. See `.env.example`. The
    generated `.env` is for local development and is gitignored.
 
+Never put payment credentials in this repository — no UPI ID, no bank account
+or IFSC, no gateway secret key. A payment gateway gives you a **publishable**
+key for the browser and a **secret** key for the server; only the secret one is
+sensitive, and it belongs in your host's environment variables, never in a
+file you commit. Your bank details go into the gateway's own dashboard so it
+can settle your payouts — they never touch this codebase.
+
 Also worth doing before launch: wire up a tax provider (digital-goods tax
 depends on where the buyer is — `summarise()` in `src/lib/cart.ts` currently
 returns zero), add transactional email for receipts, and have someone
@@ -184,6 +191,19 @@ Works on any host that runs Node. On a platform with an ephemeral filesystem
 not survive a deploy — move `src/lib/db.ts` to a hosted Postgres and
 `src/lib/files.ts` to object storage first. On a normal VPS or container with a
 mounted volume, it runs as-is: point `DATA_DIR` at the volume.
+
+---
+
+## Contact
+
+The site's official address is `hello.softsystem@gmail.com`, set in
+`src/lib/site.ts`. It appears in the footer, on the help page and in all three
+legal documents. Change it in that one file and every page follows.
+
+When you have a domain, move to a mailbox on it — `hello@yourdomain.com` looks
+established in a way a Gmail address does not, and it lets you split
+`support@`, `privacy@` and `security@` into separate inboxes, which the file
+is already structured for.
 
 ---
 

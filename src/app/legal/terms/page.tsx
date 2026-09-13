@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { SITE, mailto } from "@/lib/site";
+
 export const metadata: Metadata = {
   title: "Terms of service",
   description: "The agreement between you and SoftSystem, written in plain English.",
@@ -115,7 +117,7 @@ export default function TermsPage() {
 
       <h2>Contact</h2>
       <p>
-        <strong>support@softsystem.example</strong>
+        <a href={mailto(SITE.supportEmail, "SoftSystem — question")}>{SITE.supportEmail}</a>
       </p>
     </>
   );
