@@ -1,4 +1,4 @@
-# SoftSystem
+# softsystem
 
 A marketplace for publishing and selling digital products — templates, UI kits,
 fonts, presets, sound packs, courses. Buyers pay and download in the same

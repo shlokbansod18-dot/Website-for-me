@@ -31,11 +31,11 @@ export function Logo({ className = "" }: { className?: string }) {
     <Link
       href="/"
       className={`group inline-flex items-center gap-2.5 ${className}`}
-      aria-label="SoftSystem — home"
+      aria-label="softsystem — home"
     >
       <LogoMark className="size-7 transition-transform duration-300 group-hover:rotate-[-8deg]" />
       <span className="font-display text-[1.0625rem] font-bold tracking-[-0.045em] text-text">
-        SoftSystem
+        softsystem
       </span>
     </Link>
   );

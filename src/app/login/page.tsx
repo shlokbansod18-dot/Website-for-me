@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Sign in",
-  description: "Sign in to your SoftSystem account to reach your library and downloads.",
+  description: "Sign in to your softsystem account to reach your library and downloads.",
 };
 
 /** Only ever follow a redirect that stays on this site. */

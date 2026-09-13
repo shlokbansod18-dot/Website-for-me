@@ -82,7 +82,8 @@ function Hero({
         <div>
           <div className="inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/60 px-3.5 py-1.5 text-[0.6875rem] text-dim backdrop-blur">
             <span className="pulse-dot size-1.5 rounded-full bg-acid" />
-            {stats.products} products live · {stats.creators} creators
+            {stats.products} product{stats.products === 1 ? "" : "s"} live ·{" "}
+            {stats.creators} creator{stats.creators === 1 ? "" : "s"}
           </div>
 
           <h1 className="display mt-7">
@@ -94,7 +95,7 @@ function Hero({
           </h1>
 
           <p className="mt-7 max-w-lg text-[1.0625rem] leading-relaxed text-dim">
-            SoftSystem is the storefront for digital work — templates, kits, fonts, presets,
+            softsystem is the storefront for digital work — templates, kits, fonts, presets,
             courses. Upload a file, set a price, and get paid while you sleep. Buyers download
             the moment they pay.
           </p>

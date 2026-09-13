@@ -25,7 +25,7 @@ const COLUMNS = [
   {
     title: "Company",
     links: [
-      { href: mailto(SITE.email, "SoftSystem — hello"), label: "Contact us" },
+      { href: mailto(SITE.email, "softsystem — hello"), label: "Contact us" },
       { href: "/security", label: "Security & privacy" },
       { href: "/legal/privacy", label: "Privacy policy" },
       { href: "/legal/terms", label: "Terms of service" },
@@ -42,7 +42,7 @@ export function SiteFooter() {
           <div>
             <div className="flex items-center gap-2.5">
               <LogoMark className="size-8" />
-              <span className="font-display text-xl font-bold tracking-[-0.045em]">SoftSystem</span>
+              <span className="font-display text-xl font-bold tracking-[-0.045em]">softsystem</span>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-dim">
               A marketplace for the things people make on screens. Publish once, deliver
@@ -51,7 +51,7 @@ export function SiteFooter() {
             <p className="mt-5 text-sm">
               <span className="text-faint">Get in touch: </span>
               <a
-                href={mailto(SITE.email, "SoftSystem — hello")}
+                href={mailto(SITE.email, "softsystem — hello")}
                 className="text-acid underline-offset-4 transition-opacity hover:underline"
               >
                 {SITE.email}
@@ -96,7 +96,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col gap-4 border-t border-line pt-8 text-xs text-faint sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} SoftSystem. Built for people who make things.</p>
+          <p>© {new Date().getFullYear()} softsystem. Built for people who make things.</p>
           <p className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <span>Payments encrypted end to end</span>
             <span aria-hidden className="text-line-strong">/</span>

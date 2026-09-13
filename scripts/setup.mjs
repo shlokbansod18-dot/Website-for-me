@@ -25,7 +25,7 @@ const envPath = path.join(root, ".env");
 const key = () => crypto.randomBytes(32).toString("hex");
 const say = (icon, message) => console.log(`  ${icon}  ${message}`);
 
-console.log("\n  SoftSystem — setup\n");
+console.log("\n  softsystem — setup\n");
 
 /* 1. Storage ------------------------------------------------------------- */
 

@@ -55,7 +55,7 @@ export default function RefundsPage() {
 
       <h2>How to ask</h2>
       <p>
-        Email <a href={mailto(SITE.supportEmail, "SoftSystem — refund request")}>{SITE.supportEmail}</a> with your order number — it is on your
+        Email <a href={mailto(SITE.supportEmail, "softsystem — refund request")}>{SITE.supportEmail}</a> with your order number — it is on your
         receipt and at <a href="/account/orders">/account/orders</a> — and a sentence about what
         went wrong. You do not need to fill in a form or justify yourself at length.
       </p>

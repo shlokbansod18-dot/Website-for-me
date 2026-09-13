@@ -7,7 +7,7 @@
  * pages.
  */
 export const SITE = {
-  name: "SoftSystem",
+  name: "softsystem",
 
   /** The official mailbox. One address handles all three roles for now. */
   email: "hello.softsystem@gmail.com",

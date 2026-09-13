@@ -6,7 +6,7 @@ import { ButtonLink } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "Security & privacy",
   description:
-    "How SoftSystem protects customer data: encrypted billing, hashed passwords, no trackers, and a checkout that never stores a card number.",
+    "How softsystem protects customer data: encrypted billing, hashed passwords, no trackers, and a checkout that never stores a card number.",
 };
 
 const PILLARS = [

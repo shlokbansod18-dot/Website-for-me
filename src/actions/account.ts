@@ -148,7 +148,7 @@ export async function exportDataAction(): Promise<ActionState & { payload?: stri
       {
         exportedAt: new Date().toISOString(),
         note:
-          "This is everything SoftSystem stores about your account. Billing addresses are " +
+          "This is everything softsystem stores about your account. Billing addresses are " +
           "encrypted at rest and are shown on each order page rather than here.",
         account: user,
         orders,

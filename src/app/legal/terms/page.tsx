@@ -4,7 +4,7 @@ import { SITE, mailto } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms of service",
-  description: "The agreement between you and SoftSystem, written in plain English.",
+  description: "The agreement between you and softsystem, written in plain English.",
 };
 
 export default function TermsPage() {
@@ -14,7 +14,7 @@ export default function TermsPage() {
       <p className="text-faint">Last updated: 10 September 2026</p>
 
       <p>
-        These are the rules for using SoftSystem, both as someone buying digital products and as
+        These are the rules for using softsystem, both as someone buying digital products and as
         someone selling them. Using the site means you accept them.
       </p>
 
@@ -61,7 +61,7 @@ export default function TermsPage() {
           notice.
         </li>
         <li>
-          SoftSystem takes 5% of each sale. There are no listing fees and no monthly charges.
+          softsystem takes 5% of each sale. There are no listing fees and no monthly charges.
         </li>
         <li>
           You may unpublish anything at any time. People who already bought it keep their download —
@@ -117,7 +117,7 @@ export default function TermsPage() {
 
       <h2>Contact</h2>
       <p>
-        <a href={mailto(SITE.supportEmail, "SoftSystem — question")}>{SITE.supportEmail}</a>
+        <a href={mailto(SITE.supportEmail, "softsystem — question")}>{SITE.supportEmail}</a>
       </p>
     </>
   );

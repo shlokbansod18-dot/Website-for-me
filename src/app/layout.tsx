@@ -7,6 +7,7 @@ import { Reveal } from "@/components/reveal";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { APP_URL } from "@/lib/env";
+import { SITE } from "@/lib/site";
 
 /**
  * Fonts are served from our own origin, never from a font CDN. That keeps
@@ -33,19 +34,21 @@ const inter = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
+  // The name and nothing else. Every other page appends itself to it via the
+  // template, e.g. "Nocturne UI · softsystem".
   title: {
-    default: "SoftSystem — digital products, built to be sold",
-    template: "%s · SoftSystem",
+    default: SITE.name,
+    template: `%s · ${SITE.name}`,
   },
   description:
     "A marketplace for publishing and selling digital products. Instant delivery, private by default, and a checkout that respects your customers.",
-  applicationName: "SoftSystem",
+  applicationName: SITE.name,
   openGraph: {
-    title: "SoftSystem — digital products, built to be sold",
+    title: SITE.name,
     description:
       "Publish once. Sell everywhere. Instant delivery, encrypted billing, and no trackers.",
     url: APP_URL,
-    siteName: "SoftSystem",
+    siteName: SITE.name,
     type: "website",
   },
   robots: { index: true, follow: true },

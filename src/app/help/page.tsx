@@ -6,7 +6,7 @@ import { SITE, mailto } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Help",
-  description: "Answers about buying, downloading, refunds, selling and security on SoftSystem.",
+  description: "Answers about buying, downloading, refunds, selling and security on softsystem.",
 };
 
 const SECTIONS = [
@@ -122,7 +122,7 @@ export default function HelpPage() {
         <p className="mt-5 text-[0.9375rem] leading-relaxed text-dim">
           If the answer is not here, email{" "}
           <a
-            href={mailto(SITE.supportEmail, "SoftSystem — question")}
+            href={mailto(SITE.supportEmail, "softsystem — question")}
             className="text-acid underline-offset-4 hover:underline"
           >
             {SITE.supportEmail}

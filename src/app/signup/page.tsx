@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Create your account",
-  description: "Join SoftSystem to buy digital products, or to start selling your own.",
+  description: "Join softsystem to buy digital products, or to start selling your own.",
 };
 
 function safeNext(value?: string): string {

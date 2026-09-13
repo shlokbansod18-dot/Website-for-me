@@ -4,7 +4,7 @@ import { SITE, mailto } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy policy",
-  description: "What SoftSystem collects, why, how long it is kept, and how to get rid of it.",
+  description: "What softsystem collects, why, how long it is kept, and how to get rid of it.",
 };
 
 export default function PrivacyPolicyPage() {
@@ -14,7 +14,7 @@ export default function PrivacyPolicyPage() {
       <p className="text-faint">Last updated: 10 September 2026</p>
 
       <p>
-        This policy describes what SoftSystem collects, why we need it, and what you can do about
+        This policy describes what softsystem collects, why we need it, and what you can do about
         it. It is short because the list is short.
       </p>
 
@@ -139,7 +139,7 @@ export default function PrivacyPolicyPage() {
       <h2>Contact</h2>
       <p>
         Privacy questions and security reports both go to{" "}
-        <a href={mailto(SITE.privacyEmail, "SoftSystem — privacy")}>{SITE.privacyEmail}</a>. For a
+        <a href={mailto(SITE.privacyEmail, "softsystem — privacy")}>{SITE.privacyEmail}</a>. For a
         security issue, please read the disclosure note on the{" "}
         <a href="/help">help page</a> first.
       </p>

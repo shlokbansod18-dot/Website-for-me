@@ -70,7 +70,7 @@ function upsertUser(email, name, password, role) {
   return userId;
 }
 
-const sellerId = upsertUser(SELLER_EMAIL, "Studio SoftSystem", SELLER_PASSWORD, "owner");
+const sellerId = upsertUser(SELLER_EMAIL, "softsystem studio", SELLER_PASSWORD, "owner");
 const buyerId = upsertUser(BUYER_EMAIL, "Sam Buyer", BUYER_PASSWORD, "customer");
 
 /* ── Sample downloads ───────────────────────────────────────────────────── */
@@ -87,7 +87,7 @@ ${"=".repeat(product.title.length)}
 
 ${product.tagline}
 
-Thanks for buying from SoftSystem. This placeholder stands in for the real
+Thanks for buying from softsystem. This placeholder stands in for the real
 download while you are trying the shop out. Replace it from the Studio:
 
   Studio -> ${product.title} -> Edit -> Product file

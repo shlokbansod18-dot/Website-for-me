@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Start selling",
   description:
-    "Publish a digital product on SoftSystem in ten minutes. Keep 95%, deliver instantly, no store to build.",
+    "Publish a digital product on softsystem in ten minutes. Keep 95%, deliver instantly, no store to build.",
 };
 
 const STEPS = [
