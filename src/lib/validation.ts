@@ -120,7 +120,9 @@ export const productSchema = z.object({
     .refine((v) => v === null || (Number.isFinite(v) && v >= 0), "Use a number like 99."),
   highlights: trimmed(1200).optional().default(""),
   tags: trimmed(200).optional().default(""),
-  accent: z.enum(["ember", "lilac", "spring", "butter", "cobalt", "rose", "teal", "void"]).default("ember"),
+  accent: z
+    .enum(["persimmon", "violet", "chartreuse", "jade", "blush", "sky", "butter", "graphite"])
+    .default("persimmon"),
   version: trimmed(20).default("1.0"),
   licence: trimmed(120).default("Standard commercial licence"),
   status: z.enum(["draft", "published"]).default("draft"),

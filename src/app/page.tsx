@@ -51,9 +51,8 @@ function Hero({
     <section className="shell pt-14 lg:pt-24">
       <div className="grid gap-16 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-16">
         <div>
-          <p className="label">Digital goods · delivered in seconds</p>
-          <h1 className="display mt-6 max-w-[16ch]">
-            Sell the things you <span className="em">make</span>.
+          <h1 className="display max-w-[15ch]">
+            <span className="thin">Everything here</span> was made by somebody.
           </h1>
           <p className="mt-8 max-w-[44ch] text-[1.0625rem] leading-relaxed text-ink-2">
             A shop for digital work — type, templates, kits, presets, courses. Upload a file, set a
@@ -179,8 +178,8 @@ function Featured({ products }: { products: Product[] }) {
   return (
     <section className="shell py-24 lg:py-36">
       <div className="mb-14 flex items-end justify-between gap-6" data-reveal>
-        <h2 className="display-2 max-w-[16ch]">
-          What people are <span className="em">buying</span>
+        <h2 className="display-2 max-w-[14ch]">
+          <span className="thin">New</span> this week
         </h2>
         <Link href="/products" className="link shrink-0 pb-1 text-[0.9375rem]">
           All products
@@ -210,10 +209,11 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="border-y border-line bg-surface py-24 lg:py-32">
+    <section className="on-persimmon py-24 lg:py-32">
       <div className="shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
-        <h2 className="display-2 max-w-[12ch]" data-reveal>
-          How it should <span className="em">work</span>
+        <h2 className="display-2 max-w-[10ch]" data-reveal>
+          Pay once.<br />
+          <span className="thin">Keep it forever.</span>
         </h2>
         <dl className="grid gap-12 sm:grid-cols-2 lg:gap-x-12">
           {points.map(([title, body], i) => (
@@ -243,12 +243,12 @@ function ForCreators() {
   ];
 
   return (
-    <section className="shell py-24 lg:py-36">
-      <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-24">
+    <section className="on-violet py-24 lg:py-36">
+      <div className="shell grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-24">
         <div data-reveal>
-          <p className="label">For creators</p>
-          <h2 className="display-2 mt-5 max-w-[14ch]">
-            Ten minutes from file to <span className="em">first sale</span>
+          <h2 className="display-2 max-w-[14ch]">
+            If you make things,<br />
+            <span className="thin">this is your shop.</span>
           </h2>
           <p className="mt-7 max-w-[42ch] text-ink-2">
             No storefront to build, no payment plumbing, no delivery emails to write. A flat 5% when
@@ -284,12 +284,12 @@ function ForCreators() {
 
 function Closing() {
   return (
-    <section className="shell pb-20 lg:pb-28">
-      <div className="border-t border-line pt-16 text-center" data-reveal>
-        <h2 className="display-2 mx-auto max-w-[18ch]">
-          Your work is worth money. Go and <span className="em">get it</span>.
+    <section className="on-chartreuse py-24 lg:py-32">
+      <div className="shell" data-reveal>
+        <h2 className="display max-w-[11ch]">
+          Go and <span className="thin">get paid.</span>
         </h2>
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
+        <div className="mt-10 flex flex-wrap gap-4">
           <ButtonLink href="/signup" size="lg">
             Create an account
           </ButtonLink>

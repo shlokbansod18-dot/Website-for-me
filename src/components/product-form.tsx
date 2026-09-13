@@ -12,14 +12,14 @@ import type { ActionState, Product } from "@/lib/types";
 const initial: ActionState = { ok: false };
 
 const ACCENT_SWATCHES = [
-  { value: "ember", label: "Ember", color: "#ff5d3b" },
-  { value: "lilac", label: "Lilac", color: "#c9b6ff" },
-  { value: "spring", label: "Spring", color: "#6ee7a8" },
-  { value: "butter", label: "Butter", color: "#ffd166" },
-  { value: "cobalt", label: "Cobalt", color: "#6d8cff" },
-  { value: "rose", label: "Rose", color: "#ff9ecd" },
-  { value: "teal", label: "Teal", color: "#3ddad3" },
-  { value: "void", label: "Void", color: "#1a1426" },
+  { value: "persimmon", label: "Persimmon", color: "#ff4a24" },
+  { value: "violet", label: "Violet", color: "#5b3bff" },
+  { value: "chartreuse", label: "Chartreuse", color: "#d7f04a" },
+  { value: "jade", label: "Jade", color: "#00b27b" },
+  { value: "blush", label: "Blush", color: "#ffc2d4" },
+  { value: "sky", label: "Sky", color: "#7ecbff" },
+  { value: "butter", label: "Butter", color: "#ffd84d" },
+  { value: "graphite", label: "Graphite", color: "#16161c" },
 ];
 
 
@@ -42,7 +42,7 @@ export function ProductForm({
   const kept = state.values ?? {};
 
   const [title, setTitle] = useState(product?.title ?? "");
-  const [accent, setAccent] = useState(product?.accent ?? "ember");
+  const [accent, setAccent] = useState(product?.accent ?? "persimmon");
   const [fileName, setFileName] = useState<string | null>(null);
 
   // If the server sent a title back after a failed save, adopt it so the cover
@@ -233,7 +233,7 @@ export function ProductForm({
           <div className="p-6">
             <p className="label">Cover art</p>
             <p className="mt-2 text-[0.8125rem] leading-relaxed text-ink-2">
-              Your title, set on a colour. No design tool needed.
+              Your title, set on one ink. There is no design step.
             </p>
 
             <div className="mt-5">

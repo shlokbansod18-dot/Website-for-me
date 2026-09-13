@@ -9,14 +9,14 @@
  */
 
 export const TINTS = {
-  ember:  { ground: "#ff5d3b", ink: "#2a0a02", label: "Ember"  },
-  lilac:  { ground: "#c9b6ff", ink: "#241348", label: "Lilac"  },
-  spring: { ground: "#6ee7a8", ink: "#04321d", label: "Spring" },
-  butter: { ground: "#ffd166", ink: "#3a2604", label: "Butter" },
-  cobalt: { ground: "#6d8cff", ink: "#071445", label: "Cobalt" },
-  rose:   { ground: "#ff9ecd", ink: "#420a29", label: "Rose"   },
-  teal:   { ground: "#3ddad3", ink: "#03302f", label: "Teal"   },
-  void:   { ground: "#1a1426", ink: "#f7f3ff", label: "Void"   },
+  persimmon:  { ground: "#ff4a24", ink: "#1b0400", label: "Persimmon"  },
+  violet:     { ground: "#5b3bff", ink: "#efecff", label: "Violet"     },
+  chartreuse: { ground: "#d7f04a", ink: "#151a00", label: "Chartreuse" },
+  jade:       { ground: "#00b27b", ink: "#00301f", label: "Jade"       },
+  blush:      { ground: "#ffc2d4", ink: "#4a0f24", label: "Blush"      },
+  sky:        { ground: "#7ecbff", ink: "#05233d", label: "Sky"        },
+  butter:     { ground: "#ffd84d", ink: "#3a2a00", label: "Butter"     },
+  graphite:   { ground: "#16161c", ink: "#f4f3ef", label: "Graphite"   },
 } as const;
 
 function hash(seed: string): number {
@@ -73,7 +73,7 @@ export function ProductCover({
 
   return (
     <div
-      className={`relative isolate overflow-hidden rounded-[var(--r)] ${className}`}
+      className={`relative isolate overflow-hidden ${className}`}
       // Container units below need a size container, so the type scales with
       // the box rather than with whatever font-size it happens to inherit.
       style={{ background: tint.ground, containerType: "size" }}
@@ -85,8 +85,9 @@ export function ProductCover({
         className="absolute inset-0 size-full"
         style={{ opacity: 0.13 }}
       >
-        <circle cx={arcX} cy={arcY} r={arcR} fill="none" stroke={tint.ink} strokeWidth="0.6" />
-        <circle cx={arcX} cy={arcY} r={arcR * 0.62} fill="none" stroke={tint.ink} strokeWidth="0.6" />
+        <circle cx={arcX} cy={arcY} r={arcR} fill="none" stroke={tint.ink} strokeWidth="0.5" />
+        <circle cx={arcX} cy={arcY} r={arcR * 0.66} fill="none" stroke={tint.ink} strokeWidth="0.5" />
+        <circle cx={arcX} cy={arcY} r={arcR * 0.33} fill="none" stroke={tint.ink} strokeWidth="0.5" />
       </svg>
 
       {category ? (
