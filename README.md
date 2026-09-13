@@ -120,6 +120,23 @@ Two things to change:
 2. **Set real secrets in your host's environment** — `SESSION_SECRET`,
    `ENCRYPTION_KEY`, `APP_URL`, `OWNER_EMAIL`. See `.env.example`. The
    generated `.env` is for local development and is gitignored.
+3. **Don't run `npm run seed` on the live site.** It creates demo accounts
+   whose passwords are printed in this README.
+
+### Claiming the shop
+
+Sign up on the live site with `OWNER_EMAIL`, using a password you choose, and
+that first account becomes the owner. The grant only applies while no owner
+exists yet — there is no email verification here, so a standing "this address
+is always the owner" rule would let whoever registers it first take the shop.
+
+If someone beats you to it, or you just want the deliberate route:
+
+```bash
+npm run make-owner -- you@example.com   # on the server, after registering
+```
+
+That needs shell access, which is the real proof of ownership.
 
 Never put payment credentials in this repository — no UPI ID, no bank account
 or IFSC, no gateway secret key. A payment gateway gives you a **publishable**

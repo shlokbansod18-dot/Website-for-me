@@ -67,9 +67,20 @@ export async function signUpAction(
 
   const id = randomId();
   const ts = now();
-  // The very first account matching OWNER_EMAIL gets Studio access so there is
-  // a way in without a separate admin bootstrap step.
-  const role = OWNER_EMAIL && email === OWNER_EMAIL ? "owner" : "customer";
+
+  /**
+   * OWNER_EMAIL is a one-time bootstrap, not a standing rule.
+   *
+   * There is no email verification here, so "this address always becomes the
+   * owner" would let whoever registers it first take the shop. Instead the
+   * grant only applies while no owner exists — register right after deploying
+   * and it is yours; after that the door is shut and `npm run make-owner`
+   * is the only way in, which needs server access.
+   */
+  const ownerExists = Boolean(
+    db.prepare("SELECT 1 AS x FROM users WHERE role = 'owner' LIMIT 1").get(),
+  );
+  const role = OWNER_EMAIL && email === OWNER_EMAIL && !ownerExists ? "owner" : "customer";
 
   try {
     db.prepare(

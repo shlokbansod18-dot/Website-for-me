@@ -48,13 +48,16 @@ if (force) {
 
 /* ── Demo accounts ──────────────────────────────────────────────────────── */
 
-// Ignore the placeholder that ships in .env.example — an address nobody owns
-// should never end up as the seller account.
-const configuredOwner = (process.env.OWNER_EMAIL || "").trim().toLowerCase();
-const SELLER_EMAIL =
-  configuredOwner && configuredOwner !== "you@example.com"
-    ? configuredOwner
-    : "studio@softsystem.test";
+/**
+ * The demo seller is always a .test address, never OWNER_EMAIL.
+ *
+ * These accounts are created with a password printed in this file and in the
+ * README, so they must never land on a real mailbox — otherwise seeding a
+ * deployed site would hand anyone who reads the repository an owner login.
+ * OWNER_EMAIL is about promoting an account *you* register with your own
+ * password; it has nothing to do with the demo data.
+ */
+const SELLER_EMAIL = "studio@softsystem.test";
 const SELLER_PASSWORD = "SoftSystem!Studio1";
 const BUYER_EMAIL = "you@softsystem.test";
 const BUYER_PASSWORD = "SoftSystem!Demo1";

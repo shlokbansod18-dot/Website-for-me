@@ -2,7 +2,7 @@
   "name": "softsystem",
   "version": "1.0.0",
   "private": true,
-  "description": "SoftSystem — a premium marketplace for publishing and selling digital products.",
+  "description": "softsystem — a marketplace for publishing and selling digital products.",
   "scripts": {
     "predev": "node scripts/setup.mjs",
     "dev": "next dev --turbopack",
@@ -10,6 +10,7 @@
     "start": "next start",
     "setup": "node --env-file-if-exists=.env scripts/setup.mjs",
     "seed": "node --env-file-if-exists=.env scripts/seed.mjs",
+    "make-owner": "node --env-file-if-exists=.env scripts/make-owner.mjs",
     "reset": "node --env-file-if-exists=.env scripts/reset.mjs",
     "typecheck": "tsc --noEmit"
   },
