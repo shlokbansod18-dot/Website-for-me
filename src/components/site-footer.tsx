@@ -58,8 +58,8 @@ export function SiteFooter() {
               </a>
             </p>
 
-            <div className="mt-6 inline-flex items-center gap-2 rounded border border-line px-3.5 py-1.5 text-[0.6875rem] text-ink-2">
-              <span className="pulse-dot size-1.5 rounded-full bg-accent" />
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-line px-3.5 py-1.5 text-[0.6875rem] text-ink-2">
+              <span className="pulse-dot size-1.5 rounded-full bg-positive" />
               All systems operational
             </div>
           </div>

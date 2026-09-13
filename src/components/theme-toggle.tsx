@@ -31,7 +31,7 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
       title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-      className="grid size-9 place-items-center rounded-full border border-line text-ink-2 transition-colors hover:border-accent hover:text-accent"
+      className="grid size-9 place-items-center rounded-full border border-line text-ink-2 transition-colors hover:border-accent-2 hover:text-accent-2"
     >
       <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.7">
         {theme === "dark" ? (

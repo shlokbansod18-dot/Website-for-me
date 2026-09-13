@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { ProductGrid } from "@/components/product-card";
-import { ProductCover } from "@/components/product-cover";
+import { ProductCover, tintOf } from "@/components/product-cover";
 import { ButtonLink } from "@/components/ui/button";
 import { catalogStats, listProducts } from "@/lib/catalog";
 import { formatMoney } from "@/lib/money";
@@ -29,6 +29,7 @@ export default async function HomePage({
       ) : null}
 
       <Hero stats={stats} lead={trending[0]} />
+      <Ticker products={trending} />
       <Featured products={trending.slice(0, 6)} />
       <HowItWorks />
       <ForCreators />
@@ -47,13 +48,14 @@ function Hero({
   lead?: Product;
 }) {
   return (
-    <section className="shell pt-16 lg:pt-28">
-      <div className="grid gap-14 lg:grid-cols-[1.35fr_1fr] lg:items-end lg:gap-20">
+    <section className="shell pt-14 lg:pt-24">
+      <div className="grid gap-16 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-16">
         <div>
-          <h1 className="display max-w-[15ch]">
+          <p className="label">Digital goods · delivered in seconds</p>
+          <h1 className="display mt-6 max-w-[16ch]">
             Sell the things you <span className="em">make</span>.
           </h1>
-          <p className="mt-9 max-w-[46ch] text-[1.0625rem] leading-relaxed text-ink-2">
+          <p className="mt-8 max-w-[44ch] text-[1.0625rem] leading-relaxed text-ink-2">
             A shop for digital work — type, templates, kits, presets, courses. Upload a file, set a
             price, and the buyer has it a second later.
           </p>
@@ -61,28 +63,33 @@ function Hero({
             <ButtonLink href="/products" size="lg">
               Browse the shop
             </ButtonLink>
-            <Link href="/sell" className="link text-[0.9375rem]">
+            <ButtonLink href="/sell" variant="outline" size="lg">
               Start selling
-            </Link>
+            </ButtonLink>
           </div>
         </div>
 
-        {/* One product, shown properly, instead of a collage of three. */}
+        {/* One poster, hung slightly off-square, instead of a collage of three. */}
         {lead ? (
-          <Link href={`/products/${lead.slug}`} className="group block lg:pb-2">
-            <p className="label mb-4">Most bought this week</p>
-            <ProductCover
-              seed={lead.slug}
-              accent={lead.accent}
-              title={lead.title}
-              size="lg"
-              className="aspect-[5/4] w-full rounded transition-transform duration-500 group-hover:scale-[1.015]"
-            />
-            <div className="mt-4 flex items-baseline justify-between gap-4">
-              <span className="font-display text-lg transition-colors group-hover:text-accent">
+          <Link href={`/products/${lead.slug}`} className="group block">
+            <div className="relative mx-auto w-full max-w-sm rotate-[-2.5deg] transition-transform duration-500 ease-out group-hover:rotate-0 lg:max-w-none">
+              <ProductCover
+                seed={lead.slug}
+                accent={lead.accent}
+                title={lead.title}
+                category={lead.category}
+                size="lg"
+                className="aspect-[4/5] w-full shadow-[0_30px_60px_-30px_rgb(0_0_0/0.95)]"
+              />
+              <span className="absolute -bottom-4 -left-3 rounded-full bg-accent px-4 py-2 font-display text-[0.8125rem] font-semibold text-on-accent shadow-[var(--glow)]">
+                Most bought this week
+              </span>
+            </div>
+            <div className="mt-9 flex items-baseline justify-between gap-4">
+              <span className="font-display text-lg font-semibold transition-colors group-hover:text-accent">
                 {lead.title}
               </span>
-              <span className="numeric text-[0.9375rem]">
+              <span className="numeric text-[0.9375rem] font-semibold">
                 {formatMoney(lead.priceCents, lead.currency)}
               </span>
             </div>
@@ -90,7 +97,7 @@ function Hero({
         ) : null}
       </div>
 
-      <dl className="mt-20 grid grid-cols-3 gap-8 border-t border-line pt-8 lg:mt-28">
+      <dl className="mt-20 grid grid-cols-3 gap-8 border-t border-line pt-8 lg:mt-24">
         <Stat label="Products" value={stats.products.toLocaleString()} />
         <Stat label="Downloads" value={`${(stats.sales / 1000).toFixed(1)}k`} />
         <Stat label="Creators keep" value="95%" />
@@ -99,10 +106,53 @@ function Hero({
   );
 }
 
+/* ── Ticker ────────────────────────────────────────────────────────────── */
+
+/**
+ * What the shop is actually selling, moving slowly enough to read and pausing
+ * when the pointer lands on it. The numbers are the real sales counts, not
+ * invented activity.
+ */
+function Ticker({ products }: { products: Product[] }) {
+  if (products.length === 0) return null;
+  const items = products.slice(0, 9);
+  const run = (
+    <div aria-hidden>
+      {items.map((p) => (
+        <span key={p.id} className="flex items-center gap-3 whitespace-nowrap text-[0.875rem]">
+          <span
+            className="size-2 rounded-full"
+            style={{ background: TINTS_GROUND(p.accent, p.slug) }}
+          />
+          <span className="font-display font-semibold">{p.title}</span>
+          <span className="text-ink-3">{p.category}</span>
+          <span className="numeric text-ink-2">{p.salesCount.toLocaleString()} sold</span>
+        </span>
+      ))}
+    </div>
+  );
+
+  return (
+    <section className="mt-16 border-y border-line bg-surface py-4 lg:mt-24">
+      <div className="ticker">
+        {run}
+        {run}
+      </div>
+      <span className="sr-only">
+        Selling now: {items.map((p) => `${p.title}, ${p.salesCount} sold`).join("; ")}
+      </span>
+    </section>
+  );
+}
+
+function TINTS_GROUND(accent: string, seed: string) {
+  return tintOf(accent, seed).ground;
+}
+
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dd className="numeric font-display text-[1.75rem] leading-none lg:text-[2.25rem]">{value}</dd>
+      <dd className="numeric font-display text-[2rem] font-semibold leading-none tracking-[-0.04em] lg:text-[2.75rem]">{value}</dd>
       <dt className="label mt-2.5">{label}</dt>
     </div>
   );
@@ -188,7 +238,7 @@ function HowItWorks() {
 function ForCreators() {
   const steps = [
     ["Upload", "A zip, a font, a PDF, a Figma file. It is stored where only a buyer can reach it."],
-    ["Describe", "A title, a price, a few lines. The cover art is generated from your title."],
+    ["Describe", "A title, a price, a few lines. The poster is set from your title and a colour."],
     ["Publish", "Live worldwide, sold and delivered without you lifting a finger again."],
   ];
 
@@ -234,7 +284,7 @@ function ForCreators() {
 
 function Closing() {
   return (
-    <section className="shell pb-28 lg:pb-40">
+    <section className="shell pb-20 lg:pb-28">
       <div className="border-t border-line pt-16 text-center" data-reveal>
         <h2 className="display-2 mx-auto max-w-[18ch]">
           Your work is worth money. Go and <span className="em">get it</span>.

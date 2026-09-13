@@ -57,6 +57,7 @@ export default async function CartPage() {
                   seed={product.slug}
                   accent={product.accent}
                   title={product.title}
+                  category={product.category}
                   size="sm"
                   className="size-20 rounded border border-line sm:size-24"
                 />

@@ -62,6 +62,7 @@ export default async function LibraryPage() {
                   seed={entry.product.slug}
                   accent={entry.product.accent}
                   title={entry.product.title}
+                  category={entry.product.category}
                   size="sm"
                   className="size-16 shrink-0 rounded border border-line"
                 />

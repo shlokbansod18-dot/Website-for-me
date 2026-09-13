@@ -12,12 +12,14 @@ import type { ActionState, Product } from "@/lib/types";
 const initial: ActionState = { ok: false };
 
 const ACCENT_SWATCHES = [
-  { value: "sage", label: "Sage", color: "#b9c5b2" },
-  { value: "clay", label: "Clay", color: "#dbb8a3" },
-  { value: "slate", label: "Slate", color: "#aeb9c6" },
-  { value: "sand", label: "Sand", color: "#ded1af" },
-  { value: "plum", label: "Plum", color: "#c3aec6" },
-  { value: "ink", label: "Ink", color: "#1f1f1c" },
+  { value: "ember", label: "Ember", color: "#ff5d3b" },
+  { value: "lilac", label: "Lilac", color: "#c9b6ff" },
+  { value: "spring", label: "Spring", color: "#6ee7a8" },
+  { value: "butter", label: "Butter", color: "#ffd166" },
+  { value: "cobalt", label: "Cobalt", color: "#6d8cff" },
+  { value: "rose", label: "Rose", color: "#ff9ecd" },
+  { value: "teal", label: "Teal", color: "#3ddad3" },
+  { value: "void", label: "Void", color: "#1a1426" },
 ];
 
 
@@ -40,7 +42,7 @@ export function ProductForm({
   const kept = state.values ?? {};
 
   const [title, setTitle] = useState(product?.title ?? "");
-  const [accent, setAccent] = useState(product?.accent ?? "sage");
+  const [accent, setAccent] = useState(product?.accent ?? "ember");
   const [fileName, setFileName] = useState<string | null>(null);
 
   // If the server sent a title back after a failed save, adopt it so the cover
@@ -226,12 +228,12 @@ export function ProductForm({
             seed={title || product?.slug || "preview"}
             accent={accent}
             title={title || product?.title}
-            className="aspect-[4/3] w-full"
+            className="aspect-[4/5] w-full"
           />
           <div className="p-6">
             <p className="label">Cover art</p>
             <p className="mt-2 text-[0.8125rem] leading-relaxed text-ink-2">
-              Set from the title and a tint. No design tool needed.
+              Your title, set on a colour. No design tool needed.
             </p>
 
             <div className="mt-5">

@@ -61,8 +61,8 @@ export function HeaderClient({
               key={item.href}
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
-              className={`text-[0.9375rem] transition-colors ${
-                isActive(item.href) ? "text-ink" : "text-ink-2 hover:text-ink"
+              className={`text-[0.9375rem] font-medium transition-colors ${
+                isActive(item.href) ? "text-accent-2" : "text-ink-2 hover:text-ink"
               }`}
             >
               {item.label}
@@ -130,7 +130,7 @@ export function HeaderClient({
               <Link
                 key={item.href}
                 href={item.href}
-                className="border-b border-line py-5 font-display text-[2rem] leading-none tracking-[-0.02em]"
+                className="border-b border-line py-5 font-display text-[2.25rem] font-semibold leading-none tracking-[-0.04em]"
               >
                 {item.label}
               </Link>

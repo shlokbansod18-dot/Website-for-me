@@ -72,8 +72,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             seed={product.slug}
             accent={product.accent}
             title={product.title}
+            category={product.category}
             size="lg"
-            className="aspect-[16/11] w-full rounded-[1.75rem] border border-line"
+            className="aspect-square w-full shadow-[0_24px_56px_-28px_rgb(0_0_0/0.95)]"
           />
         </div>
 

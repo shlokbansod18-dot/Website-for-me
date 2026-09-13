@@ -74,6 +74,7 @@ export default async function SuccessPage({
                   seed={product!.slug}
                   accent={product!.accent}
                   title={product!.title}
+                  category={product!.category}
                   size="sm"
                   className="size-14 shrink-0 rounded border border-line"
                 />

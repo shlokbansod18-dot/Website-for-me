@@ -1,9 +1,9 @@
 import type { ComponentProps, ReactNode } from "react";
 
 const control =
-  "w-full rounded border border-line-2 bg-surface px-4 py-3 text-[0.9375rem] text-ink " +
+  "w-full rounded-[10px] border border-line-2 bg-surface px-4 py-3 text-[0.9375rem] text-ink " +
   "placeholder:text-ink-3 outline-none transition-colors duration-150 " +
-  "hover:border-ink-3 focus:border-accent focus:ring-1 focus:ring-accent";
+  "hover:border-ink-3 focus:border-accent-2 focus:ring-2 focus:ring-accent-2/40";
 
 export function Label({
   htmlFor,
@@ -27,7 +27,7 @@ export function Label({
 export function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p id={id} role="alert" className="mt-1.5 flex items-center gap-1.5 text-xs text-alert">
+    <p id={id} role="alert" className="mt-1.5 flex items-center gap-1.5 text-xs font-medium text-alert">
       <span aria-hidden>▲</span>
       {message}
     </p>
@@ -127,7 +127,7 @@ export function Checkbox({
           id={name}
           name={name}
           type="checkbox"
-          className="mt-0.5 size-4 shrink-0 cursor-pointer rounded border-line-2 bg-surface-2 accent-[var(--accent)]"
+          className="mt-0.5 size-[18px] shrink-0 cursor-pointer rounded-[5px] border-line-2 bg-surface-2 accent-[var(--accent)]"
           {...rest}
         />
         <span className="leading-snug">{children}</span>
@@ -147,13 +147,13 @@ export function Notice({
 }) {
   const tones = {
     error: "border-alert/35 bg-alert/10 text-alert",
-    success: "border-accent/35 bg-accent/10 text-accent",
+    success: "border-positive/40 bg-positive/10 text-positive",
     info: "border-line bg-surface-2 text-ink-2",
   } as const;
   return (
     <div
       role={tone === "error" ? "alert" : "status"}
-      className={`rounded border px-4 py-3 text-[0.875rem] ${tones[tone]}`}
+      className={`rounded-[10px] border px-4 py-3 text-[0.875rem] ${tones[tone]}`}
     >
       {children}
     </div>

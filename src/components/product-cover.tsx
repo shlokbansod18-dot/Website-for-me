@@ -1,20 +1,22 @@
 /**
  * Cover art, generated per product.
  *
- * Every product is a book jacket: a muted tinted ground and one enormous
- * serif character, cropped by the frame. The tints are deliberately desaturated
- * — the catalogue is a wall of these, and saturated colour at that density
- * turns a shop into a fruit bowl. The letter comes from the product's own
- * title, so two products never look alike.
+ * Every product is a poster: a saturated ground, the category set small at
+ * the top, and the title set large and tight across the bottom, cropped the
+ * way a printed sheet is cropped. A wall of these reads as a curated print
+ * shop. The previous version drew one enormous letter, which at catalogue
+ * density read as a type specimen rather than a shop.
  */
 
 export const TINTS = {
-  sage: { ground: "#b9c5b2", mark: "#26331f", label: "Sage" },
-  clay: { ground: "#dbb8a3", mark: "#3d2417", label: "Clay" },
-  slate: { ground: "#aeb9c6", mark: "#1b2531", label: "Slate" },
-  sand: { ground: "#ded1af", mark: "#342c15", label: "Sand" },
-  plum: { ground: "#c3aec6", mark: "#2c1b31", label: "Plum" },
-  ink: { ground: "#1f1f1c", mark: "#e9e7df", label: "Ink" },
+  ember:  { ground: "#ff5d3b", ink: "#2a0a02", label: "Ember"  },
+  lilac:  { ground: "#c9b6ff", ink: "#241348", label: "Lilac"  },
+  spring: { ground: "#6ee7a8", ink: "#04321d", label: "Spring" },
+  butter: { ground: "#ffd166", ink: "#3a2604", label: "Butter" },
+  cobalt: { ground: "#6d8cff", ink: "#071445", label: "Cobalt" },
+  rose:   { ground: "#ff9ecd", ink: "#420a29", label: "Rose"   },
+  teal:   { ground: "#3ddad3", ink: "#03302f", label: "Teal"   },
+  void:   { ground: "#1a1426", ink: "#f7f3ff", label: "Void"   },
 } as const;
 
 function hash(seed: string): number {
@@ -31,9 +33,9 @@ export const TINT_NAMES = Object.keys(TINTS) as TintName[];
 
 /**
  * Honours an explicit tint, and otherwise derives one from the seed. Products
- * created before this palette existed carry names like "acid" that mean
- * nothing here — without the fallback every one of them would come out the
- * same green and the catalogue would read as a single swatch.
+ * created under an older palette carry names that mean nothing here — without
+ * the fallback every one of them would come out the same colour and the
+ * catalogue would read as a single swatch.
  */
 export function tintOf(name: string, seed = ""): (typeof TINTS)[TintName] {
   if ((name as TintName) in TINTS) return TINTS[name as TintName];
@@ -44,58 +46,84 @@ export function ProductCover({
   seed,
   accent,
   title,
+  category,
   className = "",
   size = "md",
 }: {
   seed: string;
   accent: string;
   title?: string;
+  category?: string;
   className?: string;
   size?: "sm" | "md" | "lg";
 }) {
   const tint = tintOf(accent, seed);
   const h = hash(seed);
+  const words = (title ?? seed).trim().split(/\s+/).filter(Boolean);
 
-  // Always a letterform, never a symbol. A wall of set characters reads as a
-  // type specimen; a wall of geometric glyphs reads as clip art.
-  const mark = ((title ?? seed).trim().charAt(0) || "S").toUpperCase();
+  // Two lines at most. A third line on a card this size sets too small to
+  // read as display type, and the poster stops being a poster.
+  const lines = words.length > 3 ? [words.slice(0, 2).join(" "), words.slice(2).join(" ")] : words;
 
-  // A gentle per-product offset so the wall of covers is not a grid of
-  // perfectly centred letters, without pushing any of them off the frame.
-  const dx = -9 + (h % 18);
-  const dy = -6 + ((h >> 6) % 12);
-  const scale = size === "sm" ? 0.94 : size === "lg" ? 1 : 0.98;
+  // A quiet plotted arc, placed per product so no two sheets are identical.
+  const arcX = 20 + (h % 60);
+  const arcY = 30 + ((h >> 5) % 40);
+  const arcR = 26 + ((h >> 10) % 22);
+  const scale = size === "sm" ? 0.82 : size === "lg" ? 1.12 : 1;
 
   return (
     <div
-      className={`relative isolate overflow-hidden ${className}`}
-      // Container units below need a size container, so the letter scales with
+      className={`relative isolate overflow-hidden rounded-[var(--r)] ${className}`}
+      // Container units below need a size container, so the type scales with
       // the box rather than with whatever font-size it happens to inherit.
       style={{ background: tint.ground, containerType: "size" }}
       aria-hidden
     >
+      <svg
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        className="absolute inset-0 size-full"
+        style={{ opacity: 0.13 }}
+      >
+        <circle cx={arcX} cy={arcY} r={arcR} fill="none" stroke={tint.ink} strokeWidth="0.6" />
+        <circle cx={arcX} cy={arcY} r={arcR * 0.62} fill="none" stroke={tint.ink} strokeWidth="0.6" />
+      </svg>
+
+      {category ? (
+        <span
+          className="absolute font-sans font-semibold uppercase"
+          style={{
+            left: "7%",
+            top: "7%",
+            fontSize: `min(${5.5 * scale}cqh, ${4.6 * scale}cqw)`,
+            letterSpacing: "0.18em",
+            color: tint.ink,
+            opacity: 0.7,
+          }}
+        >
+          {category}
+        </span>
+      ) : null}
+
       <span
-        className="absolute select-none font-display leading-none"
+        className="absolute font-display font-semibold"
         style={{
-          left: `${50 + dx}%`,
-          top: `${50 + dy}%`,
-          transform: "translate(-50%, -50%)",
-          // Sized against whichever edge is shorter, so a letter fills a tall
-          // card and a wide hero equally well instead of bursting out of one.
-          fontSize: `min(${74 * scale}cqh, ${62 * scale}cqw)`,
-          lineHeight: 1,
-          color: tint.mark,
-          opacity: 0.9,
+          left: "7%",
+          right: "7%",
+          bottom: "7%",
+          fontSize: `min(${17 * scale}cqh, ${14.5 * scale}cqw)`,
+          lineHeight: 0.88,
+          letterSpacing: "-0.045em",
+          color: tint.ink,
+          textWrap: "balance",
         }}
       >
-        {mark}
+        {lines.map((line, i) => (
+          <span key={i} className="block">
+            {line}
+          </span>
+        ))}
       </span>
-
-      {/* A hairline inset, the way a print piece carries a trim mark. */}
-      <span
-        className="pointer-events-none absolute inset-[9px] rounded-[2px]"
-        style={{ border: `1px solid ${tint.mark}`, opacity: 0.12 }}
-      />
     </div>
   );
 }

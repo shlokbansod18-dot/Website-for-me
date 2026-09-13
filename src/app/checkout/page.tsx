@@ -66,6 +66,7 @@ export default async function CheckoutPage() {
                     seed={product.slug}
                     accent={product.accent}
                     title={product.title}
+                    category={product.category}
                     size="sm"
                     className="size-11 shrink-0 rounded-lg"
                   />
