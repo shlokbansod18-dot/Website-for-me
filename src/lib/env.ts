@@ -4,6 +4,8 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
+import { keyProblem } from "./env-check";
+
 /**
  * Central place where every secret and path is resolved once.
  *
@@ -43,14 +45,28 @@ function devSecret(name: string): string {
   return store[name];
 }
 
+/**
+ * `next build` evaluates server modules to collect page data, so this file is
+ * imported during the build as well as at runtime — and the build runs with
+ * NODE_ENV=production. Without this check a container build would demand the
+ * production secrets just to compile, which is both wrong and a good way to
+ * end up baking them into an image.
+ *
+ * Nothing is served during a build, so a throwaway key is safe here. The real
+ * requirement is enforced at startup instead, in src/instrumentation.ts.
+ */
+const isBuildPhase = process.env.NEXT_PHASE === "phase-production-build";
+
 function readKey(name: "SESSION_SECRET" | "ENCRYPTION_KEY"): Buffer {
   const raw = (process.env[name] || "").trim();
   if (/^[0-9a-fA-F]{64}$/.test(raw)) return Buffer.from(raw, "hex");
 
+  if (isBuildPhase) return crypto.randomBytes(32);
+
   if (isProd) {
     throw new Error(
-      `${name} is missing or malformed. It must be 64 hex characters. ` +
-        `Run "npm run setup" to generate a .env file, or set it in your host's environment settings.`,
+      `${keyProblem(name)} ` +
+        `Set it in your host's environment settings, or run "npm run setup" locally.`,
     );
   }
   return Buffer.from(devSecret(name), "hex");
@@ -66,4 +82,5 @@ export const OWNER_EMAIL = (process.env.OWNER_EMAIL || "").trim().toLowerCase();
 
 export const IS_PROD = isProd;
 
-ensureDataDir();
+// Storage is a runtime concern; a build must not create directories.
+if (!isBuildPhase) ensureDataDir();

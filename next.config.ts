@@ -32,6 +32,14 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  /**
+   * Emits .next/standalone — a self-contained server with only the modules it
+   * actually needs traced in, including better-sqlite3's compiled binding.
+   * That is what the container runs, and it is why the image does not need a
+   * node_modules install at runtime.
+   */
+  output: "standalone",
+
   // better-sqlite3 is a native module: keep it out of the bundler.
   serverExternalPackages: ["better-sqlite3"],
 

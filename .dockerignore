@@ -1,0 +1,30 @@
+# Keep the build context clean. Two entries here are not housekeeping but
+# security: `next build` copies a .env it finds into .next/standalone/.env, so
+# a .env in the context would put your development secrets inside the image —
+# and `data/` is the live database and every customer's purchased files.
+.env
+.env.*
+!.env.example
+data/
+
+# Built and installed artefacts: the image builds these itself from source, and
+# a host-built .next carries the wrong platform's native binaries.
+node_modules
+.next
+out
+build
+
+# Not needed to run the site
+.git
+.gitignore
+.github
+README.md
+DEPLOY.md
+*.md
+!package.json
+.vscode
+.idea
+.DS_Store
+npm-debug.log*
+*.tsbuildinfo
+coverage

@@ -203,11 +203,17 @@ art-directed without anyone opening a design tool.
 
 ### Deploying
 
-Works on any host that runs Node. On a platform with an ephemeral filesystem
-(Vercel, most serverless hosts) the SQLite file and the uploads directory will
-not survive a deploy — move `src/lib/db.ts` to a hosted Postgres and
-`src/lib/files.ts` to object storage first. On a normal VPS or container with a
-mounted volume, it runs as-is: point `DATA_DIR` at the volume.
+**See [DEPLOY.md](DEPLOY.md).** The short version: this keeps its data on disk,
+so it needs a host with a persistent volume — Railway, Fly.io, Render or a VPS,
+all of which run the included `Dockerfile` unchanged. Do **not** deploy it to
+Vercel or Netlify as-is; their filesystems are temporary, so the site would
+appear to work and then lose every account and uploaded file on the next
+deploy.
+
+The server refuses to start without `SESSION_SECRET`, `ENCRYPTION_KEY` and an
+HTTPS `APP_URL`, and says which one is wrong. Health checks go to
+`/api/health`, which reports healthy only when the database is actually
+reachable.
 
 ---
 
