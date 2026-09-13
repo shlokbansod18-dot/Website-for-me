@@ -1,28 +1,30 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
-type Variant = "primary" | "ghost" | "outline" | "danger" | "violet";
+type Variant = "primary" | "outline" | "ghost" | "danger";
 type Size = "sm" | "md" | "lg";
 
+/**
+ * Buttons are rectangular with a 4px radius rather than pills. Next to a
+ * high-contrast serif, a squared edge reads considered; a pill reads like a
+ * consumer app. The accent is spent here and almost nowhere else.
+ */
 const base =
-  "relative inline-flex select-none items-center justify-center gap-2 rounded-full font-medium " +
-  "transition-[transform,background-color,border-color,color,box-shadow] duration-200 " +
-  "active:translate-y-px disabled:pointer-events-none disabled:opacity-45";
+  "relative inline-flex select-none items-center justify-center gap-2 rounded font-medium " +
+  "transition-[background-color,border-color,color,opacity] duration-150 " +
+  "disabled:pointer-events-none disabled:opacity-40";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-acid text-acid-ink hover:brightness-110 hover:shadow-[0_0_0_1px_var(--acid),0_8px_30px_-8px_var(--acid)]",
-  violet: "bg-violet text-white hover:brightness-115",
-  outline: "border border-line-strong text-text hover:border-acid hover:text-acid",
-  ghost: "text-dim hover:bg-surface-2 hover:text-text",
-  danger:
-    "border border-flare/40 text-flare hover:bg-flare hover:text-white hover:border-flare",
+  primary: "bg-accent text-on-accent hover:opacity-90",
+  outline: "border border-line-2 text-ink hover:border-ink hover:bg-surface",
+  ghost: "text-ink-2 hover:text-ink hover:bg-surface",
+  danger: "border border-alert/40 text-alert hover:bg-alert hover:text-white hover:border-alert",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-9 px-4 text-[0.8125rem]",
-  md: "h-11 px-5 text-sm",
-  lg: "h-13 px-7 text-[0.9375rem]",
+  sm: "h-9 px-3.5 text-[0.8125rem]",
+  md: "h-11 px-5 text-[0.9375rem]",
+  lg: "h-[3.25rem] px-7 text-base",
 };
 
 export function buttonClass(variant: Variant = "primary", size: Size = "md", extra = "") {

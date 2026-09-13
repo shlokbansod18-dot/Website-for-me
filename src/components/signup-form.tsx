@@ -19,7 +19,7 @@ export function SignupForm({ next }: { next: string }) {
   const kept = state.values ?? {};
 
   const score = passwordStrength(password);
-  const tone = ["bg-flare", "bg-flare", "bg-sky", "bg-acid", "bg-acid"][score];
+  const tone = ["bg-alert", "bg-alert", "bg-accent", "bg-accent", "bg-accent"][score];
 
   return (
     <form action={formAction} className="space-y-5">
@@ -67,7 +67,7 @@ export function SignupForm({ next }: { next: string }) {
           <button
             type="button"
             onClick={() => setShowPassword((v) => !v)}
-            className="absolute right-4 top-[2.4rem] text-[0.6875rem] text-faint transition-colors hover:text-acid"
+            className="absolute right-4 top-[2.4rem] text-[0.6875rem] text-ink-3 transition-colors hover:text-accent"
           >
             {showPassword ? "Hide" : "Show"}
           </button>
@@ -80,13 +80,13 @@ export function SignupForm({ next }: { next: string }) {
                 <span
                   key={i}
                   className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
-                    i < score ? tone : "bg-line-strong"
+                    i < score ? tone : "bg-line-2"
                   }`}
                 />
               ))}
             </div>
-            <p className="mt-1.5 text-[0.6875rem] text-faint" aria-live="polite">
-              Strength: <span className="text-dim">{STRENGTH_LABELS[score]}</span>
+            <p className="mt-1.5 text-[0.6875rem] text-ink-3" aria-live="polite">
+              Strength: <span className="text-ink-2">{STRENGTH_LABELS[score]}</span>
               {score < 3 ? " — add length, or mix in a symbol." : " — that will do nicely."}
             </p>
           </div>
@@ -96,11 +96,11 @@ export function SignupForm({ next }: { next: string }) {
       <div className="space-y-3 pt-1">
         <Checkbox name="acceptTerms" required error={errors.acceptTerms}>
           I agree to the{" "}
-          <a href="/legal/terms" className="text-acid underline-offset-2 hover:underline">
+          <a href="/legal/terms" className="text-accent underline-offset-2 hover:underline">
             terms of service
           </a>{" "}
           and{" "}
-          <a href="/legal/privacy" className="text-acid underline-offset-2 hover:underline">
+          <a href="/legal/privacy" className="text-accent underline-offset-2 hover:underline">
             privacy policy
           </a>
           .
@@ -114,7 +114,7 @@ export function SignupForm({ next }: { next: string }) {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-acid text-sm font-medium text-acid-ink transition-[filter] hover:brightness-110 disabled:opacity-60"
+        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-accent text-sm font-medium text-on-accent transition-[filter] hover:brightness-110 disabled:opacity-60"
       >
         {pending ? (
           <>
@@ -126,7 +126,7 @@ export function SignupForm({ next }: { next: string }) {
         )}
       </button>
 
-      <p className="text-center text-[0.6875rem] leading-relaxed text-faint">
+      <p className="text-center text-[0.6875rem] leading-relaxed text-ink-3">
         Your password is hashed with scrypt before it is stored. Nobody here — including us — can
         read it back.
       </p>

@@ -11,7 +11,7 @@ export default function RefundsPage() {
   return (
     <>
       <h1>Refund policy</h1>
-      <p className="text-faint">Last updated: 10 September 2026</p>
+      <p className="text-ink-3">Last updated: 10 September 2026</p>
 
       <p>
         Digital products cannot be handed back, so a refund policy has to be built on trust in both
@@ -60,7 +60,7 @@ export default function RefundsPage() {
         went wrong. You do not need to fill in a form or justify yourself at length.
       </p>
       <p>
-        We reply within two working days. An approved refund goes back to the card you paid with,
+        We reply within two working days. An approved refund goes back to the panel you paid with,
         and your bank usually takes another 5 to 10 days to show it.
       </p>
 

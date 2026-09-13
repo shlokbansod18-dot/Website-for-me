@@ -22,12 +22,12 @@ export default async function CartPage() {
   if (cart.items.length === 0) {
     return (
       <div className="shell py-24">
-        <div className="card mx-auto grid max-w-lg place-items-center px-8 py-20 text-center">
-          <span aria-hidden className="font-display text-5xl text-faint">
+        <div className="panel mx-auto grid max-w-lg place-items-center px-8 py-20 text-center">
+          <span aria-hidden className="font-display text-5xl text-ink-3">
             ⌒
           </span>
-          <h1 className="display-sm mt-6">Your bag is empty</h1>
-          <p className="mt-4 text-sm text-dim">
+          <h1 className="display-2 mt-6">Your bag is empty</h1>
+          <p className="mt-4 text-sm text-ink-2">
             Nothing in here yet. The good stuff is one click away.
           </p>
           <ButtonLink href="/products" size="lg" className="mt-8">
@@ -41,8 +41,8 @@ export default async function CartPage() {
   return (
     <div className="shell py-14 lg:py-20">
       <header className="mb-10">
-        <p className="eyebrow">Checkout</p>
-        <h1 className="display-sm mt-3">Your bag</h1>
+        <p className="label">Checkout</p>
+        <h1 className="display-2 mt-3">Your bag</h1>
       </header>
 
       <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr] lg:gap-12">
@@ -56,34 +56,34 @@ export default async function CartPage() {
                 <ProductCover
                   seed={product.slug}
                   accent={product.accent}
-                  glyph={product.glyph}
+                  title={product.title}
                   size="sm"
-                  className="size-20 rounded-xl border border-line sm:size-24"
+                  className="size-20 rounded border border-line sm:size-24"
                 />
               </Link>
 
               <div className="min-w-0 flex-1">
                 <Link
                   href={`/products/${product.slug}`}
-                  className="font-display text-[0.9375rem] font-bold leading-tight tracking-[-0.03em] transition-colors hover:text-acid"
+                  className="font-display text-[0.9375rem] leading-tight transition-colors hover:text-accent"
                 >
                   {product.title}
                 </Link>
-                <p className="mt-1 truncate text-xs text-faint">
+                <p className="mt-1 truncate text-xs text-ink-3">
                   {product.category} · v{product.version}
                 </p>
                 <form action={removeFromCartFormAction} className="mt-2">
                   <input type="hidden" name="productId" value={product.id} />
                   <button
                     type="submit"
-                    className="text-xs text-faint underline-offset-4 transition-colors hover:text-flare hover:underline"
+                    className="text-xs text-ink-3 underline-offset-4 transition-colors hover:text-alert hover:underline"
                   >
                     Remove
                   </button>
                 </form>
               </div>
 
-              <span className="numeric shrink-0 self-start font-display text-base font-bold tracking-tight">
+              <span className="numeric shrink-0 self-start font-display text-base tracking-tight">
                 {formatMoney(product.priceCents, product.currency)}
               </span>
             </li>
@@ -101,9 +101,9 @@ export default async function CartPage() {
             </ButtonLink>
 
             {!user && (
-              <p className="mt-3 text-center text-xs text-faint">
+              <p className="mt-3 text-center text-xs text-ink-3">
                 New here?{" "}
-                <Link href="/signup?next=/checkout" className="text-acid hover:underline">
+                <Link href="/signup?next=/checkout" className="text-accent hover:underline">
                   Create an account
                 </Link>{" "}
                 — it takes about twenty seconds.
@@ -112,13 +112,13 @@ export default async function CartPage() {
 
             <Link
               href="/products"
-              className="mt-4 block text-center text-[0.8125rem] text-faint transition-colors hover:text-text"
+              className="mt-4 block text-center text-[0.8125rem] text-ink-3 transition-colors hover:text-ink"
             >
               ← Keep browsing
             </Link>
           </OrderSummary>
 
-          <p className="mt-4 px-2 text-center text-[0.6875rem] leading-relaxed text-faint">
+          <p className="mt-4 px-2 text-center text-[0.6875rem] leading-relaxed text-ink-3">
             Your bag is stored in a signed, HTTP-only cookie on your own device. We do not build a
             profile of what you looked at.
           </p>

@@ -29,7 +29,6 @@ export function toProduct(row: ProductRow): Product {
     currency: row.currency,
     status: row.status,
     accent: row.accent,
-    glyph: row.glyph,
     highlights: safeJson<string[]>(row.highlights, []),
     tags: safeJson<string[]>(row.tags, []),
     fileName: row.file_name,

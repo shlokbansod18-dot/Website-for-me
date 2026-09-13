@@ -12,13 +12,14 @@ import type { ActionState, Product } from "@/lib/types";
 const initial: ActionState = { ok: false };
 
 const ACCENT_SWATCHES = [
-  { value: "acid", label: "Acid", color: "#d8ff3e" },
-  { value: "violet", label: "Violet", color: "#8b6bff" },
-  { value: "flare", label: "Flare", color: "#ff5f3c" },
-  { value: "sky", label: "Sky", color: "#4fd4f5" },
+  { value: "sage", label: "Sage", color: "#b9c5b2" },
+  { value: "clay", label: "Clay", color: "#dbb8a3" },
+  { value: "slate", label: "Slate", color: "#aeb9c6" },
+  { value: "sand", label: "Sand", color: "#ded1af" },
+  { value: "plum", label: "Plum", color: "#c3aec6" },
+  { value: "ink", label: "Ink", color: "#1f1f1c" },
 ];
 
-const GLYPHS = ["◆", "◈", "▣", "✳", "▲", "⬢", "★", "♪", "◐", "⌘", "∆", "Aa"];
 
 export function ProductForm({
   product,
@@ -39,8 +40,7 @@ export function ProductForm({
   const kept = state.values ?? {};
 
   const [title, setTitle] = useState(product?.title ?? "");
-  const [accent, setAccent] = useState(product?.accent ?? "acid");
-  const [glyph, setGlyph] = useState(product?.glyph ?? "◆");
+  const [accent, setAccent] = useState(product?.accent ?? "sage");
   const [fileName, setFileName] = useState<string | null>(null);
 
   // If the server sent a title back after a failed save, adopt it so the cover
@@ -61,8 +61,8 @@ export function ProductForm({
         ) : null}
 
         {/* ── The listing ─────────────────────────────────────────────── */}
-        <section className="card p-6 sm:p-7">
-          <h2 className="mb-6 font-display text-lg font-bold tracking-[-0.035em]">The listing</h2>
+        <section className="panel p-6 sm:p-7">
+          <h2 className="mb-6 font-display text-lg">The listing</h2>
 
           <div className="space-y-5">
             <Field
@@ -118,8 +118,8 @@ export function ProductForm({
         </section>
 
         {/* ── Price ───────────────────────────────────────────────────── */}
-        <section className="card p-6 sm:p-7">
-          <h2 className="mb-6 font-display text-lg font-bold tracking-[-0.035em]">Price</h2>
+        <section className="panel p-6 sm:p-7">
+          <h2 className="mb-6 font-display text-lg">Price</h2>
           <div className="grid gap-5 sm:grid-cols-2">
             <Field
               label="Price (USD)"
@@ -172,24 +172,24 @@ export function ProductForm({
         </section>
 
         {/* ── File ────────────────────────────────────────────────────── */}
-        <section className="card p-6 sm:p-7">
-          <h2 className="font-display text-lg font-bold tracking-[-0.035em]">Product file</h2>
-          <p className="mt-1.5 text-[0.8125rem] text-dim">
+        <section className="panel p-6 sm:p-7">
+          <h2 className="font-display text-lg">Product file</h2>
+          <p className="mt-1.5 text-[0.8125rem] text-ink-2">
             This is what buyers download. Stored outside the public folder and served only to
             accounts that have bought it.
           </p>
 
           <label
             htmlFor="file"
-            className="mt-5 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-line-strong bg-surface-2 px-6 py-10 text-center transition-colors hover:border-acid"
+            className="mt-5 flex cursor-pointer flex-col items-center justify-center gap-2 rounded border border-dashed border-line-2 bg-surface-2 px-6 py-10 text-center transition-colors hover:border-accent"
           >
-            <span aria-hidden className="text-2xl text-faint">
+            <span aria-hidden className="text-2xl text-ink-3">
               ⇧
             </span>
             <span className="text-[0.875rem] font-medium">
               {fileName ?? (product?.fileName ? "Replace the current file" : "Choose a file")}
             </span>
-            <span className="text-[0.6875rem] text-faint">
+            <span className="text-[0.6875rem] text-ink-3">
               zip, pdf, font, image, audio, video, 3D — up to 24 MB
             </span>
             <input
@@ -202,9 +202,9 @@ export function ProductForm({
           </label>
 
           {product?.fileName && !fileName ? (
-            <p className="mt-3 flex flex-wrap items-center gap-2 text-xs text-faint">
+            <p className="mt-3 flex flex-wrap items-center gap-2 text-xs text-ink-3">
               Currently attached:
-              <code className="rounded border border-line bg-canvas px-2 py-1 font-mono text-[0.6875rem] text-dim">
+              <code className="rounded border border-line bg-paper px-2 py-1 font-mono text-[0.6875rem] text-ink-2">
                 {product.fileName}
               </code>
               <span>{formatBytes(product.fileSize)}</span>
@@ -212,7 +212,7 @@ export function ProductForm({
           ) : null}
 
           {errors.file ? (
-            <p role="alert" className="mt-3 text-xs text-flare">
+            <p role="alert" className="mt-3 text-xs text-alert">
               ▲ {errors.file}
             </p>
           ) : null}
@@ -221,17 +221,17 @@ export function ProductForm({
 
       {/* ── Sidebar: art, status, save ────────────────────────────────── */}
       <aside className="space-y-4 lg:sticky lg:top-28">
-        <section className="card overflow-hidden">
+        <section className="panel overflow-hidden">
           <ProductCover
             seed={title || product?.slug || "preview"}
             accent={accent}
-            glyph={glyph}
+            title={title || product?.title}
             className="aspect-[4/3] w-full"
           />
           <div className="p-6">
-            <p className="eyebrow">Cover art</p>
-            <p className="mt-2 text-[0.8125rem] leading-relaxed text-dim">
-              Generated from your accent and symbol — no design tool needed.
+            <p className="label">Cover art</p>
+            <p className="mt-2 text-[0.8125rem] leading-relaxed text-ink-2">
+              Set from the title and a tint. No design tool needed.
             </p>
 
             <div className="mt-5">
@@ -240,8 +240,8 @@ export function ProductForm({
                 {ACCENT_SWATCHES.map((swatch) => (
                   <label
                     key={swatch.value}
-                    className={`size-9 cursor-pointer rounded-full border-2 transition-transform hover:scale-110 ${
-                      accent === swatch.value ? "border-text" : "border-transparent"
+                    className={`size-8 cursor-pointer rounded-[3px] transition-transform hover:scale-110 ${
+                      accent === swatch.value ? "ring-2 ring-ink ring-offset-2 ring-offset-surface" : ""
                     }`}
                     style={{ background: swatch.color }}
                     title={swatch.label}
@@ -260,35 +260,10 @@ export function ProductForm({
               </div>
             </div>
 
-            <div className="mt-5">
-              <span className="mb-2 block text-[0.8125rem] font-medium">Symbol</span>
-              <div className="flex flex-wrap gap-1.5">
-                {GLYPHS.map((option) => (
-                  <label
-                    key={option}
-                    className={`grid size-9 cursor-pointer place-items-center rounded-lg border font-display text-sm transition-colors ${
-                      glyph === option
-                        ? "border-acid bg-acid text-acid-ink"
-                        : "border-line text-dim hover:border-line-strong"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="glyph"
-                      value={option}
-                      checked={glyph === option}
-                      onChange={() => setGlyph(option)}
-                      className="sr-only"
-                    />
-                    {option}
-                  </label>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
 
-        <section className="card p-6">
+        <section className="panel p-6">
           <Select
             label="Status"
             name="status"
@@ -301,7 +276,7 @@ export function ProductForm({
           <button
             type="submit"
             disabled={pending}
-            className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-acid text-sm font-medium text-acid-ink transition-[filter] hover:brightness-110 disabled:opacity-60"
+            className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded bg-accent text-sm font-medium text-on-accent transition-opacity hover:opacity-90 disabled:opacity-60"
           >
             {pending ? (
               <>
@@ -317,7 +292,7 @@ export function ProductForm({
 
           <Link
             href="/studio"
-            className="mt-3 block text-center text-[0.8125rem] text-faint transition-colors hover:text-text"
+            className="mt-3 block text-center text-[0.8125rem] text-ink-3 transition-colors hover:text-ink"
           >
             Cancel
           </Link>

@@ -23,12 +23,12 @@ export default async function SecurityPage() {
     <div className="max-w-2xl space-y-10">
       <section>
         <div className="mb-6">
-          <h2 className="font-display text-xl font-bold tracking-[-0.035em]">Password</h2>
-          <p className="mt-1 text-[0.8125rem] text-dim">
+          <h2 className="font-display text-xl">Password</h2>
+          <p className="mt-1 text-[0.8125rem] text-ink-2">
             Stored as a scrypt hash. Even we cannot read it.
           </p>
         </div>
-        <div className="card p-7">
+        <div className="panel p-7">
           <PasswordForm />
         </div>
       </section>
@@ -36,8 +36,8 @@ export default async function SecurityPage() {
       <section>
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="font-display text-xl font-bold tracking-[-0.035em]">Signed-in devices</h2>
-            <p className="mt-1 text-[0.8125rem] text-dim">
+            <h2 className="font-display text-xl">Signed-in devices</h2>
+            <p className="mt-1 text-[0.8125rem] text-ink-2">
               Anything you do not recognise, sign it out.
             </p>
           </div>
@@ -45,7 +45,7 @@ export default async function SecurityPage() {
             <form action={signOutEverywhereAction}>
               <button
                 type="submit"
-                className="rounded-full border border-flare/40 px-4 py-2 text-[0.8125rem] text-flare transition-colors hover:bg-flare hover:text-white"
+                className="rounded-full border border-alert/40 px-4 py-2 text-[0.8125rem] text-alert transition-colors hover:bg-alert hover:text-white"
               >
                 Sign out everywhere
               </button>
@@ -64,7 +64,7 @@ export default async function SecurityPage() {
                 <span
                   aria-hidden
                   className={`grid size-9 shrink-0 place-items-center rounded-full border ${
-                    current ? "border-acid/40 text-acid" : "border-line text-faint"
+                    current ? "border-accent/40 text-accent" : "border-line text-ink-3"
                   }`}
                 >
                   ▢
@@ -73,12 +73,12 @@ export default async function SecurityPage() {
                   <p className="flex flex-wrap items-center gap-2">
                     <span className="font-medium">{row.user_agent ?? "Unknown device"}</span>
                     {current && (
-                      <span className="rounded-full bg-acid/12 px-2 py-0.5 text-[0.625rem] text-acid">
+                      <span className="rounded-full bg-accent/12 px-2 py-0.5 text-[0.625rem] text-accent">
                         THIS DEVICE
                       </span>
                     )}
                   </p>
-                  <p className="mt-0.5 text-xs text-faint">
+                  <p className="mt-0.5 text-xs text-ink-3">
                     Last active {formatDateTime(row.last_seen_at)} · signed in{" "}
                     {formatDateTime(row.created_at)}
                   </p>
@@ -88,7 +88,7 @@ export default async function SecurityPage() {
                     <input type="hidden" name="sessionId" value={row.id} />
                     <button
                       type="submit"
-                      className="shrink-0 text-xs text-faint underline-offset-4 transition-colors hover:text-flare hover:underline"
+                      className="shrink-0 text-xs text-ink-3 underline-offset-4 transition-colors hover:text-alert hover:underline"
                     >
                       Sign out
                     </button>
@@ -99,7 +99,7 @@ export default async function SecurityPage() {
           })}
         </ul>
 
-        <p className="mt-4 text-[0.6875rem] leading-relaxed text-faint">
+        <p className="mt-4 text-[0.6875rem] leading-relaxed text-ink-3">
           We record a rough device label and a keyed hash of the IP address you signed in from —
           never the address itself. It is enough to spot a session you do not recognise, and not
           enough to build a location history.

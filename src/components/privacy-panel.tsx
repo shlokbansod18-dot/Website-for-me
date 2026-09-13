@@ -40,15 +40,15 @@ export function ExportData() {
         type="button"
         onClick={download}
         disabled={pending}
-        className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-6 text-sm transition-colors hover:border-acid hover:text-acid disabled:opacity-60"
+        className="inline-flex h-11 items-center gap-2 rounded border border-line-2 px-6 text-sm transition-colors hover:border-accent hover:text-accent disabled:opacity-60"
       >
         {pending ? "Gathering…" : "Download my data (JSON)"}
       </button>
       {done ? (
-        <p className="mt-3 text-xs text-acid">Saved to your downloads.</p>
+        <p className="mt-3 text-xs text-accent">Saved to your downloads.</p>
       ) : null}
       {error ? (
-        <p role="alert" className="mt-3 text-xs text-flare">
+        <p role="alert" className="mt-3 text-xs text-alert">
           {error}
         </p>
       ) : null}
@@ -66,7 +66,7 @@ export function DeleteAccount() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex h-11 items-center rounded-full border border-flare/40 px-6 text-sm text-flare transition-colors hover:bg-flare hover:text-white"
+        className="inline-flex h-11 items-center rounded border border-alert/40 px-6 text-sm text-alert transition-colors hover:bg-alert hover:text-white"
       >
         Delete my account
       </button>
@@ -74,10 +74,10 @@ export function DeleteAccount() {
   }
 
   return (
-    <form action={formAction} className="space-y-4 rounded-2xl border border-flare/35 bg-flare/5 p-5">
+    <form action={formAction} className="space-y-4 rounded border border-alert/35 bg-alert/5 p-5">
       {state.message ? <Notice tone="error">{state.message}</Notice> : null}
 
-      <p className="text-[0.8125rem] leading-relaxed text-dim">
+      <p className="text-[0.8125rem] leading-relaxed text-ink-2">
         This deletes your account, your order history, your licence keys and your access to every
         file you have bought. It happens immediately and cannot be undone. Download your data first
         if you want to keep a copy.
@@ -105,14 +105,14 @@ export function DeleteAccount() {
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex h-11 items-center rounded-full bg-flare px-6 text-sm font-medium text-white transition-[filter] hover:brightness-110 disabled:opacity-60"
+          className="inline-flex h-11 items-center rounded bg-alert px-6 text-sm font-medium text-white transition-[filter] hover:brightness-110 disabled:opacity-60"
         >
           {pending ? "Deleting…" : "Permanently delete"}
         </button>
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="inline-flex h-11 items-center rounded-full border border-line px-6 text-sm text-dim transition-colors hover:text-text"
+          className="inline-flex h-11 items-center rounded border border-line px-6 text-sm text-ink-2 transition-colors hover:text-ink"
         >
           Cancel
         </button>

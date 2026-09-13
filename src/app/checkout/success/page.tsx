@@ -51,21 +51,21 @@ export default async function SuccessPage({
       <div className="text-center">
         <span
           aria-hidden
-          className="mx-auto grid size-16 place-items-center rounded-full bg-acid font-display text-2xl font-bold text-acid-ink"
+          className="mx-auto grid size-16 place-items-center rounded-full bg-accent font-display text-2xl text-on-accent"
         >
           ✓
         </span>
-        <h1 className="display-sm mt-8">Paid. It&rsquo;s yours.</h1>
-        <p className="mx-auto mt-4 max-w-md text-dim">
+        <h1 className="display-2 mt-8">Paid. It&rsquo;s yours.</h1>
+        <p className="mx-auto mt-4 max-w-md text-ink-2">
           Order{" "}
-          <span className="numeric font-mono text-text">{order.order_number}</span> · {" "}
+          <span className="numeric font-mono text-ink">{order.order_number}</span> · {" "}
           {formatDateTime(order.created_at)}. Everything below is downloadable right now, and it
           stays in your library forever.
         </p>
       </div>
 
       <section className="mt-12">
-        <h2 className="eyebrow mb-4">Your downloads</h2>
+        <h2 className="label mb-4">Your downloads</h2>
         <ul className="space-y-px overflow-hidden rounded-[1.5rem] border border-line">
           {downloads.map(({ entitlement, product, licence }) => (
             <li key={entitlement.id} className="bg-surface p-5">
@@ -73,32 +73,32 @@ export default async function SuccessPage({
                 <ProductCover
                   seed={product!.slug}
                   accent={product!.accent}
-                  glyph={product!.glyph}
+                  title={product!.title}
                   size="sm"
-                  className="size-14 shrink-0 rounded-xl border border-line"
+                  className="size-14 shrink-0 rounded border border-line"
                 />
                 <div className="min-w-0 flex-1">
                   <Link
                     href={`/products/${product!.slug}`}
-                    className="font-display text-[0.9375rem] font-bold tracking-[-0.03em] transition-colors hover:text-acid"
+                    className="font-display text-[0.9375rem] transition-colors hover:text-accent"
                   >
                     {product!.title}
                   </Link>
-                  <p className="mt-0.5 truncate text-xs text-faint">
+                  <p className="mt-0.5 truncate text-xs text-ink-3">
                     v{product!.version} · {product!.fileName}
                   </p>
                 </div>
                 <a
                   href={`/api/download/${entitlement.id}`}
-                  className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full bg-acid px-5 text-[0.8125rem] font-medium text-acid-ink transition-[filter] hover:brightness-110"
+                  className="inline-flex h-10 shrink-0 items-center gap-2 rounded bg-accent px-5 text-[0.8125rem] font-medium text-on-accent transition-[filter] hover:brightness-110"
                 >
                   <DownloadIcon />
                   Download
                 </a>
               </div>
               <p className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4 text-xs">
-                <span className="text-faint">Licence key</span>
-                <code className="rounded-md border border-line bg-canvas px-2 py-1 font-mono text-[0.6875rem] tracking-wider text-acid">
+                <span className="text-ink-3">Licence key</span>
+                <code className="rounded-md border border-line bg-paper px-2 py-1 font-mono text-[0.6875rem] tracking-wider text-accent">
                   {licence}
                 </code>
               </p>
@@ -107,8 +107,8 @@ export default async function SuccessPage({
         </ul>
       </section>
 
-      <section className="card mt-8 p-6">
-        <h2 className="eyebrow mb-5">Receipt</h2>
+      <section className="panel mt-8 p-6">
+        <h2 className="label mb-5">Receipt</h2>
         <dl className="space-y-3 text-[0.875rem]">
           <Row label="Subtotal" value={formatMoney(order.subtotal_cents, order.currency)} />
           {order.discount_cents > 0 && (
@@ -127,8 +127,8 @@ export default async function SuccessPage({
             }
           />
           <div className="flex items-end justify-between border-t border-line pt-4">
-            <dt className="text-dim">Total paid</dt>
-            <dd className="numeric font-display text-2xl font-bold tracking-tight">
+            <dt className="text-ink-2">Total paid</dt>
+            <dd className="numeric font-display text-2xl tracking-tight">
               {formatMoney(order.total_cents, order.currency)}
             </dd>
           </div>
@@ -144,9 +144,9 @@ export default async function SuccessPage({
         </ButtonLink>
       </div>
 
-      <p className="mt-8 text-center text-[0.6875rem] leading-relaxed text-faint">
+      <p className="mt-8 text-center text-[0.6875rem] leading-relaxed text-ink-3">
         Changed your mind? Digital products are refundable within 14 days —{" "}
-        <Link href="/legal/refunds" className="underline underline-offset-2 hover:text-dim">
+        <Link href="/legal/refunds" className="underline underline-offset-2 hover:text-ink-2">
           read the policy
         </Link>
         .
@@ -158,8 +158,8 @@ export default async function SuccessPage({
 function Row({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div className="flex justify-between gap-6">
-      <dt className="text-dim">{label}</dt>
-      <dd className={`numeric text-right ${accent ? "text-acid" : ""}`}>{value}</dd>
+      <dt className="text-ink-2">{label}</dt>
+      <dd className={`numeric text-right ${accent ? "text-accent" : ""}`}>{value}</dd>
     </div>
   );
 }

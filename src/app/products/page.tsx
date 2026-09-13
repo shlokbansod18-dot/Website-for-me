@@ -36,23 +36,23 @@ export default async function ProductsPage({
   return (
     <div className="shell py-14 lg:py-20">
       <header className="mb-10 max-w-2xl">
-        <p className="eyebrow">The shop</p>
-        <h1 className="display-sm mt-3">
+        <p className="label">The shop</p>
+        <h1 className="display-2 mt-3">
           {query.search ? (
             <>
-              Results for <span className="text-acid">&ldquo;{query.search}&rdquo;</span>
+              Results for <span className="text-accent">&ldquo;{query.search}&rdquo;</span>
             </>
           ) : query.category ? (
             <>
-              {query.category}, <span className="text-faint">all of it</span>
+              {query.category}, <span className="text-ink-3">all of it</span>
             </>
           ) : (
             <>
-              Everything, <span className="text-faint">in one place</span>
+              Everything, <span className="text-ink-3">in one place</span>
             </>
           )}
         </h1>
-        <p className="mt-4 text-dim">
+        <p className="mt-4 text-ink-2">
           Every product is delivered instantly, includes a licence key, and gets free updates for
           as long as the creator ships them.
         </p>
@@ -65,14 +65,14 @@ export default async function ProductsPage({
       {products.length > 0 ? (
         <ProductGrid products={products} />
       ) : (
-        <div className="card grid place-items-center px-6 py-24 text-center">
-          <span aria-hidden className="font-display text-5xl text-faint">
+        <div className="panel grid place-items-center px-6 py-24 text-center">
+          <span aria-hidden className="font-display text-5xl text-ink-3">
             ⌀
           </span>
-          <h2 className="mt-6 font-display text-2xl font-bold tracking-tight">
+          <h2 className="mt-6 font-display text-2xl tracking-tight">
             Nothing matches that
           </h2>
-          <p className="mt-3 max-w-sm text-sm text-dim">
+          <p className="mt-3 max-w-sm text-sm text-ink-2">
             Try a shorter search, or clear the filters to see the whole catalogue.
           </p>
           <ButtonLink href="/products" variant="outline" className="mt-7">

@@ -34,21 +34,21 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
       <header className="mb-10">
         <Link
           href="/studio"
-          className="text-[0.8125rem] text-faint transition-colors hover:text-text"
+          className="text-[0.8125rem] text-ink-3 transition-colors hover:text-ink"
         >
           ← Studio
         </Link>
         <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
-          <h1 className="display-sm">{product.title}</h1>
+          <h1 className="display-2">{product.title}</h1>
           <span
             className={`rounded-full px-3 py-1 text-[0.6875rem] font-medium ${
-              product.status === "published" ? "bg-acid/12 text-acid" : "bg-line text-faint"
+              product.status === "published" ? "bg-accent/12 text-accent" : "bg-line text-ink-3"
             }`}
           >
             {product.status === "published" ? "LIVE IN THE SHOP" : "DRAFT"}
           </span>
         </div>
-        <p className="mt-3 text-[0.8125rem] text-faint">
+        <p className="mt-3 text-[0.8125rem] text-ink-3">
           {product.salesCount.toLocaleString()} sold ·{" "}
           <span className="font-mono">/products/{product.slug}</span>
         </p>

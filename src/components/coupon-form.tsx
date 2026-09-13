@@ -14,17 +14,17 @@ export function CouponForm({ applied }: { applied: string | null }) {
     return (
       <form action={removeCouponAction} className="flex items-center justify-between gap-3">
         <span className="flex min-w-0 items-center gap-2 text-[0.8125rem]">
-          <span aria-hidden className="text-acid">
+          <span aria-hidden className="text-accent">
             ✓
           </span>
-          <span className="truncate font-mono text-xs uppercase tracking-wide text-acid">
+          <span className="truncate font-mono text-xs uppercase tracking-wide text-accent">
             {applied}
           </span>
-          <span className="shrink-0 text-faint">applied</span>
+          <span className="shrink-0 text-ink-3">applied</span>
         </span>
         <button
           type="submit"
-          className="shrink-0 text-xs text-faint underline-offset-4 transition-colors hover:text-flare hover:underline"
+          className="shrink-0 text-xs text-ink-3 underline-offset-4 transition-colors hover:text-alert hover:underline"
         >
           Remove
         </button>
@@ -44,12 +44,12 @@ export function CouponForm({ applied }: { applied: string | null }) {
           placeholder="Coupon code"
           autoComplete="off"
           spellCheck={false}
-          className="min-w-0 flex-1 rounded-full border border-line bg-surface-2 px-4 py-2.5 font-mono text-xs uppercase tracking-wider outline-none transition-colors placeholder:font-sans placeholder:normal-case placeholder:tracking-normal placeholder:text-faint hover:border-line-strong focus:border-acid"
+          className="min-w-0 flex-1 rounded border border-line bg-surface-2 px-4 py-2.5 font-mono text-xs uppercase tracking-wider outline-none transition-colors placeholder:font-sans placeholder:normal-case placeholder:tracking-normal placeholder:text-ink-3 hover:border-line-2 focus:border-accent"
         />
         <button
           type="submit"
           disabled={pending}
-          className="shrink-0 rounded-full border border-line-strong px-4 text-[0.8125rem] transition-colors hover:border-acid hover:text-acid disabled:opacity-50"
+          className="shrink-0 rounded-full border border-line-2 px-4 text-[0.8125rem] transition-colors hover:border-accent hover:text-accent disabled:opacity-50"
         >
           {pending ? "…" : "Apply"}
         </button>
@@ -57,7 +57,7 @@ export function CouponForm({ applied }: { applied: string | null }) {
       {state.message ? (
         <p
           role="status"
-          className={`mt-2 text-xs ${state.ok ? "text-acid" : "text-flare"}`}
+          className={`mt-2 text-xs ${state.ok ? "text-accent" : "text-alert"}`}
         >
           {state.message}
         </p>

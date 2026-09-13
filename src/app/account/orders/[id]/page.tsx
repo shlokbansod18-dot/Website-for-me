@@ -27,21 +27,21 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
     <div>
       <Link
         href="/account/orders"
-        className="mb-6 inline-block text-[0.8125rem] text-faint transition-colors hover:text-text"
+        className="mb-6 inline-block text-[0.8125rem] text-ink-3 transition-colors hover:text-ink"
       >
         ← All orders
       </Link>
 
-      <div className="card overflow-hidden">
+      <div className="panel overflow-hidden">
         <div className="flex flex-wrap items-start justify-between gap-4 border-b border-line p-7">
           <div>
-            <p className="eyebrow">Invoice</p>
+            <p className="label">Invoice</p>
             <h2 className="numeric mt-2 font-mono text-xl font-medium">{order.order_number}</h2>
-            <p className="mt-1 text-xs text-faint">{formatDateTime(order.created_at)}</p>
+            <p className="mt-1 text-xs text-ink-3">{formatDateTime(order.created_at)}</p>
           </div>
           <span
             className={`rounded-full px-3 py-1 text-[0.6875rem] font-medium ${
-              order.status === "paid" ? "bg-acid/12 text-acid" : "bg-flare/12 text-flare"
+              order.status === "paid" ? "bg-accent/12 text-accent" : "bg-alert/12 text-alert"
             }`}
           >
             {order.status === "paid" ? "Paid in full" : order.status}
@@ -50,19 +50,19 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
 
         <div className="grid gap-8 border-b border-line p-7 sm:grid-cols-2">
           <div>
-            <h3 className="eyebrow mb-3">Billed to</h3>
+            <h3 className="label mb-3">Billed to</h3>
             {billing ? (
-              <address className="space-y-0.5 text-[0.8125rem] not-italic leading-relaxed text-dim">
-                <p className="text-text">{billing.fullName}</p>
+              <address className="space-y-0.5 text-[0.8125rem] not-italic leading-relaxed text-ink-2">
+                <p className="text-ink">{billing.fullName}</p>
                 <p>{billing.addressLine}</p>
                 <p>
                   {billing.city} {billing.postalCode}
                 </p>
                 <p>{billing.country}</p>
-                {billing.taxId ? <p className="pt-1 text-faint">Tax ID {billing.taxId}</p> : null}
+                {billing.taxId ? <p className="pt-1 text-ink-3">Tax ID {billing.taxId}</p> : null}
               </address>
             ) : (
-              <p className="text-[0.8125rem] text-faint">
+              <p className="text-[0.8125rem] text-ink-3">
                 The billing details for this order could not be decrypted. This happens if the
                 site&rsquo;s encryption key was changed after the order was placed.
               </p>
@@ -70,8 +70,8 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
           </div>
 
           <div>
-            <h3 className="eyebrow mb-3">Payment</h3>
-            <dl className="space-y-1.5 text-[0.8125rem] text-dim">
+            <h3 className="label mb-3">Payment</h3>
+            <dl className="space-y-1.5 text-[0.8125rem] text-ink-2">
               <div className="flex justify-between gap-4">
                 <dt>Method</dt>
                 <dd className="text-right">
@@ -86,7 +86,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
               </div>
               <div className="flex justify-between gap-4">
                 <dt>Delivery</dt>
-                <dd className="text-acid">Instant download</dd>
+                <dd className="text-accent">Instant download</dd>
               </div>
             </dl>
           </div>
@@ -96,10 +96,10 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
           <caption className="sr-only">Items in order {order.order_number}</caption>
           <thead>
             <tr className="border-b border-line text-left">
-              <th scope="col" className="eyebrow px-7 py-3 font-normal">
+              <th scope="col" className="label px-7 py-3 font-normal">
                 Product
               </th>
-              <th scope="col" className="eyebrow px-7 py-3 text-right font-normal">
+              <th scope="col" className="label px-7 py-3 text-right font-normal">
                 Price
               </th>
             </tr>
@@ -109,7 +109,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
               <tr key={item.id} className="border-b border-line">
                 <td className="px-7 py-4">
                   <span className="block font-medium">{item.title}</span>
-                  <code className="mt-1 block font-mono text-[0.6875rem] tracking-wider text-faint">
+                  <code className="mt-1 block font-mono text-[0.6875rem] tracking-wider text-ink-3">
                     {item.licence_key}
                   </code>
                 </td>
@@ -123,25 +123,25 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
 
         <dl className="space-y-2.5 p-7 text-[0.8125rem]">
           <div className="flex justify-between">
-            <dt className="text-dim">Subtotal</dt>
+            <dt className="text-ink-2">Subtotal</dt>
             <dd className="numeric">{formatMoney(order.subtotal_cents, order.currency)}</dd>
           </div>
           {order.discount_cents > 0 && (
-            <div className="flex justify-between text-acid">
+            <div className="flex justify-between text-accent">
               <dt>Discount {order.coupon_code ? `(${order.coupon_code})` : ""}</dt>
               <dd className="numeric">−{formatMoney(order.discount_cents, order.currency)}</dd>
             </div>
           )}
           <div className="flex items-end justify-between border-t border-line pt-4">
-            <dt className="text-dim">Total</dt>
-            <dd className="numeric font-display text-2xl font-bold tracking-tight">
+            <dt className="text-ink-2">Total</dt>
+            <dd className="numeric font-display text-2xl tracking-tight">
               {formatMoney(order.total_cents, order.currency)}
             </dd>
           </div>
         </dl>
       </div>
 
-      <p className="mt-5 text-[0.6875rem] leading-relaxed text-faint">
+      <p className="mt-5 text-[0.6875rem] leading-relaxed text-ink-3">
         Need this as a PDF? Use your browser&rsquo;s print dialogue and choose &ldquo;Save as
         PDF&rdquo;. Your billing address is stored encrypted and is only ever decrypted to render
         this page for you.

@@ -44,19 +44,19 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="shell py-10 lg:py-14">
-      <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-xs text-faint">
-        <Link href="/products" className="transition-colors hover:text-acid">
+      <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-xs text-ink-3">
+        <Link href="/products" className="transition-colors hover:text-accent">
           Shop
         </Link>
         <span aria-hidden>/</span>
         <Link
           href={`/products?category=${encodeURIComponent(product.category)}`}
-          className="transition-colors hover:text-acid"
+          className="transition-colors hover:text-accent"
         >
           {product.category}
         </Link>
         <span aria-hidden>/</span>
-        <span className="truncate text-dim">{product.title}</span>
+        <span className="truncate text-ink-2">{product.title}</span>
       </nav>
 
       {/*
@@ -71,7 +71,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <ProductCover
             seed={product.slug}
             accent={product.accent}
-            glyph={product.glyph}
+            title={product.title}
             size="lg"
             className="aspect-[16/11] w-full rounded-[1.75rem] border border-line"
           />
@@ -79,42 +79,42 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
         {/* ── The buy box, which follows you down the page on desktop ───── */}
         <aside className="lg:sticky lg:top-28 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
-          <div className="card p-7">
+          <div className="panel p-7">
             <div className="flex items-start justify-between gap-4">
-              <span className="rounded-full border border-line px-2.5 py-1 text-[0.625rem] tracking-wide text-faint">
+              <span className="rounded-full border border-line px-2.5 py-1 text-[0.625rem] tracking-wide text-ink-3">
                 {product.category}
               </span>
-              <span className="numeric flex items-center gap-1.5 text-xs text-faint">
-                <span aria-hidden className="text-acid">
+              <span className="numeric flex items-center gap-1.5 text-xs text-ink-3">
+                <span aria-hidden className="text-accent">
                   ★
                 </span>
                 {product.rating.toFixed(1)}
-                <span className="text-line-strong">·</span>
+                <span className="text-line-2">·</span>
                 {product.salesCount.toLocaleString()} sold
               </span>
             </div>
 
-            <h1 className="mt-5 font-display text-3xl font-bold leading-[1.05] tracking-[-0.04em]">
+            <h1 className="mt-5 font-display text-3xl leading-[1.05]">
               {product.title}
             </h1>
-            <p className="mt-3 text-[0.9375rem] leading-relaxed text-dim">{product.tagline}</p>
+            <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-2">{product.tagline}</p>
 
             <div className="mt-7 flex items-end gap-3 border-t border-line pt-6">
-              <span className="numeric font-display text-4xl font-bold tracking-[-0.04em]">
+              <span className="numeric font-display text-4xl">
                 {formatMoney(product.priceCents, product.currency)}
               </span>
               {product.compareAtCents && product.compareAtCents > product.priceCents ? (
                 <>
-                  <span className="numeric mb-1.5 text-sm text-faint line-through">
+                  <span className="numeric mb-1.5 text-sm text-ink-3 line-through">
                     {formatMoney(product.compareAtCents, product.currency)}
                   </span>
-                  <span className="numeric mb-1.5 rounded-full bg-acid px-2 py-0.5 text-[0.625rem] font-bold text-acid-ink">
+                  <span className="numeric mb-1.5 rounded-full bg-accent px-2 py-0.5 text-[0.625rem] font-bold text-on-accent">
                     SAVE {discount}%
                   </span>
                 </>
               ) : null}
             </div>
-            <p className="mt-2 text-xs text-faint">One-time payment. Yours forever.</p>
+            <p className="mt-2 text-xs text-ink-3">One-time payment. Yours forever.</p>
 
             <AddToCart
               productId={product.id}
@@ -128,12 +128,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             {owned ? (
               <Link
                 href="/account"
-                className="mt-3 block text-center text-[0.8125rem] text-dim transition-colors hover:text-acid"
+                className="mt-3 block text-center text-[0.8125rem] text-ink-2 transition-colors hover:text-accent"
               >
                 Go to your library to download it →
               </Link>
             ) : (
-              <p className="mt-4 flex items-center justify-center gap-2 text-[0.6875rem] text-faint">
+              <p className="mt-4 flex items-center justify-center gap-2 text-[0.6875rem] text-ink-3">
                 <LockIcon />
                 Encrypted checkout · instant download · 14-day refund
               </p>
@@ -148,12 +148,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </dl>
           </div>
 
-          <div className="card mt-4 flex gap-4 p-5">
-            <span aria-hidden className="text-lg text-acid">
+          <div className="panel mt-4 flex gap-4 p-5">
+            <span aria-hidden className="text-lg text-accent">
               ⇩
             </span>
-            <p className="text-[0.8125rem] leading-relaxed text-dim">
-              <span className="text-text">Delivered instantly.</span> The download appears in your
+            <p className="text-[0.8125rem] leading-relaxed text-ink-2">
+              <span className="text-ink">Delivered instantly.</span> The download appears in your
               library the moment payment clears, with a licence key attached. Files are served only
               to the account that bought them.
             </p>
@@ -163,8 +163,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         {/* ── The long copy ─────────────────────────────────────────────── */}
         <div className="lg:col-start-1 lg:row-start-2">
           <div>
-            <h2 className="eyebrow">About this product</h2>
-            <div className="mt-5 space-y-4 text-[0.9375rem] leading-relaxed text-dim">
+            <h2 className="label">About this product</h2>
+            <div className="mt-5 space-y-4 text-[0.9375rem] leading-relaxed text-ink-2">
               {product.description.split(/\n\s*\n/).map((paragraph, i) => (
                 <p key={i}>{paragraph}</p>
               ))}
@@ -173,14 +173,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
           {product.highlights.length > 0 && (
             <div className="mt-12">
-              <h2 className="eyebrow">What&rsquo;s included</h2>
+              <h2 className="label">What&rsquo;s included</h2>
               <ul className="mt-5 space-y-px overflow-hidden rounded-[1.25rem] border border-line">
                 {product.highlights.map((item) => (
                   <li key={item} className="flex gap-4 bg-surface px-5 py-4 text-[0.875rem]">
-                    <span aria-hidden className="mt-0.5 shrink-0 text-acid">
+                    <span aria-hidden className="mt-0.5 shrink-0 text-accent">
                       ✓
                     </span>
-                    <span className="text-dim">{item}</span>
+                    <span className="text-ink-2">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -193,7 +193,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <Link
                   key={tag}
                   href={`/products?q=${encodeURIComponent(tag)}`}
-                  className="rounded-full border border-line px-3 py-1.5 text-xs text-faint transition-colors hover:border-acid hover:text-acid"
+                  className="rounded-full border border-line px-3 py-1.5 text-xs text-ink-3 transition-colors hover:border-accent hover:text-accent"
                 >
                   #{tag}
                 </Link>
@@ -206,7 +206,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       {related.length > 0 && (
         <section className="mt-24">
-          <h2 className="display-sm mb-8">You might also like</h2>
+          <h2 className="display-2 mb-8">You might also like</h2>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((item) => (
               <ProductCard key={item.id} product={item} />
@@ -231,9 +231,9 @@ function Row({
 }) {
   return (
     <div className="flex items-start justify-between gap-6">
-      <dt className="shrink-0 text-faint">{label}</dt>
+      <dt className="shrink-0 text-ink-3">{label}</dt>
       <dd
-        className={`text-right text-dim ${mono ? "font-mono text-xs" : ""} ${wrap ? "" : "truncate"}`}
+        className={`text-right text-ink-2 ${mono ? "font-mono text-xs" : ""} ${wrap ? "" : "truncate"}`}
       >
         {value}
       </dd>

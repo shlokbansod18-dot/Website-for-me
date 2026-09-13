@@ -25,8 +25,8 @@ export default async function LibraryPage() {
     <div>
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="font-display text-xl font-bold tracking-[-0.035em]">Your library</h2>
-          <p className="mt-1 text-[0.8125rem] text-dim">
+          <h2 className="font-display text-xl">Your library</h2>
+          <p className="mt-1 text-[0.8125rem] text-ink-2">
             {library.length === 0
               ? "Everything you buy shows up here, forever."
               : `${library.length} product${library.length === 1 ? "" : "s"} · download as many times as you like`}
@@ -40,12 +40,12 @@ export default async function LibraryPage() {
       </div>
 
       {library.length === 0 ? (
-        <div className="card grid place-items-center px-6 py-20 text-center">
-          <span aria-hidden className="font-display text-4xl text-faint">
+        <div className="panel grid place-items-center px-6 py-20 text-center">
+          <span aria-hidden className="font-display text-4xl text-ink-3">
             ◌
           </span>
-          <h3 className="mt-5 font-display text-lg font-bold">Nothing here yet</h3>
-          <p className="mt-2 max-w-xs text-sm text-dim">
+          <h3 className="mt-5 font-display text-lg">Nothing here yet</h3>
+          <p className="mt-2 max-w-xs text-sm text-ink-2">
             Once you buy something it lands here instantly, with its licence key and every future
             update.
           </p>
@@ -61,19 +61,19 @@ export default async function LibraryPage() {
                 <ProductCover
                   seed={entry.product.slug}
                   accent={entry.product.accent}
-                  glyph={entry.product.glyph}
+                  title={entry.product.title}
                   size="sm"
-                  className="size-16 shrink-0 rounded-xl border border-line"
+                  className="size-16 shrink-0 rounded border border-line"
                 />
 
                 <div className="min-w-0 flex-1">
                   <Link
                     href={`/products/${entry.product.slug}`}
-                    className="font-display text-[0.9375rem] font-bold tracking-[-0.03em] transition-colors hover:text-acid"
+                    className="font-display text-[0.9375rem] transition-colors hover:text-accent"
                   >
                     {entry.product.title}
                   </Link>
-                  <p className="mt-0.5 text-xs text-faint">
+                  <p className="mt-0.5 text-xs text-ink-3">
                     v{entry.product.version} · {formatBytes(entry.product.fileSize)} · bought{" "}
                     {formatDate(entry.purchasedAt)}
                   </p>
@@ -81,7 +81,7 @@ export default async function LibraryPage() {
 
                 <a
                   href={`/api/download/${entry.entitlementId}`}
-                  className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full bg-acid px-5 text-[0.8125rem] font-medium text-acid-ink transition-[filter] hover:brightness-110"
+                  className="inline-flex h-10 shrink-0 items-center gap-2 rounded bg-accent px-5 text-[0.8125rem] font-medium text-on-accent transition-[filter] hover:brightness-110"
                 >
                   <DownloadIcon />
                   Download
@@ -89,11 +89,11 @@ export default async function LibraryPage() {
               </div>
 
               <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line pt-4 text-xs">
-                <span className="text-faint">Licence key</span>
-                <code className="rounded-md border border-line bg-canvas px-2 py-1 font-mono text-[0.6875rem] tracking-wider text-acid">
+                <span className="text-ink-3">Licence key</span>
+                <code className="rounded-md border border-line bg-paper px-2 py-1 font-mono text-[0.6875rem] tracking-wider text-accent">
                   {entry.licenceKey}
                 </code>
-                <span className="text-faint">
+                <span className="text-ink-3">
                   {entry.downloadsUsed === 0
                     ? "Not downloaded yet"
                     : `Downloaded ${entry.downloadsUsed} time${entry.downloadsUsed === 1 ? "" : "s"}`}

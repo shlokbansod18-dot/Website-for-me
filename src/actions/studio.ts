@@ -96,7 +96,6 @@ export async function saveProductAction(
     highlights: formData.get("highlights") ?? "",
     tags: formData.get("tags") ?? "",
     accent: formData.get("accent") ?? "acid",
-    glyph: formData.get("glyph") || "◆",
     version: formData.get("version") || "1.0",
     licence: formData.get("licence") || "Standard commercial licence",
     status: formData.get("status") ?? "draft",
@@ -160,7 +159,7 @@ export async function saveProductAction(
     db.prepare(
       `UPDATE products SET
          title = ?, slug = ?, tagline = ?, description = ?, category = ?,
-         price_cents = ?, compare_at_cents = ?, status = ?, accent = ?, glyph = ?,
+         price_cents = ?, compare_at_cents = ?, status = ?, accent = ?,
          highlights = ?, tags = ?, version = ?, licence = ?, updated_at = ?
          ${file ? ", file_name = ?, file_path = ?, file_size = ?, file_mime = ?" : ""}
        WHERE id = ?`,
@@ -175,7 +174,6 @@ export async function saveProductAction(
         data.compareAt,
         data.status,
         data.accent,
-        data.glyph,
         highlights,
         tags,
         data.version,
@@ -197,7 +195,7 @@ export async function saveProductAction(
   db.prepare(
     `INSERT INTO products (
        id, slug, title, tagline, description, category, price_cents, compare_at_cents,
-       status, seller_id, accent, glyph, highlights, tags, file_name, file_path,
+       status, seller_id, accent, highlights, tags, file_name, file_path,
        file_size, file_mime, version, licence, created_at, updated_at
      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   ).run(
@@ -212,7 +210,6 @@ export async function saveProductAction(
     data.status,
     seller.id,
     data.accent,
-    data.glyph,
     highlights,
     tags,
     file?.name ?? null,

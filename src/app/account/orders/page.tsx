@@ -23,18 +23,18 @@ export default async function OrdersPage() {
   return (
     <div>
       <div className="mb-8">
-        <h2 className="font-display text-xl font-bold tracking-[-0.035em]">Orders</h2>
-        <p className="mt-1 text-[0.8125rem] text-dim">
+        <h2 className="font-display text-xl">Orders</h2>
+        <p className="mt-1 text-[0.8125rem] text-ink-2">
           Every receipt, kept for as long as your account exists.
         </p>
       </div>
 
       {orders.length === 0 ? (
-        <div className="card grid place-items-center px-6 py-20 text-center">
-          <span aria-hidden className="font-display text-4xl text-faint">
+        <div className="panel grid place-items-center px-6 py-20 text-center">
+          <span aria-hidden className="font-display text-4xl text-ink-3">
             ▤
           </span>
-          <h3 className="mt-5 font-display text-lg font-bold">No orders yet</h3>
+          <h3 className="mt-5 font-display text-lg">No orders yet</h3>
           <ButtonLink href="/products" className="mt-6">
             Browse the shop
           </ButtonLink>
@@ -51,7 +51,7 @@ export default async function OrdersPage() {
                   <p className="numeric font-mono text-[0.8125rem] font-medium">
                     {order.order_number}
                   </p>
-                  <p className="mt-1 text-xs text-faint">
+                  <p className="mt-1 text-xs text-ink-3">
                     {formatDateTime(order.created_at)} · {itemCount} item
                     {itemCount === 1 ? "" : "s"}
                     {order.payment_brand
@@ -63,18 +63,18 @@ export default async function OrdersPage() {
                 <span
                   className={`rounded-full px-2.5 py-1 text-[0.625rem] font-medium tracking-wide ${
                     order.status === "paid"
-                      ? "bg-acid/12 text-acid"
-                      : "bg-flare/12 text-flare"
+                      ? "bg-accent/12 text-accent"
+                      : "bg-alert/12 text-alert"
                   }`}
                 >
                   {order.status.toUpperCase()}
                 </span>
 
-                <span className="numeric font-display text-base font-bold tracking-tight">
+                <span className="numeric font-display text-base tracking-tight">
                   {formatMoney(order.total_cents, order.currency)}
                 </span>
 
-                <span aria-hidden className="text-faint">
+                <span aria-hidden className="text-ink-3">
                   →
                 </span>
               </Link>

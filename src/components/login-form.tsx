@@ -47,7 +47,7 @@ export function LoginForm({ next }: { next: string }) {
         <button
           type="button"
           onClick={() => setShowPassword((v) => !v)}
-          className="absolute right-4 top-[2.4rem] text-[0.6875rem] text-faint transition-colors hover:text-acid"
+          className="absolute right-4 top-[2.4rem] text-[0.6875rem] text-ink-3 transition-colors hover:text-accent"
         >
           {showPassword ? "Hide" : "Show"}
         </button>
@@ -56,7 +56,7 @@ export function LoginForm({ next }: { next: string }) {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-acid text-sm font-medium text-acid-ink transition-[filter] hover:brightness-110 disabled:opacity-60"
+        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-accent text-sm font-medium text-on-accent transition-[filter] hover:brightness-110 disabled:opacity-60"
       >
         {pending ? (
           <>
@@ -68,7 +68,7 @@ export function LoginForm({ next }: { next: string }) {
         )}
       </button>
 
-      <p className="text-center text-[0.6875rem] leading-relaxed text-faint">
+      <p className="text-center text-[0.6875rem] leading-relaxed text-ink-3">
         After eight wrong attempts an account locks itself for fifteen minutes. That is deliberate —
         it makes guessing your password impractical.
       </p>

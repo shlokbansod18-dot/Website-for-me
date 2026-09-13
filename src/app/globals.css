@@ -1,87 +1,86 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SoftSystem — design tokens
-   Dark is the default look. The light theme is an explicit choice the
-   visitor makes with the header toggle; it is stored in localStorage and
-   applied as data-theme="light" on <html> before first paint.
+   softsystem — design tokens
+
+   The look is a gallery, not a dashboard: a warm porcelain ground, near-black
+   ink, and exactly one accent, spent only where a decision happens. The
+   products supply the colour; the frame stays quiet.
+
+   Light is the default. Dark is a considered second set, not an inversion.
    ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
-  --canvas: #08080a;
-  --surface: #0f1013;
-  --surface-2: #16171c;
-  --line: rgb(255 255 255 / 0.09);
-  --line-strong: rgb(255 255 255 / 0.16);
-
-  --text: #f4f4f2;
-  --text-dim: #a1a3ad;
-  --text-faint: #6b6d78;
-
-  --acid: #d8ff3e;
-  --acid-ink: #0b0f00;
-  --violet: #8b6bff;
-  --flare: #ff5f3c;
-  --sky: #4fd4f5;
-
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 40px -12px rgb(0 0 0 / 0.7);
-  --grain-opacity: 0.032;
-}
-
-:root[data-theme="light"] {
-  --canvas: #f3f3f0;
+  --paper: #f1f0ec;
   --surface: #ffffff;
-  --surface-2: #f7f7f4;
-  --line: rgb(10 10 12 / 0.11);
-  --line-strong: rgb(10 10 12 / 0.22);
+  --surface-2: #e8e6e0;
+  --line: rgb(20 20 15 / 0.11);
+  --line-2: rgb(20 20 15 / 0.22);
 
-  --text: #101014;
-  --text-dim: #55575f;
-  --text-faint: #86888f;
+  --ink: #14140f;
+  --ink-2: #6a6862;
+  --ink-3: #9a978f;
 
-  --acid: #c6f000;
-  --acid-ink: #0b0f00;
-  --violet: #6c4bff;
-  --flare: #e5411c;
-  --sky: #0aa5cc;
+  /* One accent. Ultramarine reads considered next to warm neutrals in a way
+     a tech-blue or an acid green does not. */
+  --accent: #1b17d5;
+  --accent-soft: #e2e1fb;
+  --on-accent: #ffffff;
 
-  --shadow-soft: 0 1px 2px rgb(16 16 20 / 0.06), 0 14px 40px -18px rgb(16 16 20 / 0.28);
-  --grain-opacity: 0.02;
+  --positive: #1f6b45;
+  --alert: #a52d16;
+
+  --lift: 0 1px 1px rgb(20 20 15 / 0.04), 0 12px 32px -18px rgb(20 20 15 / 0.4);
+  --grain-opacity: 0.028;
 }
 
-/* `inline` keeps the utilities pointing at the variables above, so the theme
-   toggle re-colours the whole site without a stylesheet swap. */
+:root[data-theme="dark"] {
+  --paper: #121210;
+  --surface: #1a1a17;
+  --surface-2: #23231f;
+  --line: rgb(242 241 236 / 0.12);
+  --line-2: rgb(242 241 236 / 0.24);
+
+  --ink: #f2f1ec;
+  --ink-2: #a5a29a;
+  --ink-3: #706e66;
+
+  --accent: #7b73ff;
+  --accent-soft: #23204a;
+  --on-accent: #0d0b28;
+
+  --positive: #6fcf9a;
+  --alert: #ff8f70;
+
+  --lift: 0 1px 1px rgb(0 0 0 / 0.5), 0 14px 36px -20px rgb(0 0 0 / 0.9);
+  --grain-opacity: 0.035;
+}
+
 @theme inline {
-  --color-canvas: var(--canvas);
+  --color-paper: var(--paper);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --color-line: var(--line);
-  --color-line-strong: var(--line-strong);
-  --color-text: var(--text);
-  --color-dim: var(--text-dim);
-  --color-faint: var(--text-faint);
-  --color-acid: var(--acid);
-  --color-acid-ink: var(--acid-ink);
-  --color-violet: var(--violet);
-  --color-flare: var(--flare);
-  --color-sky: var(--sky);
+  --color-line-2: var(--line-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-positive: var(--positive);
+  --color-alert: var(--alert);
 
-  --font-display: var(--font-bricolage), "Segoe UI", system-ui, sans-serif;
-  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-serif), "Iowan Old Style", Palatino, Georgia, serif;
+  --font-sans: var(--font-sans-ui), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
-
-  --radius-card: 1.5rem;
-  --radius-pill: 999px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   Cascade layers.
-
-   Tailwind v4 declares: theme, base, components, utilities. Anything written
-   OUTSIDE a layer beats every layered rule regardless of specificity — so a
-   bare `button { color: inherit }` out here would silently defeat every
-   `text-*` utility in the project. Everything below therefore goes in the
-   right layer, which is what lets a utility on an element win.
+   Cascade layers. Tailwind declares theme, base, components, utilities.
+   Anything outside a layer beats every layered rule regardless of
+   specificity — a bare `button { color: inherit }` out here would silently
+   defeat every text-* utility. So everything below sits in its layer.
    ═══════════════════════════════════════════════════════════════════════ */
 
 @layer base {
@@ -90,115 +89,126 @@
   }
 
   html {
-    color-scheme: dark;
-    scroll-behavior: smooth;
+    color-scheme: light;
     -webkit-text-size-adjust: 100%;
   }
-  html[data-theme="light"] {
-    color-scheme: light;
+  html[data-theme="dark"] {
+    color-scheme: dark;
   }
 
   body {
-    background: var(--canvas);
-    color: var(--text);
+    background: var(--paper);
+    color: var(--ink);
     font-family: var(--font-sans);
-    font-size: 0.9375rem;
-    line-height: 1.65;
-    letter-spacing: -0.006em;
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: -0.002em;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4 {
+  /* The serif carries every heading. It is high-contrast, so it wants less
+     negative tracking than a grotesque and a little more room to breathe. */
+  h1, h2, h3 {
     font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.038em;
-    line-height: 0.98;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1;
     text-wrap: balance;
+  }
+  h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   p { text-wrap: pretty; }
 
   ::selection {
-    background: var(--acid);
-    color: var(--acid-ink);
+    background: var(--accent);
+    color: var(--on-accent);
   }
 
-  /* Keyboard users get a loud, unmissable focus ring. */
   :focus-visible {
-    outline: 2px solid var(--acid);
-    outline-offset: 3px;
-    border-radius: 4px;
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
   :focus:not(:focus-visible) { outline: none; }
 
-  ::-webkit-scrollbar { width: 11px; height: 11px; }
-  ::-webkit-scrollbar-track { background: var(--canvas); }
-  ::-webkit-scrollbar-thumb {
-    background: var(--line-strong);
-    border-radius: 999px;
-    border: 3px solid var(--canvas);
-  }
-  ::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
-
   input, textarea, select, button { font: inherit; color: inherit; }
 
-  /* Chrome's yellow autofill wash destroys a dark form; repaint it. */
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {
-    -webkit-text-fill-color: var(--text);
-    -webkit-box-shadow: 0 0 0 1000px var(--surface-2) inset;
-    caret-color: var(--text);
+    -webkit-text-fill-color: var(--ink);
+    -webkit-box-shadow: 0 0 0 1000px var(--surface) inset;
+    caret-color: var(--ink);
+  }
+
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line-2);
+    border: 4px solid var(--paper);
+    border-radius: 999px;
   }
 }
 
 @layer components {
-  /* ── Texture ───────────────────────────────────────────────────────────── */
-
-  /* A fixed film grain sits above the background and below the content. It is
-     what stops large flat areas of near-black from banding on cheap panels. */
+  /* A fine paper tooth. Keeps large flat areas from looking like flat fills. */
   .grain::before {
     content: "";
     position: fixed;
-    inset: -50%;
+    inset: 0;
     z-index: 0;
     pointer-events: none;
     opacity: var(--grain-opacity);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-
-  /* ── Reusable pieces ───────────────────────────────────────────────────── */
 
   .shell {
     width: 100%;
-    max-width: 84rem;
+    max-width: 78rem;
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: 1.5rem;
   }
-  @media (min-width: 768px) {
-    .shell { padding-inline: 2rem; }
+  @media (min-width: 900px) {
+    .shell { padding-inline: 3rem; }
   }
 
-  .eyebrow {
+  /* Small caps label. The only place letter-spacing goes positive. */
+  .label {
+    font-family: var(--font-sans);
     font-size: 0.6875rem;
     font-weight: 500;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-faint);
+    color: var(--ink-3);
   }
 
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-card);
+  /* Editorial display sizes. The serif is set large and tight on purpose —
+     at this scale its contrast is the design. */
+  .display {
+    font-size: clamp(3rem, 8.5vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+  }
+  .display-2 {
+    font-size: clamp(2.125rem, 4.6vw, 3.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+  .display-3 {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    line-height: 1.1;
   }
 
-  .glass {
-    background: color-mix(in oklab, var(--canvas) 72%, transparent);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
+  /* Italic serif on a single word is the house emphasis. */
+  .em {
+    font-style: italic;
+    color: var(--accent);
   }
 
   .numeric {
@@ -206,100 +216,70 @@
     font-feature-settings: "tnum";
   }
 
-  /* Big editorial headline sizing, fluid from phone to desktop. */
-  .display {
-    font-size: clamp(2.75rem, 9vw, 7.5rem);
-    letter-spacing: -0.05em;
-    line-height: 0.9;
-  }
-  .display-sm {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    letter-spacing: -0.042em;
-    line-height: 0.98;
+  /* A panel, used sparingly. Most things on this site sit directly on the
+     paper — a border everywhere flattens the hierarchy. */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
   }
 
-  /* Soft coloured light behind hero and section headers. */
-  .bloom {
-    position: absolute;
-    border-radius: 999px;
-    filter: blur(90px);
-    pointer-events: none;
-    z-index: 0;
-  }
-}
-
-/* ── Motion ────────────────────────────────────────────────────────────── */
-
-@keyframes ss-marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-@keyframes ss-rise {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes ss-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.45; transform: scale(0.82); }
-}
-@keyframes ss-spin {
-  to { transform: rotate(360deg); }
-}
-
-@layer components {
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    animation: ss-marquee 38s linear infinite;
-  }
-  .marquee:hover .marquee-track {
-    animation-play-state: paused;
+  .rule {
+    border: 0;
+    border-top: 1px solid var(--line);
   }
 
-  .pulse-dot {
-    animation: ss-pulse 2.4s ease-in-out infinite;
+  /* Understated link underline that thickens on hover. */
+  .link {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--line-2);
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 0.15s ease;
   }
+  .link:hover { text-decoration-color: var(--accent); }
 
-  .spin {
-    animation: ss-spin 0.7s linear infinite;
-  }
-
-  /* Hidden until focused, then the first thing a keyboard lands on. */
   .skip-link {
     position: fixed;
     top: 0.75rem;
     left: 0.75rem;
     z-index: 100;
-    padding: 0.6rem 1rem;
-    border-radius: 999px;
-    background: var(--acid);
-    color: var(--acid-ink);
-    font-weight: 600;
-    transform: translateY(-200%);
+    padding: 0.7rem 1.1rem;
+    border-radius: 4px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 500;
+    transform: translateY(-250%);
     transition: transform 0.18s ease;
   }
-  .skip-link:focus {
-    transform: none;
-  }
+  .skip-link:focus { transform: none; }
 }
 
-/* Elements marked data-reveal fade up as they scroll into view.
+/* ── Motion ────────────────────────────────────────────────────────────── */
 
-   Two deliberate choices here. The hidden starting state is scoped to
-   html.js — a class the inline boot script adds before first paint — so if
-   script is blocked or fails, none of this applies and the content is simply
-   visible. And these rules stay outside the layers on purpose: the hidden
-   state has to survive whatever utilities sit on the element. */
+@keyframes ss-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes ss-spin { to { transform: rotate(360deg); } }
+
+@layer components {
+  .spin { animation: ss-spin 0.7s linear infinite; }
+}
+
+/* Scroll reveals are scoped to html.js, a class the inline boot script adds
+   before first paint. If script never runs, nothing is hidden — content must
+   never depend on JavaScript to be readable. */
 .js [data-reveal] {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(14px);
 }
 .js [data-reveal].is-visible {
-  animation: ss-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: ss-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;

@@ -29,12 +29,12 @@ export default async function SignupPage({
 
   return (
     <AuthShell
-      eyebrow="First time here"
+      label="First time here"
       title={
         <>
           Make an
           <br />
-          <span className="text-acid">account</span>.
+          <span className="text-accent">account</span>.
         </>
       }
       subtitle="Two fields and a password. No phone number, no verification maze."
@@ -43,7 +43,7 @@ export default async function SignupPage({
           Already have one?{" "}
           <Link
             href={`/login${next ? `?next=${encodeURIComponent(target)}` : ""}`}
-            className="text-acid underline-offset-4 hover:underline"
+            className="text-accent underline-offset-4 hover:underline"
           >
             Sign in
           </Link>

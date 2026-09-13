@@ -38,9 +38,9 @@ export function ProfileForm({ user }: { user: PublicUser }) {
           value={user.email}
           readOnly
           disabled
-          className="w-full cursor-not-allowed rounded-2xl border border-line bg-canvas px-4 py-3 text-sm text-faint"
+          className="w-full cursor-not-allowed rounded border border-line bg-paper px-4 py-3 text-sm text-ink-3"
         />
-        <p className="mt-1.5 text-[0.6875rem] text-faint">
+        <p className="mt-1.5 text-[0.6875rem] text-ink-3">
           Your email is your sign-in and where receipts go. Changing it needs a verification step we
           have not built yet — for now, contact support.
         </p>
@@ -56,7 +56,7 @@ export function ProfileForm({ user }: { user: PublicUser }) {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex h-11 items-center justify-center rounded-full bg-acid px-6 text-sm font-medium text-acid-ink transition-[filter] hover:brightness-110 disabled:opacity-60"
+        className="inline-flex h-11 items-center justify-center rounded bg-accent px-6 text-sm font-medium text-on-accent transition-[filter] hover:brightness-110 disabled:opacity-60"
       >
         {pending ? "Saving…" : "Save changes"}
       </button>

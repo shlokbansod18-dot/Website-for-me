@@ -30,8 +30,8 @@ export function AccountNav({ canSell }: { canSell: boolean }) {
                 aria-current={active ? "page" : undefined}
                 className={`block whitespace-nowrap rounded-full px-4 py-2 text-[0.8125rem] transition-colors lg:rounded-xl ${
                   active
-                    ? "bg-surface-2 text-text lg:border-l-2 lg:border-acid lg:pl-3.5"
-                    : "text-dim hover:bg-surface hover:text-text"
+                    ? "bg-surface-2 text-ink lg:border-l-2 lg:border-accent lg:pl-3.5"
+                    : "text-ink-2 hover:bg-surface hover:text-ink"
                 }`}
               >
                 {link.label}
@@ -44,7 +44,7 @@ export function AccountNav({ canSell }: { canSell: boolean }) {
           <li className="shrink-0 lg:mt-4 lg:shrink lg:border-t lg:border-line lg:pt-4">
             <Link
               href="/studio"
-              className="flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-[0.8125rem] text-acid transition-colors hover:bg-acid/10 lg:rounded-xl"
+              className="flex items-center gap-2 whitespace-nowrap rounded px-4 py-2 text-[0.8125rem] text-accent transition-colors hover:bg-accent/10 lg:rounded"
             >
               Creator studio
               <span aria-hidden>→</span>

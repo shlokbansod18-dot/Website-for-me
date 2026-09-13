@@ -36,7 +36,19 @@ export function Reveal() {
     );
 
     targets.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+
+    // A safety net. If the observer never fires — a browser quirk, a page
+    // shorter than expected, a tab restored from the back/forward cache —
+    // the content must not stay invisible. Nothing here is worth hiding.
+    const failsafe = window.setTimeout(() => {
+      targets.forEach((el) => el.classList.add("is-visible"));
+      observer.disconnect();
+    }, 1600);
+
+    return () => {
+      window.clearTimeout(failsafe);
+      observer.disconnect();
+    };
   });
 
   return null;

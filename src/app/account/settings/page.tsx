@@ -18,13 +18,13 @@ export default async function SettingsPage() {
   return (
     <div className="max-w-xl">
       <div className="mb-8">
-        <h2 className="font-display text-xl font-bold tracking-[-0.035em]">Profile</h2>
-        <p className="mt-1 text-[0.8125rem] text-dim">
+        <h2 className="font-display text-xl">Profile</h2>
+        <p className="mt-1 text-[0.8125rem] text-ink-2">
           The short list of things we know about you.
         </p>
       </div>
 
-      <div className="card p-7">
+      <div className="panel p-7">
         <ProfileForm user={user} />
       </div>
     </div>

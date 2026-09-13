@@ -11,7 +11,7 @@ export default function TermsPage() {
   return (
     <>
       <h1>Terms of service</h1>
-      <p className="text-faint">Last updated: 10 September 2026</p>
+      <p className="text-ink-3">Last updated: 10 September 2026</p>
 
       <p>
         These are the rules for using softsystem, both as someone buying digital products and as

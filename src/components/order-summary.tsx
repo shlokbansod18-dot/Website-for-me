@@ -12,14 +12,14 @@ export function OrderSummary({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="card p-6">
-      <h2 className="font-display text-lg font-bold tracking-[-0.035em]">Summary</h2>
+    <div className="panel p-6">
+      <h2 className="font-display text-lg">Summary</h2>
 
       <dl className="mt-6 space-y-3 text-[0.875rem]">
         <div className="flex justify-between">
-          <dt className="text-dim">
+          <dt className="text-ink-2">
             Subtotal
-            <span className="ml-1.5 text-faint">
+            <span className="ml-1.5 text-ink-3">
               ({cart.items.length} item{cart.items.length === 1 ? "" : "s"})
             </span>
           </dt>
@@ -27,20 +27,20 @@ export function OrderSummary({
         </div>
 
         {cart.discountCents > 0 && (
-          <div className="flex justify-between text-acid">
+          <div className="flex justify-between text-accent">
             <dt>Discount</dt>
             <dd className="numeric">−{formatMoney(cart.discountCents, cart.currency)}</dd>
           </div>
         )}
 
         <div className="flex justify-between">
-          <dt className="text-dim">VAT / sales tax</dt>
-          <dd className="numeric text-faint">Included</dd>
+          <dt className="text-ink-2">VAT / sales tax</dt>
+          <dd className="numeric text-ink-3">Included</dd>
         </div>
 
         <div className="flex justify-between">
-          <dt className="text-dim">Delivery</dt>
-          <dd className="text-acid">Instant</dd>
+          <dt className="text-ink-2">Delivery</dt>
+          <dd className="text-accent">Instant</dd>
         </div>
       </dl>
 
@@ -51,8 +51,8 @@ export function OrderSummary({
       )}
 
       <div className="mt-6 flex items-end justify-between border-t border-line pt-5">
-        <span className="text-[0.875rem] text-dim">Total</span>
-        <span className="numeric font-display text-3xl font-bold tracking-[-0.04em]">
+        <span className="text-[0.875rem] text-ink-2">Total</span>
+        <span className="numeric font-display text-3xl">
           {formatMoney(cart.totalCents, cart.currency)}
         </span>
       </div>

@@ -43,8 +43,8 @@ const SECTIONS = [
         a: "Visa, Mastercard, Amex, Discover and RuPay. Prices are shown and charged in US dollars; your bank converts at their rate.",
       },
       {
-        q: "Do you store my card?",
-        a: "No. The number exists only for the instant the payment is authorised. We keep the brand and the last four digits so your receipt can identify which card you used, and nothing else.",
+        q: "Do you store my panel?",
+        a: "No. The number exists only for the instant the payment is authorised. We keep the brand and the last four digits so your receipt can identify which panel you used, and nothing else.",
       },
       {
         q: "Can I get a refund?",
@@ -117,13 +117,13 @@ export default function HelpPage() {
   return (
     <div className="shell max-w-3xl py-16 lg:py-24">
       <header className="mb-14">
-        <p className="eyebrow">Help</p>
-        <h1 className="display-sm mt-3">Questions, answered</h1>
-        <p className="mt-5 text-[0.9375rem] leading-relaxed text-dim">
+        <p className="label">Help</p>
+        <h1 className="display-2 mt-3">Questions, answered</h1>
+        <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink-2">
           If the answer is not here, email{" "}
           <a
             href={mailto(SITE.supportEmail, "softsystem — question")}
-            className="text-acid underline-offset-4 hover:underline"
+            className="text-accent underline-offset-4 hover:underline"
           >
             {SITE.supportEmail}
           </a>{" "}
@@ -134,20 +134,20 @@ export default function HelpPage() {
       <div className="space-y-12">
         {SECTIONS.map((section) => (
           <section key={section.title}>
-            <h2 className="eyebrow mb-4">{section.title}</h2>
+            <h2 className="label mb-4">{section.title}</h2>
             <div className="space-y-px overflow-hidden rounded-[1.25rem] border border-line">
               {section.items.map((item) => (
                 <details key={item.q} className="group bg-surface">
-                  <summary className="flex cursor-pointer items-center justify-between gap-4 px-6 py-5 text-[0.9375rem] font-medium transition-colors hover:text-acid">
+                  <summary className="flex cursor-pointer items-center justify-between gap-4 px-6 py-5 text-[0.9375rem] font-medium transition-colors hover:text-accent">
                     {item.q}
                     <span
                       aria-hidden
-                      className="shrink-0 text-faint transition-transform duration-200 group-open:rotate-45"
+                      className="shrink-0 text-ink-3 transition-transform duration-200 group-open:rotate-45"
                     >
                       +
                     </span>
                   </summary>
-                  <p className="px-6 pb-6 text-[0.875rem] leading-relaxed text-dim">{item.a}</p>
+                  <p className="px-6 pb-6 text-[0.875rem] leading-relaxed text-ink-2">{item.a}</p>
                 </details>
               ))}
             </div>
@@ -155,12 +155,12 @@ export default function HelpPage() {
         ))}
       </div>
 
-      <div className="card mt-14 flex flex-wrap items-center justify-between gap-6 p-7">
+      <div className="panel mt-14 flex flex-wrap items-center justify-between gap-6 p-7">
         <div>
-          <h2 className="font-display text-lg font-bold tracking-[-0.035em]">
+          <h2 className="font-display text-lg">
             Still stuck?
           </h2>
-          <p className="mt-1.5 text-[0.8125rem] text-dim">
+          <p className="mt-1.5 text-[0.8125rem] text-ink-2">
             The security page goes into far more detail on how your data is handled.
           </p>
         </div>
@@ -174,17 +174,17 @@ export default function HelpPage() {
         </div>
       </div>
 
-      <p className="mt-8 text-center text-[0.6875rem] text-faint">
+      <p className="mt-8 text-center text-[0.6875rem] text-ink-3">
         Looking for the legal wording?{" "}
-        <Link href="/legal/terms" className="underline underline-offset-2 hover:text-dim">
+        <Link href="/legal/terms" className="underline underline-offset-2 hover:text-ink-2">
           Terms
         </Link>{" "}
         ·{" "}
-        <Link href="/legal/privacy" className="underline underline-offset-2 hover:text-dim">
+        <Link href="/legal/privacy" className="underline underline-offset-2 hover:text-ink-2">
           Privacy
         </Link>{" "}
         ·{" "}
-        <Link href="/legal/refunds" className="underline underline-offset-2 hover:text-dim">
+        <Link href="/legal/refunds" className="underline underline-offset-2 hover:text-ink-2">
           Refunds
         </Link>
       </p>

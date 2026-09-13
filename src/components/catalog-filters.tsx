@@ -58,13 +58,13 @@ export function CatalogFilters({
       method="get"
       // The header is 64px on phones and 96px from md up, where the promise
       // bar appears — the offsets here have to match or this bar tucks under it.
-      className="sticky top-16 z-30 -mx-5 mb-10 border-y border-line bg-canvas/85 px-5 py-4 backdrop-blur-xl md:top-24 md:-mx-8 md:px-8"
+      className="sticky top-16 z-30 -mx-5 mb-10 border-y border-line bg-paper/85 px-5 py-4 backdrop-blur-xl md:top-24 md:-mx-8 md:px-8"
     >
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
         <div className="relative lg:w-72">
           <svg
             viewBox="0 0 24 24"
-            className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-faint"
+            className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-ink-3"
             fill="none"
             stroke="currentColor"
             strokeWidth="1.8"
@@ -80,7 +80,7 @@ export function CatalogFilters({
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products, tags, creators"
             aria-label="Search products"
-            className="w-full rounded-full border border-line bg-surface-2 py-2.5 pl-11 pr-4 text-sm outline-none transition-colors placeholder:text-faint hover:border-line-strong focus:border-acid focus:ring-2 focus:ring-acid/20"
+            className="w-full rounded-full border border-line bg-surface-2 py-2.5 pl-11 pr-4 text-sm outline-none transition-colors placeholder:text-ink-3 hover:border-line-2 focus:border-accent focus:ring-2 focus:ring-accent/20"
           />
         </div>
 
@@ -96,8 +96,8 @@ export function CatalogFilters({
                 aria-pressed={active}
                 className={`shrink-0 rounded-full border px-3.5 py-1.5 text-[0.8125rem] transition-colors ${
                   active
-                    ? "border-acid bg-acid text-acid-ink"
-                    : "border-line text-dim hover:border-line-strong hover:text-text"
+                    ? "border-accent bg-accent text-on-accent"
+                    : "border-line text-ink-2 hover:border-line-2 hover:text-ink"
                 }`}
               >
                 {category}
@@ -115,7 +115,7 @@ export function CatalogFilters({
             name="sort"
             value={activeSort}
             onChange={(e) => apply({ sort: e.target.value })}
-            className="cursor-pointer rounded-full border border-line bg-surface-2 py-2.5 pl-4 pr-9 text-[0.8125rem] outline-none transition-colors hover:border-line-strong focus:border-acid"
+            className="cursor-pointer rounded-full border border-line bg-surface-2 py-2.5 pl-4 pr-9 text-[0.8125rem] outline-none transition-colors hover:border-line-2 focus:border-accent"
           >
             {SORTS.map((sort) => (
               <option key={sort.value} value={sort.value}>
@@ -125,7 +125,7 @@ export function CatalogFilters({
           </select>
 
           <span
-            className={`numeric hidden whitespace-nowrap text-xs text-faint transition-opacity sm:block ${pending ? "opacity-40" : ""}`}
+            className={`numeric hidden whitespace-nowrap text-xs text-ink-3 transition-opacity sm:block ${pending ? "opacity-40" : ""}`}
             aria-live="polite"
           >
             {resultCount} result{resultCount === 1 ? "" : "s"}
@@ -134,7 +134,7 @@ export function CatalogFilters({
           <noscript>
             <button
               type="submit"
-              className="rounded-full bg-acid px-4 py-2 text-[0.8125rem] font-medium text-acid-ink"
+              className="rounded-full bg-accent px-4 py-2 text-[0.8125rem] font-medium text-on-accent"
             >
               Apply
             </button>

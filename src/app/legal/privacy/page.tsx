@@ -11,7 +11,7 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <h1>Privacy policy</h1>
-      <p className="text-faint">Last updated: 10 September 2026</p>
+      <p className="text-ink-3">Last updated: 10 September 2026</p>
 
       <p>
         This policy describes what softsystem collects, why we need it, and what you can do about
@@ -37,7 +37,7 @@ export default function PrivacyPolicyPage() {
           legally needs it. This is encrypted with AES-256-GCM before it is written to disk.
         </li>
         <li>
-          <strong>Your card brand and its last four digits.</strong> Never the card number itself —
+          <strong>Your panel brand and its last four digits.</strong> Never the panel number itself —
           see below.
         </li>
         <li>
@@ -49,7 +49,7 @@ export default function PrivacyPolicyPage() {
 
       <h2>What we deliberately do not collect</h2>
       <p>
-        Your card number, your phone number, your date of birth, your location, your behaviour on
+        Your panel number, your phone number, your date of birth, your location, your behaviour on
         other websites, or any profile assembled by an advertising network. This site loads no
         third-party scripts, fonts, or pixels of any kind — you can verify that in your
         browser&rsquo;s network tab.
@@ -65,9 +65,9 @@ export default function PrivacyPolicyPage() {
 
       <h2>Payments</h2>
       <p>
-        Your card number exists only for the moment a payment is authorised, and is then discarded.
+        Your panel number exists only for the moment a payment is authorised, and is then discarded.
         It is never stored, never written to a log, and never included in an error message. When
-        this site is connected to a real payment provider, the card details go directly to that
+        this site is connected to a real payment provider, the panel details go directly to that
         provider and do not pass through our servers at all.
       </p>
 

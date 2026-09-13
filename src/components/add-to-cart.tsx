@@ -37,7 +37,7 @@ export function AddToCart({
   if (owned) {
     return (
       <span
-        className={`${buttonClass("outline", size, className)} pointer-events-none border-acid/40 text-acid`}
+        className={`${buttonClass("outline", size, className)} pointer-events-none border-accent/40 text-accent`}
       >
         <CheckIcon />
         In your library
@@ -60,7 +60,7 @@ export function AddToCart({
 
   if (added) {
     return (
-      <a href="/cart" className={buttonClass("outline", size, `border-acid/40 text-acid ${className}`)}>
+      <a href="/cart" className={buttonClass("outline", size, `border-accent/40 text-accent ${className}`)}>
         <CheckIcon />
         In your bag — view
       </a>
@@ -85,7 +85,7 @@ export function AddToCart({
         )}
       </button>
       {error && (
-        <p role="alert" className="mt-2 text-xs text-flare">
+        <p role="alert" className="mt-2 text-xs text-alert">
           {error}
         </p>
       )}

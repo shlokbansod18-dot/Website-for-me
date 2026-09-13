@@ -35,7 +35,6 @@ export type ProductRow = {
   status: "draft" | "published";
   seller_id: string | null;
   accent: string;
-  glyph: string;
   highlights: string;
   tags: string;
   file_name: string | null;
@@ -62,7 +61,6 @@ export type Product = {
   currency: string;
   status: "draft" | "published";
   accent: string;
-  glyph: string;
   highlights: string[];
   tags: string[];
   fileName: string | null;

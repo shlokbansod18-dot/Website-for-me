@@ -9,7 +9,7 @@ import type { ActionState } from "@/lib/types";
 
 const initial: ActionState = { ok: false };
 
-/** Groups digits the way the card networks print them. */
+/** Groups digits the way the panel networks print them. */
 function formatCardNumber(value: string): string {
   const digits = value.replace(/\D/g, "").slice(0, 19);
   if (/^3[47]/.test(digits)) {
@@ -38,15 +38,15 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
    * React resets a `<form action>` once the action settles. Card details are
    * held in component state so a declined payment does not empty the fields
    * the customer has to retype — and unlike the billing fields below they are
-   * never echoed back from the server, so no part of a card makes a round trip.
+   * never echoed back from the server, so no part of a panel makes a round trip.
    */
-  const [card, setCard] = useState("");
+  const [panel, setCard] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cardName, setCardName] = useState(defaultName);
   const [cvc, setCvc] = useState("");
 
   const errors = state.fieldErrors ?? {};
-  const brand = brandOf(card);
+  const brand = brandOf(panel);
 
   /** Billing fields survive a failed submit by coming back from the action. */
   const kept = state.values ?? {};
@@ -56,10 +56,10 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
       {state.message ? <Notice tone="error">{state.message}</Notice> : null}
 
       {/* ── Billing ──────────────────────────────────────────────────────── */}
-      <section className="card p-6 sm:p-7">
+      <section className="panel p-6 sm:p-7">
         <div className="mb-6 flex items-baseline justify-between">
-          <h2 className="font-display text-lg font-bold tracking-[-0.035em]">Billing details</h2>
-          <span className="eyebrow">Step 1</span>
+          <h2 className="font-display text-lg">Billing details</h2>
+          <span className="label">Step 1</span>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
@@ -122,7 +122,7 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
           />
         </div>
 
-        <p className="mt-5 flex gap-2.5 text-[0.6875rem] leading-relaxed text-faint">
+        <p className="mt-5 flex gap-2.5 text-[0.6875rem] leading-relaxed text-ink-3">
           <LockIcon />
           <span>
             This address is encrypted with AES-256-GCM before it is written to disk. It is used for
@@ -132,10 +132,10 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
       </section>
 
       {/* ── Payment ──────────────────────────────────────────────────────── */}
-      <section className="card p-6 sm:p-7">
+      <section className="panel p-6 sm:p-7">
         <div className="mb-6 flex items-baseline justify-between">
-          <h2 className="font-display text-lg font-bold tracking-[-0.035em]">Payment</h2>
-          <span className="eyebrow">Step 2</span>
+          <h2 className="font-display text-lg">Payment</h2>
+          <span className="label">Step 2</span>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
@@ -143,7 +143,7 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
             <Field
               label="Card number"
               name="cardNumber"
-              value={card}
+              value={panel}
               onChange={(e) => setCard(formatCardNumber(e.target.value))}
               inputMode="numeric"
               autoComplete="cc-number"
@@ -153,14 +153,14 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
               className="[&_input]:font-mono [&_input]:tracking-wider"
             />
             {brand ? (
-              <span className="pointer-events-none absolute right-4 top-[2.35rem] rounded-md border border-line bg-canvas px-2 py-0.5 text-[0.625rem] font-medium text-dim">
+              <span className="pointer-events-none absolute right-4 top-[2.35rem] rounded-md border border-line bg-paper px-2 py-0.5 text-[0.625rem] font-medium text-ink-2">
                 {brand}
               </span>
             ) : null}
           </div>
 
           <Field
-            label="Name on card"
+            label="Name on panel"
             name="cardName"
             value={cardName}
             onChange={(e) => setCardName(e.target.value)}
@@ -200,19 +200,19 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
           />
         </div>
 
-        <div className="mt-6 rounded-2xl border border-line bg-surface-2 p-4">
-          <p className="flex gap-2.5 text-[0.6875rem] leading-relaxed text-faint">
+        <div className="mt-6 rounded border border-line bg-surface-2 p-4">
+          <p className="flex gap-2.5 text-[0.6875rem] leading-relaxed text-ink-3">
             <ShieldIcon />
             <span>
-              <span className="text-dim">Your card number is never stored.</span> It exists only for
+              <span className="text-ink-2">Your panel number is never stored.</span> It exists only for
               the instant the payment is authorised, then it is gone. All we keep is the brand and
               the last four digits, so your receipt can say &ldquo;Visa ending 4242&rdquo;.
             </span>
           </p>
         </div>
 
-        <details className="mt-4 text-[0.6875rem] text-faint">
-          <summary className="cursor-pointer transition-colors hover:text-dim">
+        <details className="mt-4 text-[0.6875rem] text-ink-3">
+          <summary className="cursor-pointer transition-colors hover:text-ink-2">
             This is a demo processor — what should I type?
           </summary>
           <div className="mt-3 space-y-1.5 border-l border-line pl-4 font-mono">
@@ -227,7 +227,7 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex h-14 w-full items-center justify-center gap-2.5 rounded-full bg-acid text-[0.9375rem] font-medium text-acid-ink transition-[filter,transform] hover:brightness-110 active:translate-y-px disabled:opacity-60"
+        className="inline-flex h-14 w-full items-center justify-center gap-2.5 rounded-full bg-accent text-[0.9375rem] font-medium text-on-accent transition-[filter,transform] hover:brightness-110 active:translate-y-px disabled:opacity-60"
       >
         {pending ? (
           <>
@@ -242,13 +242,13 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
         )}
       </button>
 
-      <p className="text-center text-[0.6875rem] text-faint">
+      <p className="text-center text-[0.6875rem] text-ink-3">
         By paying you agree to our{" "}
-        <a href="/legal/terms" className="underline underline-offset-2 hover:text-dim">
+        <a href="/legal/terms" className="underline underline-offset-2 hover:text-ink-2">
           terms
         </a>{" "}
         and{" "}
-        <a href="/legal/refunds" className="underline underline-offset-2 hover:text-dim">
+        <a href="/legal/refunds" className="underline underline-offset-2 hover:text-ink-2">
           refund policy
         </a>
         .

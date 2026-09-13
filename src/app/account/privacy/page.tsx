@@ -53,10 +53,10 @@ export default async function PrivacyPage() {
     <div className="max-w-2xl space-y-10">
       <section>
         <div className="mb-6">
-          <h2 className="font-display text-xl font-bold tracking-[-0.035em]">
+          <h2 className="font-display text-xl">
             Everything we hold about you
           </h2>
-          <p className="mt-1 text-[0.8125rem] text-dim">
+          <p className="mt-1 text-[0.8125rem] text-ink-2">
             The complete list. There is no second list.
           </p>
         </div>
@@ -65,15 +65,15 @@ export default async function PrivacyPage() {
           {HOLDINGS.map((item) => (
             <li key={item.what} className="bg-surface px-5 py-4">
               <p className="text-[0.875rem] font-medium">{item.what}</p>
-              <p className="mt-1 text-[0.8125rem] text-dim">{item.why}</p>
-              <p className="mt-1.5 text-[0.6875rem] text-faint">Kept: {item.kept}</p>
+              <p className="mt-1 text-[0.8125rem] text-ink-2">{item.why}</p>
+              <p className="mt-1.5 text-[0.6875rem] text-ink-3">Kept: {item.kept}</p>
             </li>
           ))}
         </ul>
 
-        <div className="card mt-4 p-5">
-          <p className="text-[0.8125rem] leading-relaxed text-dim">
-            <span className="text-text">What we do not have:</span> your card number, your phone
+        <div className="panel mt-4 p-5">
+          <p className="text-[0.8125rem] leading-relaxed text-ink-2">
+            <span className="text-ink">What we do not have:</span> your panel number, your phone
             number, your date of birth, your browsing history on other sites, or any profile
             assembled by an advertising network. This site loads no third-party scripts at all —
             check the network tab.
@@ -83,31 +83,31 @@ export default async function PrivacyPage() {
 
       <section>
         <div className="mb-6">
-          <h2 className="font-display text-xl font-bold tracking-[-0.035em]">Take it with you</h2>
-          <p className="mt-1 text-[0.8125rem] text-dim">
+          <h2 className="font-display text-xl">Take it with you</h2>
+          <p className="mt-1 text-[0.8125rem] text-ink-2">
             A machine-readable copy of your account, orders and activity.
           </p>
         </div>
-        <div className="card p-7">
+        <div className="panel p-7">
           <ExportData />
         </div>
       </section>
 
       <section>
         <div className="mb-6">
-          <h2 className="font-display text-xl font-bold tracking-[-0.035em]">Delete everything</h2>
-          <p className="mt-1 text-[0.8125rem] text-dim">
+          <h2 className="font-display text-xl">Delete everything</h2>
+          <p className="mt-1 text-[0.8125rem] text-ink-2">
             Immediate and permanent — no cooling-off period, no email chase, no retention window.
           </p>
         </div>
-        <div className="card p-7">
+        <div className="panel p-7">
           <DeleteAccount />
         </div>
       </section>
 
-      <p className="text-[0.6875rem] text-faint">
+      <p className="text-[0.6875rem] text-ink-3">
         The full policy lives at{" "}
-        <Link href="/legal/privacy" className="underline underline-offset-2 hover:text-dim">
+        <Link href="/legal/privacy" className="underline underline-offset-2 hover:text-ink-2">
           /legal/privacy
         </Link>
         . It is written in plain English and fits on one screen.

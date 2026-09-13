@@ -32,28 +32,28 @@ export function BecomeSeller({ name }: { name: string }) {
 
   return (
     <div className="shell py-20 lg:py-28">
-      <div className="card relative mx-auto max-w-2xl overflow-hidden p-8 sm:p-12">
+      <div className="panel relative mx-auto max-w-2xl overflow-hidden p-8 sm:p-12">
         <div
           className="bloom -right-24 -top-24 size-72 opacity-25"
-          style={{ background: "var(--acid)" }}
+          style={{ background: "var(--accent)" }}
         />
 
         <div className="relative">
-          <p className="eyebrow">Creator studio</p>
-          <h1 className="display-sm mt-3">
+          <p className="label">Creator studio</p>
+          <h1 className="display-2 mt-3">
             Open your
             <br />
-            <span className="text-acid">shop</span>, {name.split(" ")[0]}.
+            <span className="text-accent">shop</span>, {name.split(" ")[0]}.
           </h1>
-          <p className="mt-5 max-w-md text-[0.9375rem] leading-relaxed text-dim">
+          <p className="mt-5 max-w-md text-[0.9375rem] leading-relaxed text-ink-2">
             Your account can start selling right now. No application, no waiting list, no interview
             — turn it on and upload your first product.
           </p>
 
           <ul className="mt-8 space-y-3.5">
             {PERKS.map((perk) => (
-              <li key={perk} className="flex gap-3.5 text-[0.875rem] leading-relaxed text-dim">
-                <span aria-hidden className="mt-0.5 shrink-0 text-acid">
+              <li key={perk} className="flex gap-3.5 text-[0.875rem] leading-relaxed text-ink-2">
+                <span aria-hidden className="mt-0.5 shrink-0 text-accent">
                   ✓
                 </span>
                 {perk}
@@ -65,7 +65,7 @@ export function BecomeSeller({ name }: { name: string }) {
             type="button"
             onClick={open}
             disabled={pending}
-            className="mt-9 inline-flex h-13 items-center justify-center gap-2 rounded-full bg-acid px-8 text-[0.9375rem] font-medium text-acid-ink transition-[filter] hover:brightness-110 disabled:opacity-60"
+            className="mt-9 inline-flex h-13 items-center justify-center gap-2 rounded bg-accent px-8 text-[0.9375rem] font-medium text-on-accent transition-[filter] hover:brightness-110 disabled:opacity-60"
           >
             {pending ? (
               <>
@@ -81,12 +81,12 @@ export function BecomeSeller({ name }: { name: string }) {
           </button>
 
           {error ? (
-            <p role="alert" className="mt-3 text-xs text-flare">
+            <p role="alert" className="mt-3 text-xs text-alert">
               {error}
             </p>
           ) : null}
 
-          <p className="mt-6 text-[0.6875rem] leading-relaxed text-faint">
+          <p className="mt-6 text-[0.6875rem] leading-relaxed text-ink-3">
             Becoming a seller only lets you list your own products. It gives you no access to other
             creators&rsquo; work, to other customers, or to anything beyond your own rows.
           </p>

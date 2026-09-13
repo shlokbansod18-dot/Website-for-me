@@ -30,12 +30,12 @@ export default async function LoginPage({
 
   return (
     <AuthShell
-      eyebrow="Welcome back"
+      label="Welcome back"
       title={
         <>
           Sign in to
           <br />
-          your <span className="text-acid">library</span>.
+          your <span className="text-accent">library</span>.
         </>
       }
       subtitle="Everything you have ever bought is waiting, ready to download again."
@@ -44,7 +44,7 @@ export default async function LoginPage({
           No account yet?{" "}
           <Link
             href={`/signup${next ? `?next=${encodeURIComponent(target)}` : ""}`}
-            className="text-acid underline-offset-4 hover:underline"
+            className="text-accent underline-offset-4 hover:underline"
           >
             Create one
           </Link>

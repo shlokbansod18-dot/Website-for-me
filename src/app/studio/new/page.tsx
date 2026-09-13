@@ -23,12 +23,12 @@ export default async function NewProductPage() {
       <header className="mb-10">
         <Link
           href="/studio"
-          className="text-[0.8125rem] text-faint transition-colors hover:text-text"
+          className="text-[0.8125rem] text-ink-3 transition-colors hover:text-ink"
         >
           ← Studio
         </Link>
-        <h1 className="display-sm mt-4">New product</h1>
-        <p className="mt-3 max-w-lg text-dim">
+        <h1 className="display-2 mt-4">New product</h1>
+        <p className="mt-3 max-w-lg text-ink-2">
           Save it as a draft while you work on it. Nothing is visible to anyone until you publish.
         </p>
       </header>
