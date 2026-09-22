@@ -12,14 +12,14 @@ import type { ActionState, Product } from "@/lib/types";
 const initial: ActionState = { ok: false };
 
 const ACCENT_SWATCHES = [
-  { value: "persimmon", label: "Persimmon", color: "#ff4a24" },
-  { value: "violet", label: "Violet", color: "#5b3bff" },
-  { value: "chartreuse", label: "Chartreuse", color: "#d7f04a" },
-  { value: "jade", label: "Jade", color: "#00b27b" },
-  { value: "blush", label: "Blush", color: "#ffc2d4" },
-  { value: "sky", label: "Sky", color: "#7ecbff" },
-  { value: "butter", label: "Butter", color: "#ffd84d" },
-  { value: "graphite", label: "Graphite", color: "#16161c" },
+  { value: "stone", label: "Stone", color: "#d8d0c4" },
+  { value: "taupe", label: "Taupe", color: "#a79c8e" },
+  { value: "ink", label: "Ink", color: "#171717" },
+  { value: "burgundy", label: "Burgundy", color: "#6e3038" },
+  { value: "ivory", label: "Ivory", color: "#f4f0e8" },
+  { value: "clay", label: "Clay", color: "#c8b7a6" },
+  { value: "sage", label: "Sage", color: "#b2b5a4" },
+  { value: "dusk", label: "Dusk", color: "#8d8391" },
 ];
 
 
@@ -42,7 +42,7 @@ export function ProductForm({
   const kept = state.values ?? {};
 
   const [title, setTitle] = useState(product?.title ?? "");
-  const [accent, setAccent] = useState(product?.accent ?? "persimmon");
+  const [accent, setAccent] = useState(product?.accent ?? "stone");
   const [fileName, setFileName] = useState<string | null>(null);
 
   // If the server sent a title back after a failed save, adopt it so the cover

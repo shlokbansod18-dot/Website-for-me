@@ -77,7 +77,7 @@ export default function RefundsPage() {
         applies regardless of what this page says, and it wins.
       </p>
 
-      <h2>For sellers</h2>
+      <h2>How a refund is handled</h2>
       <p>
         When a buyer is refunded, the sale is reversed and the platform fee is returned to you as
         well, we do not keep a commission on a sale that did not stand. A product attracting an

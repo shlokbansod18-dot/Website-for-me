@@ -121,8 +121,8 @@ export const productSchema = z.object({
   highlights: trimmed(1200).optional().default(""),
   tags: trimmed(200).optional().default(""),
   accent: z
-    .enum(["persimmon", "violet", "chartreuse", "jade", "blush", "sky", "butter", "graphite"])
-    .default("persimmon"),
+    .enum(["stone", "taupe", "ink", "burgundy", "ivory", "clay", "sage", "dusk"])
+    .default("stone"),
   version: trimmed(20).default("1.0"),
   licence: trimmed(120).default("Standard commercial licence"),
   status: z.enum(["draft", "published"]).default("draft"),

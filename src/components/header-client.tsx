@@ -10,7 +10,7 @@ import type { PublicUser } from "@/lib/types";
 
 const NAV = [
   { href: "/products", label: "Shop" },
-  { href: "/sell", label: "Sell" },
+  { href: "/about", label: "About" },
   { href: "/security", label: "Security" },
   { href: "/help", label: "Help" },
 ];

@@ -76,8 +76,8 @@ const SECTIONS = [
         a: "Yes. Unpublishing hides it from the shop immediately. If people have already bought it, their downloads keep working, that purchase was already paid for.",
       },
       {
-        q: "Can other sellers see my products or customers?",
-        a: "No. Every Studio query is scoped to your own rows. A seller account grants the ability to list your own work and nothing else.",
+        q: "Who can sell on Soft System?",
+        a: "Only the owner of the shop. There is no seller sign-up, so nothing on these shelves is a reseller\u2019s copy or somebody else\u2019s work bundled up.",
       },
     ],
   },

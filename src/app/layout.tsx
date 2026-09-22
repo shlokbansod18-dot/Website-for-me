@@ -15,20 +15,20 @@ import { SITE } from "@/lib/site";
  * `font-src 'self'` in the CSP and means visiting the shop does not hand a
  * third party a record of the visit.
  */
-const grotesque = localFont({
-  src: "../fonts/bricolage-grotesque-latin.woff2",
-  weight: "400 800",
-  style: "normal",
+const serif = localFont({
+  src: [
+    { path: "../fonts/instrument-serif.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/instrument-serif-italic.woff2", weight: "400", style: "italic" },
+  ],
   display: "swap",
-  variable: "--font-grotesque",
-  fallback: ["Helvetica Neue", "Arial", "sans-serif"],
+  variable: "--font-serif",
+  fallback: ["Iowan Old Style", "Palatino", "Georgia", "serif"],
 });
 
 const sans = localFont({
-  src: [
-    { path: "../fonts/jakarta.woff2", weight: "400 800", style: "normal" },
-    { path: "../fonts/jakarta-italic.woff2", weight: "400 600", style: "italic" },
-  ],
+  src: "../fonts/inter.woff2",
+  weight: "300 700",
+  style: "normal",
   display: "swap",
   variable: "--font-sans-ui",
   fallback: ["ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0d0d11",
+  themeColor: "#f4f0e8",
   width: "device-width",
   initialScale: 1,
 };
@@ -69,8 +69,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning>
-      <body className={`${grotesque.variable} ${sans.variable} grain antialiased`}>
+    <html lang="en" data-theme="light" suppressHydrationWarning>
+      <body className={`${serif.variable} ${sans.variable} grain antialiased`}>
         {/* Marks the document as script-enabled and applies the saved theme,
             both before first paint, no flash, and no scroll animation that
             could leave content stranded at opacity 0 if script never runs. */}
@@ -79,7 +79,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           dangerouslySetInnerHTML={{
             __html:
               `document.documentElement.classList.add("js");` +
-              `try{var t=localStorage.getItem("ss-theme");document.documentElement.dataset.theme=t==="light"?"light":"dark";}catch(e){}`,
+              `try{var t=localStorage.getItem("ss-theme");document.documentElement.dataset.theme=t==="dark"?"dark":"light";}catch(e){}`,
           }}
         />
         <a href="#main" className="skip-link">

@@ -24,10 +24,8 @@ export function Logo({ className = "" }: { className?: string }) {
       className={`inline-flex items-baseline gap-2 ${className}`}
       aria-label="softsystem, home"
     >
-      <LogoMark className="size-[1.05rem] translate-y-[0.08rem] text-accent" />
-      <span className="font-display text-[1.3rem] font-bold leading-none tracking-[-0.045em] text-ink">
-        softsystem
-      </span>
+      <LogoMark className="size-[0.9rem] translate-y-[0.02rem] text-accent" />
+      <span className="wordmark text-[0.9375rem] leading-none text-ink">soft system</span>
     </Link>
   );
 }

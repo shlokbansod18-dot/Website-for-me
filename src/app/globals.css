@@ -1,70 +1,76 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════════
-   softsystem — "Press"
+   softsystem — the brand sheet, applied exactly
 
-   A catalogue from a risograph shop. The page is a run of spreads, each
-   printed in one flat ink; the goods are posters, shown big. Colour is
-   structural — whole spreads of it — rather than an accent dabbed on a
-   dark page. Type is one wide grotesque worked across a huge range;
-   weight shifts inside a phrase do the work a coloured word used to.
+   Warm Ivory ground, Ink Black type, Muted Burgundy spent only where the
+   sheet says: small highlights and the premium accent. Warm Taupe and
+   Stone do the shapes, cards and borders. Soft White is the type on dark.
+
+   Instrument Serif carries headlines, statements and product names.
+   Inter carries everything a person has to read quickly: descriptions,
+   labels, buttons, prices, dates.
    ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
-  --graphite: #0d0d11;
-  --graphite-2: #16161c;
-  --sheet: #edebe4;
+  /* The sheet, verbatim. */
+  --ivory: #f4f0e8;
+  --ink-black: #171717;
+  --taupe: #a79c8e;
+  --stone: #d8d0c4;
+  --burgundy: #6e3038;
+  --soft-white: #faf9f6;
 
-  --persimmon: #ff4a24;
-  --violet: #5b3bff;
-  --chartreuse: #d7f04a;
-  --jade: #00b27b;
-  --blush: #ffc2d4;
+  /* Two derived tones the sheet does not name, because body text needs a
+     grey that actually passes on ivory. Taupe is a shape colour: at 2.1:1
+     on ivory it fails as text, so secondary copy uses a darker sibling
+     mixed from the same family. */
+  --taupe-deep: #6b6157;   /* 5.9:1 on ivory — secondary text */
+  --taupe-mid: #8a8075;    /* 3.6:1 — large text and interface borders */
 
-  /* Roles. A spread class swaps the whole set, so anything nested reads
-     correctly without knowing which spread it landed on. */
-  --paper: var(--graphite);
-  --surface: var(--graphite-2);
-  --surface-2: #22222b;
-  --line: rgb(244 243 239 / 0.14);
-  --line-2: rgb(244 243 239 / 0.3);
-  --ink: #f4f3ef;
-  --ink-2: #9d9cab;
-  --ink-3: #6a6977;
-  --accent: var(--persimmon);
-  --accent-soft: #2a0d06;
-  --on-accent: #160300;
-  --accent-2: var(--chartreuse);
-  --positive: #39d99b;
-  --alert: #ff7a5e;
+  --paper: var(--ivory);
+  --surface: var(--soft-white);
+  --surface-2: var(--stone);
+  --line: rgb(23 23 23 / 0.12);
+  --line-2: rgb(23 23 23 / 0.26);
+  --ink: var(--ink-black);
+  --ink-2: var(--taupe-deep);
+  --ink-3: var(--taupe-mid);
+  --accent: var(--burgundy);
+  --accent-soft: #f0e3e4;
+  --on-accent: var(--soft-white);
+  --accent-2: var(--taupe-deep);
+  --positive: #2f6b4f;
+  --alert: #9a2b21;
 
-  --lift: 0 1px 1px rgb(0 0 0 / 0.4), 0 18px 48px -24px rgb(0 0 0 / 0.9);
-  --grain-opacity: 0.04;
+  --lift: 0 1px 1px rgb(23 23 23 / 0.04), 0 18px 44px -26px rgb(23 23 23 / 0.4);
+  --grain-opacity: 0.03;
+
   --out: cubic-bezier(0.16, 1, 0.3, 1);
   --both: cubic-bezier(0.65, 0.05, 0.36, 1);
   --t-fast: 180ms;
   --t-mid: 420ms;
   --t-slow: 780ms;
-
 }
 
-:root[data-theme="light"] {
-  --paper: var(--sheet);
-  --surface: #f7f6f2;
-  --surface-2: #e0ddd3;
-  --line: rgb(13 13 17 / 0.13);
-  --line-2: rgb(13 13 17 / 0.26);
-  --ink: #0d0d11;
-  --ink-2: #56545e;
-  --ink-3: #8a8894;
-  --accent: #e02e06;
-  --accent-soft: #ffe4dc;
-  --on-accent: #ffffff;
-  --accent-2: #4a2fe0;
-  --positive: #08804e;
-  --alert: #c22a12;
-  --lift: 0 1px 1px rgb(13 13 17 / 0.04), 0 16px 40px -24px rgb(13 13 17 / 0.45);
-  --grain-opacity: 0.025;
+/* The dark screens the sheet calls for: Ink Black ground, Soft White type. */
+:root[data-theme="dark"] {
+  --paper: var(--ink-black);
+  --surface: #1f1f1e;
+  --surface-2: #2a2926;
+  --line: rgb(250 249 246 / 0.14);
+  --line-2: rgb(250 249 246 / 0.28);
+  --ink: var(--soft-white);
+  --ink-2: #b8ada0;
+  --ink-3: #8a8075;
+  --accent: #c4707a;          /* burgundy lifted so it reads on ink black */
+  --accent-soft: #33191c;
+  --on-accent: #1a0c0e;
+  --accent-2: var(--taupe);
+  --positive: #7cc4a0;
+  --alert: #e08878;
+  --lift: 0 1px 1px rgb(0 0 0 / 0.5), 0 18px 48px -26px rgb(0 0 0 / 0.9);
+  --grain-opacity: 0.045;
 }
 
 @theme inline {
@@ -83,7 +89,7 @@
   --color-positive: var(--positive);
   --color-alert: var(--alert);
 
-  --font-display: var(--font-grotesque), "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-serif), "Iowan Old Style", Palatino, Georgia, serif;
   --font-sans: var(--font-sans-ui), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
 
@@ -107,10 +113,10 @@
   html, body { overflow-x: hidden; overflow-x: clip; }
 
   html {
-    color-scheme: dark;
+    color-scheme: light;
     -webkit-text-size-adjust: 100%;
   }
-  html[data-theme="light"] { color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
 
   body {
     background: var(--paper);
@@ -127,15 +133,15 @@
      wants real negative tracking and very little leading to read as display. */
   h1, h2, h3 {
     font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.035em;
-    line-height: 0.98;
+    font-weight: 400;
+    letter-spacing: -0.018em;
+    line-height: 1.0;
     text-wrap: balance;
   }
   h4, h5, h6 {
-    font-family: var(--font-display);
+    font-family: var(--font-sans);
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.012em;
   }
 
   p { text-wrap: pretty; }
@@ -350,11 +356,11 @@ body.hidden-tab *,body.hidden-tab *::before,body.hidden-tab *::after{
   /* Sentence case, no tracking, no shouting. An all-caps tracked-out
      eyebrow over every section is template chrome. */
   .label {
-    font-family: var(--font-display);
+    font-family: var(--font-sans);
     font-size: 0.9375rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--ink-3);
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--ink-2);
   }
 
   /* Display sizes. The grotesque is set big and tight on purpose — at this
@@ -378,10 +384,28 @@ body.hidden-tab *,body.hidden-tab *::before,body.hidden-tab *::after{
     font-weight: 600;
   }
 
-  /* Emphasis is a weight shift across a phrase, never a colour on one
-     word — a single tinted word in every heading is the commonest tell
-     of a generated page. */
-  .thin { font-weight: 200; }
+  /* Emphasis is the serif's italic, carried across a whole clause. A single
+     tinted word in every heading is the commonest tell of a generated page;
+     a clause set in italic is an editorial device instead. */
+  .thin { font-style: italic; }
+
+  /* The wordmark, per the brand sheet: Inter Medium, tracking expanded. */
+  .wordmark {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Small uppercase labels, also Inter Medium per the sheet. */
+  .micro {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
 
   .numeric {
     font-variant-numeric: tabular-nums;
@@ -415,22 +439,27 @@ body.hidden-tab *,body.hidden-tab *::before,body.hidden-tab *::after{
      glow on the site; spent anywhere else it stops meaning anything. */
   .aura { box-shadow: var(--glow); }
 
-  .on-sheet { background: var(--sheet); --paper: var(--sheet); --surface: #f7f6f2;
-    --ink: #0d0d11; --ink-2: #56545e; --ink-3: #8a8894;
-    --line: rgb(13 13 17 / .13); --line-2: rgb(13 13 17 / .26);
-    --accent: #e02e06; --on-accent: #fff; color: var(--ink); }
-  .on-persimmon { background: var(--persimmon); --paper: var(--persimmon); --surface: rgb(255 255 255 / .26);
-    --ink: #1b0400; --ink-2: #5c1a0c; --ink-3: #7d2d1c;
-    --line: rgb(27 4 0 / .2); --line-2: rgb(27 4 0 / .4);
-    --accent: #1b0400; --on-accent: var(--persimmon); color: var(--ink); }
-  .on-violet { background: var(--violet); --paper: var(--violet); --surface: rgb(0 0 0 / .16);
-    --ink: #f3f1ff; --ink-2: #c5bcff; --ink-3: #a79bff;
-    --line: rgb(243 241 255 / .24); --line-2: rgb(243 241 255 / .45);
-    --accent: var(--chartreuse); --on-accent: #161a00; color: var(--ink); }
-  .on-chartreuse { background: var(--chartreuse); --paper: var(--chartreuse); --surface: rgb(255 255 255 / .3);
-    --ink: #151a00; --ink-2: #3f4a09; --ink-3: #5e6b1c;
-    --line: rgb(21 26 0 / .2); --line-2: rgb(21 26 0 / .4);
-    --accent: #151a00; --on-accent: var(--chartreuse); color: var(--ink); }
+  /* Sections printed on the sheet's own stocks. */
+  .on-ivory { background: var(--ivory); --paper: var(--ivory); --surface: var(--soft-white);
+    --ink: var(--ink-black); --ink-2: var(--taupe-deep); --ink-3: var(--taupe-mid);
+    --line: rgb(23 23 23 / .12); --line-2: rgb(23 23 23 / .26);
+    --accent: var(--burgundy); --on-accent: var(--soft-white); color: var(--ink); }
+  .on-stone { background: var(--stone); --paper: var(--stone); --surface: var(--soft-white);
+    --ink: var(--ink-black); --ink-2: #5f564c; --ink-3: #7d7264;
+    --line: rgb(23 23 23 / .14); --line-2: rgb(23 23 23 / .3);
+    --accent: var(--burgundy); --on-accent: var(--soft-white); color: var(--ink); }
+  .on-taupe { background: var(--taupe); --paper: var(--taupe); --surface: rgb(250 249 246 / .34);
+    --ink: #1d1a16; --ink-2: #453e35; --ink-3: #574f44;
+    --line: rgb(29 26 22 / .2); --line-2: rgb(29 26 22 / .4);
+    --accent: var(--burgundy); --on-accent: var(--soft-white); color: var(--ink); }
+  .on-ink { background: var(--ink-black); --paper: var(--ink-black); --surface: #1f1f1e;
+    --ink: var(--soft-white); --ink-2: #b8ada0; --ink-3: #8a8075;
+    --line: rgb(250 249 246 / .16); --line-2: rgb(250 249 246 / .32);
+    --accent: #c4707a; --on-accent: #1a0c0e; color: var(--ink); }
+  .on-burgundy { background: var(--burgundy); --paper: var(--burgundy); --surface: rgb(250 249 246 / .12);
+    --ink: var(--soft-white); --ink-2: #e0c4c7; --ink-3: #c79ea3;
+    --line: rgb(250 249 246 / .22); --line-2: rgb(250 249 246 / .42);
+    --accent: var(--soft-white); --on-accent: var(--burgundy); color: var(--ink); }
 
   .skip-link {
     position: fixed;

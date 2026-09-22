@@ -5,21 +5,22 @@ type Variant = "primary" | "outline" | "ghost" | "danger";
 type Size = "sm" | "md" | "lg";
 
 /**
- * Buttons are pills, set in the display grotesque at semibold. Against a wall
- * of hard-cropped poster covers, a soft capsule is the one friendly shape on
- * the page — and it is what a hand reaches for on a phone. Coral is spent
- * here and almost nowhere else, so a primary button is always the thing to
- * press next.
+ * Buttons are pills set in Inter Medium, per the brand sheet: Inter carries
+ * buttons, prices and labels, and the serif is kept for statements.
+ *
+ * The primary button is Ink Black rather than the accent, because the sheet
+ * reserves Muted Burgundy for small highlights. Burgundy arrives on hover,
+ * which is where a small dose does the most work.
  */
 const base =
   "relative inline-flex select-none items-center justify-center gap-2 rounded-full " +
-  "font-display font-semibold tracking-[-0.02em] " +
+  "font-sans font-medium tracking-[0.01em] " +
   "transition-[background-color,border-color,color,opacity,transform,box-shadow] duration-150 " +
   "active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-accent text-on-accent shadow-[var(--glow)] hover:brightness-110",
-  outline: "border border-line-2 text-ink hover:border-accent-2 hover:text-accent-2",
+  primary: "bg-ink text-paper hover:bg-accent",
+  outline: "border border-line-2 text-ink hover:border-ink hover:bg-ink hover:text-paper",
   ghost: "text-ink-2 hover:text-ink hover:bg-surface",
   danger: "border border-alert/45 text-alert hover:bg-alert hover:text-paper hover:border-alert",
 };

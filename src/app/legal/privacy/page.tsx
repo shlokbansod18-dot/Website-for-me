@@ -78,7 +78,7 @@ export default function PrivacyPolicyPage() {
         you it had happened unless we were legally prohibited from doing so.
       </p>
       <p>
-        Sellers see the title and price of what sold, not who bought it. Seller accounts have no
+        The shop owner sees the title and price of what sold, not who bought it. No account has
         access to customer records.
       </p>
 

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { deleteProductAction, toggleProductStatusAction } from "@/actions/studio";
-import { BecomeSeller } from "@/components/become-seller";
 import { ProductCover } from "@/components/product-cover";
 import { ButtonLink } from "@/components/ui/button";
 import { canSell, getCurrentUser } from "@/lib/auth";
@@ -28,7 +27,8 @@ export default async function StudioPage({
 
   const { saved } = await searchParams;
 
-  if (!canSell(user.role)) return <BecomeSeller name={user.name} />;
+  // The shop has one seller. Everyone else goes back to their library.
+  if (!canSell(user.role)) redirect("/account");
 
   const products = listSellerProducts(user.id);
   const stats = sellerStats(user.id);

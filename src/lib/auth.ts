@@ -128,8 +128,16 @@ export async function getCurrentUser(): Promise<PublicUser | null> {
   return (await getCurrentSession())?.user ?? null;
 }
 
+/**
+ * This is a single-seller shop. Only the owner ever lists anything; every
+ * other account can buy, download and manage itself, and nothing else.
+ *
+ * The "seller" role stays in the type so existing rows keep parsing, but it
+ * grants nothing. Widening this one function is the only way to turn the
+ * shop back into a marketplace, which is exactly where that decision belongs.
+ */
 export function canSell(role: Role): boolean {
-  return role === "seller" || role === "owner";
+  return role === "owner";
 }
 
 export function listSessions(userId: string): SessionRow[] {

@@ -1,22 +1,22 @@
 /**
  * Cover art, generated per product.
  *
- * Every product is a poster: a saturated ground, the category set small at
- * the top, and the title set large and tight across the bottom, cropped the
- * way a printed sheet is cropped. A wall of these reads as a curated print
- * shop. The previous version drew one enormous letter, which at catalogue
- * density read as a type specimen rather than a shop.
+ * Every product is a card from the brand's own stock: one of the sheet's
+ * neutrals, the category set small in Inter at the top, and the product name
+ * set large in Instrument Serif across the bottom. The palette is deliberately
+ * quiet, because the sheet reserves Muted Burgundy for small highlights and a
+ * wall of saturated tiles would spend it everywhere.
  */
 
 export const TINTS = {
-  persimmon:  { ground: "#ff4a24", ink: "#1b0400", label: "Persimmon"  },
-  violet:     { ground: "#5b3bff", ink: "#efecff", label: "Violet"     },
-  chartreuse: { ground: "#d7f04a", ink: "#151a00", label: "Chartreuse" },
-  jade:       { ground: "#00b27b", ink: "#00301f", label: "Jade"       },
-  blush:      { ground: "#ffc2d4", ink: "#4a0f24", label: "Blush"      },
-  sky:        { ground: "#7ecbff", ink: "#05233d", label: "Sky"        },
-  butter:     { ground: "#ffd84d", ink: "#3a2a00", label: "Butter"     },
-  graphite:   { ground: "#16161c", ink: "#f4f3ef", label: "Graphite"   },
+  stone:    { ground: "#d8d0c4", ink: "#171717", label: "Stone"    },
+  taupe:    { ground: "#a79c8e", ink: "#171717", label: "Taupe"    },
+  ink:      { ground: "#171717", ink: "#faf9f6", label: "Ink"      },
+  burgundy: { ground: "#6e3038", ink: "#faf9f6", label: "Burgundy" },
+  ivory:    { ground: "#f4f0e8", ink: "#171717", label: "Ivory"    },
+  clay:     { ground: "#c8b7a6", ink: "#171717", label: "Clay"     },
+  sage:     { ground: "#b2b5a4", ink: "#171717", label: "Sage"     },
+  dusk:     { ground: "#8d8391", ink: "#faf9f6", label: "Dusk"     },
 } as const;
 
 function hash(seed: string): number {
@@ -92,12 +92,12 @@ export function ProductCover({
 
       {category ? (
         <span
-          className="absolute font-sans font-semibold uppercase"
+          className="absolute font-sans font-medium uppercase"
           style={{
             left: "7%",
             top: "7%",
             fontSize: `min(${5.5 * scale}cqh, ${4.6 * scale}cqw)`,
-            letterSpacing: "0.18em",
+            letterSpacing: "0.14em",
             color: tint.ink,
             opacity: 0.7,
           }}
@@ -107,14 +107,14 @@ export function ProductCover({
       ) : null}
 
       <span
-        className="absolute font-display font-semibold"
+        className="absolute font-display"
         style={{
           left: "7%",
           right: "7%",
           bottom: "7%",
-          fontSize: `min(${17 * scale}cqh, ${14.5 * scale}cqw)`,
-          lineHeight: 0.88,
-          letterSpacing: "-0.045em",
+          fontSize: `min(${18 * scale}cqh, ${15 * scale}cqw)`,
+          lineHeight: 0.98,
+          letterSpacing: "-0.018em",
           color: tint.ink,
           textWrap: "balance",
         }}

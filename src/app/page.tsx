@@ -32,7 +32,7 @@ export default async function HomePage({
       <Ticker products={trending} />
       <Featured products={trending.slice(0, 6)} />
       <HowItWorks />
-      <ForCreators />
+      <TheStudio />
       <Closing />
     </>
   );
@@ -51,19 +51,20 @@ function Hero({
     <section className="shell pt-14 lg:pt-24">
       <div className="grid gap-16 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-16">
         <div>
-          <h1 className="display max-w-[15ch]" data-enter="drift">
-            <span className="thin">Everything here</span> was made by somebody.
+          <p className="micro">Soft System, since 2026</p>
+          <h1 className="display mt-7 max-w-[13ch]" data-enter="drift">
+            Digital things, <span className="thin">made beautifully.</span>
           </h1>
-          <p className="mt-8 max-w-[44ch] text-[1.0625rem] leading-relaxed text-ink-2">
-            A shop for digital work, type, templates, kits, presets, courses. Upload a file, set a
-            price, and the buyer has it a second later.
+          <p className="mt-8 max-w-[42ch] text-[1.0625rem] leading-relaxed text-ink-2">
+            Fonts, interfaces, presets, sound and whole systems, drawn here and sold here. Everything
+            is in your library the second you pay, and it stays yours.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <ButtonLink href="/products" size="lg">
               Browse the shop
             </ButtonLink>
-            <ButtonLink href="/sell" variant="outline" size="lg">
-              Start selling
+            <ButtonLink href="/products" variant="outline" size="lg">
+              What is new
             </ButtonLink>
           </div>
         </div>
@@ -97,9 +98,9 @@ function Hero({
       </div>
 
       <dl className="enter mt-20 grid grid-cols-3 gap-8 border-t border-line pt-8 lg:mt-24">
-        <Stat label="Products" value={stats.products.toLocaleString()} />
+        <Stat label="On the shelves" value={stats.products.toLocaleString()} />
         <Stat label="Downloads" value={`${(stats.sales / 1000).toFixed(1)}k`} />
-        <Stat label="Creators keep" value="95%" />
+        <Stat label="Day returns" value="14" />
       </dl>
     </section>
   );
@@ -196,11 +197,11 @@ function HowItWorks() {
   const points = [
     [
       "Delivered instantly",
-      "The download is in the buyer's library the moment the payment clears, with a licence key attached. No queue, no email to wait for.",
+      "The download is in your library the moment the payment clears, with a licence key attached. No queue, no email to wait for.",
     ],
     [
       "Yours to keep",
-      "Every purchase stays in the library for good, re-downloadable from any device, and creators ship updates to past buyers free.",
+      "Every purchase stays in your library for good, re-downloadable from any device, and every update I ship reaches past buyers free.",
     ],
     [
       "Nobody is watching",
@@ -209,10 +210,10 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="on-persimmon alive py-24 lg:py-32">
+    <section className="on-stone alive py-24 lg:py-32">
       <div className="shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
-        <h2 className="display-2 max-w-[10ch]" data-enter="punch">
-          Pay once. Keep it forever.
+        <h2 className="display-2 max-w-[11ch]" data-enter="punch">
+          Pay once. <span className="thin">Keep it forever.</span>
         </h2>
         <dl className="enter grid gap-12 sm:grid-cols-2 lg:gap-x-12">
           {points.map(([title, body], i) => (
@@ -234,45 +235,38 @@ function HowItWorks() {
 
 /* ── For creators ──────────────────────────────────────────────────────── */
 
-function ForCreators() {
-  const steps = [
-    ["Upload", "A zip, a font, a PDF, a Figma file. It is stored where only a buyer can reach it."],
-    ["Describe", "A title, a price, a few lines. The poster is set from your title and a colour."],
-    ["Publish", "Live worldwide, sold and delivered without you lifting a finger again."],
+function TheStudio() {
+  const notes = [
+    ["Drawn here", "Every file on this shop was made in one studio, by one person, and tested on real work before it went up for sale."],
+    ["Fixed here", "A bug in something you bought is my bug. Updates land in your library free, for as long as I keep shipping them."],
+    ["Answered here", "There is no support desk and no ticket number. Write to hello.softsystem@gmail.com and I read it."],
   ];
 
   return (
-    <section className="on-violet alive py-24 lg:py-36">
+    <section className="on-ink alive py-24 lg:py-36">
       <div className="shell grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-24">
-        <div data-reveal>
-          <h2 className="display-2 max-w-[14ch]" data-enter="part">
-            If you make things, this is your shop.
+        <div>
+          <p className="micro">The studio</p>
+          <h2 className="display-2 mt-6 max-w-[13ch]" data-enter="part">
+            One shop, <span className="thin">one pair of hands.</span>
           </h2>
-          <p className="mt-7 max-w-[42ch] text-ink-2">
-            No storefront to build, no payment plumbing, no delivery emails to write. A flat 5% when
-            something sells, and nothing at all when it does not.
+          <p className="mt-7 max-w-[40ch] text-ink-2">
+            This is not a marketplace. Nobody else lists here, so nothing on these shelves is a
+            reseller&rsquo;s copy or a bundle of somebody else&rsquo;s work.
           </p>
-          <ButtonLink href="/sell" variant="outline" className="mt-9">
-            How selling works
+          <ButtonLink href="/products" variant="outline" className="mt-9">
+            See the shelves
           </ButtonLink>
         </div>
 
-        <ol className="enter grid gap-px overflow-hidden border border-line bg-line">
-          {steps.map(([title, body], i) => (
-            <li
-              key={title}
-              data-reveal
-              data-reveal-delay={i * 70}
-              className="flex gap-6 bg-paper p-8"
-            >
-              <span className="numeric label pt-1">0{i + 1}</span>
-              <div>
-                <h3 className="font-display text-[1.3rem] leading-snug">{title}</h3>
-                <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-2">{body}</p>
-              </div>
-            </li>
+        <dl className="enter grid gap-px overflow-hidden border border-line bg-line">
+          {notes.map(([title, body]) => (
+            <div key={title} className="bg-paper p-8">
+              <dt className="font-sans text-[1.0625rem] font-semibold">{title}</dt>
+              <dd className="mt-2.5 max-w-[46ch] text-[0.9375rem] leading-relaxed text-ink-2">{body}</dd>
+            </div>
           ))}
-        </ol>
+        </dl>
       </div>
     </section>
   );
@@ -282,17 +276,17 @@ function ForCreators() {
 
 function Closing() {
   return (
-    <section className="on-chartreuse alive py-24 lg:py-32">
+    <section className="on-burgundy alive py-24 lg:py-32">
       <div className="shell" data-reveal>
-        <h2 className="display max-w-[11ch]" data-enter="rise">
-          Go and get paid.
+        <h2 className="display max-w-[13ch]" data-enter="rise">
+          Take something home.
         </h2>
         <div className="mt-10 flex flex-wrap gap-4">
           <ButtonLink href="/signup" size="lg">
             Create an account
           </ButtonLink>
           <ButtonLink href="/products" variant="outline" size="lg">
-            Look around first
+            Browse everything
           </ButtonLink>
         </div>
       </div>

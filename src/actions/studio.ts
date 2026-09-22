@@ -13,33 +13,14 @@ import { keepValues } from "@/lib/form-values";
 import { fieldErrors, productSchema } from "@/lib/validation";
 import type { ActionState } from "@/lib/types";
 
-/** Every Studio action starts here — no seller, no write. */
+/** Every Studio action starts here. Not the owner, no write. */
 async function requireSeller() {
   const user = await getCurrentUser();
   if (!user || !canSell(user.role)) return null;
   return user;
 }
 
-/**
- * Turns a customer account into a seller account. Anyone signed in can do
- * this — that is what makes it a marketplace rather than one person's shop.
- * It grants the ability to list your own products and nothing else: sellers
- * can only ever read and write rows where they are the seller.
- */
-export async function becomeSellerAction(): Promise<ActionState> {
-  const user = await getCurrentUser();
-  if (!user) return { ok: false, message: "Please sign in first." };
-  if (canSell(user.role)) return { ok: true };
 
-  getDb()
-    .prepare("UPDATE users SET role = 'seller', updated_at = ? WHERE id = ? AND role = 'customer'")
-    .run(now(), user.id);
-
-  audit("user.became_seller", { userId: user.id });
-  revalidatePath("/studio");
-  revalidatePath("/account", "layout");
-  return { ok: true, message: "Your Studio is open." };
-}
 
 /**
  * The listing fields handed back when a save fails. Without this, one
@@ -83,7 +64,7 @@ export async function saveProductAction(
   const seller = await requireSeller();
   const keep = keepValues(formData, KEEP_PRODUCT);
   if (!seller) {
-    return { ok: false, message: "You need a seller account to publish products.", values: keep };
+    return { ok: false, message: "Only the shop owner can publish products.", values: keep };
   }
 
   const parsed = productSchema.safeParse({

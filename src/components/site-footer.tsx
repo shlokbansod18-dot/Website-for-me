@@ -15,11 +15,11 @@ const COLUMNS = [
     ],
   },
   {
-    title: "Creators",
+    title: "The shop",
     links: [
-      { href: "/sell", label: "Start selling" },
-      { href: "/studio", label: "Creator studio" },
-      { href: "/help", label: "Seller help" },
+      { href: "/about", label: "About" },
+      { href: "/legal/refunds", label: "Refunds" },
+      { href: "/help", label: "Help" },
     ],
   },
   {
@@ -41,12 +41,12 @@ export function SiteFooter() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
             <div className="flex items-center gap-2.5">
-              <LogoMark className="size-8" />
-              <span className="font-display text-xl">softsystem</span>
+              <LogoMark className="size-5 text-accent" />
+              <span className="wordmark text-[0.9375rem] text-ink">soft system</span>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-2">
-              A marketplace for the things people make on screens. Publish once, deliver
-              instantly, and keep your customers&rsquo; data out of everyone else&rsquo;s hands.
+              One studio, selling the digital things it makes. Everything here was drawn
+              here, delivered the second you pay, and yours to keep.
             </p>
             <p className="mt-5 text-sm">
               <span className="text-ink-3">Get in touch: </span>

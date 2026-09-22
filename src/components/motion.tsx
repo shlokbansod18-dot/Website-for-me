@@ -37,36 +37,54 @@ export function Motion() {
 
     /* The real sentence stays in the accessibility tree; the visible copy is
        built of spans and hidden from screen readers. */
+    /* Splitting has to preserve the markup inside a heading. An earlier
+       version read textContent and rebuilt from scratch, which silently threw
+       away the italic clause in "Digital things, made beautifully." */
+    function splitWords(node: Node, into: HTMLElement, r: () => number, state: { i: number }, total: number) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        for (const chunk of (node.textContent ?? "").split(/(\s+)/)) {
+          if (chunk === "") continue;
+          if (/^\s+$/.test(chunk)) {
+            into.append(document.createTextNode(" "));
+            continue;
+          }
+          const w = document.createElement("span");
+          w.className = "w";
+          w.style.setProperty("--th", (r() * 0.4).toFixed(3));
+          for (const ch of chunk) {
+            const c = document.createElement("span");
+            c.className = "c";
+            c.textContent = ch;
+            c.style.setProperty("--th", ((state.i / total) * 0.5 + r() * 0.06).toFixed(3));
+            c.style.setProperty("--jx", `${(10 + r() * 22).toFixed(0)}px`);
+            w.append(c);
+            state.i++;
+          }
+          into.append(w);
+        }
+        return;
+      }
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        const src = node as HTMLElement;
+        const clone = document.createElement(src.tagName.toLowerCase());
+        clone.className = src.className;
+        src.childNodes.forEach((child) => splitWords(child, clone, r, state, total));
+        into.append(clone);
+      }
+    }
+
     function splitType(el: HTMLElement) {
       if (el.dataset.split === "1") return;
       el.dataset.split = "1";
       const text = el.textContent ?? "";
       const r = rng(hash(text));
       const total = text.replace(/\s/g, "").length || 1;
+
       const vis = document.createElement("span");
       vis.className = "split";
       vis.setAttribute("aria-hidden", "true");
-      let ci = 0;
-
-      for (const chunk of text.split(/(\s+)/)) {
-        if (/^\s+$/.test(chunk)) {
-          vis.append(document.createTextNode(" "));
-          continue;
-        }
-        const w = document.createElement("span");
-        w.className = "w";
-        w.style.setProperty("--th", (r() * 0.4).toFixed(3));
-        for (const ch of chunk) {
-          const c = document.createElement("span");
-          c.className = "c";
-          c.textContent = ch;
-          c.style.setProperty("--th", ((ci / total) * 0.5 + r() * 0.06).toFixed(3));
-          c.style.setProperty("--jx", `${(10 + r() * 22).toFixed(0)}px`);
-          w.append(c);
-          ci++;
-        }
-        vis.append(w);
-      }
+      const state = { i: 0 };
+      Array.from(el.childNodes).forEach((n) => splitWords(n, vis, r, state, total));
 
       const sr = document.createElement("span");
       sr.className = "sr-only";
