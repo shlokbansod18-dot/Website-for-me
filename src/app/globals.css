@@ -535,12 +535,12 @@ body.hidden-tab *,body.hidden-tab *::before,body.hidden-tab *::after{
 /* ── reveals ────────────────────────────────────────────────── */
 html.anim [data-r]{
   opacity:0;
-  transform:translate3d(0,var(--r-y,40px),0) scale(var(--r-s,1));
-  transition:opacity .9s var(--ease-out), transform 1s var(--ease-out);
+  transform:translate3d(0,var(--r-y,84px),0) scale(var(--r-s,.96));
+  transition:opacity 1s var(--ease-out), transform 1.15s var(--ease-out);
   will-change:transform,opacity;
 }
 html.anim [data-r].on{ opacity:1; transform:none }
-html.anim [data-r="far"]{ --r-y:88px; --r-s:.94 }
+html.anim [data-r="far"]{ --r-y:132px; --r-s:.9 }
 html.anim [data-r="left"]{ transform:translate3d(-56px,0,0) }
 html.anim [data-r="right"]{ transform:translate3d(56px,0,0) }
 html.anim [data-r="mask"]{ opacity:1; clip-path:inset(0 0 102% 0); transform:none;
@@ -555,12 +555,12 @@ html.anim [data-r="blur"].on{ filter:none }
    hover never waits for a stagger that already finished. */
 html.anim [data-rs] > *{
   opacity:0;
-  transform:translate3d(0,54px,0) scale(.96);
+  transform:translate3d(0,90px,0) scale(.93);
   transition:opacity .85s var(--ease-out), transform .95s var(--ease-out);
   will-change:transform,opacity;
 }
 html.anim [data-rs].on > *{ opacity:1; transform:none }
-html.anim [data-rs="deal"] > *{ transform:translate3d(0,80px,0) rotate(var(--rot,-4deg)) scale(.9) }
+html.anim [data-rs="deal"] > *{ transform:translate3d(0,120px,0) rotate(var(--rot,-6deg)) scale(.84) }
 html.anim [data-rs="deal"] > *:nth-child(even){ --rot:4deg }
 html.anim [data-rs].done > *{ transition-delay:0ms !important }
 
@@ -568,7 +568,7 @@ html.anim [data-rs].done > *{ transition-delay:0ms !important }
 html.anim [data-w] .wd{
   display:inline-block;
   opacity:0;
-  transform:translate3d(0,.7em,0) rotateX(-55deg);
+  transform:translate3d(0,1em,0) rotateX(-78deg);
   transform-origin:center bottom;
   transition:opacity .75s var(--ease-out), transform .85s var(--ease-out);
   will-change:transform,opacity;

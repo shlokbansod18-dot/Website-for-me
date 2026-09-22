@@ -59,7 +59,7 @@ export function ScrollMotion() {
       el.textContent = "";
       el.append(sr, out);
       out.querySelectorAll<HTMLElement>(".wd").forEach((w, i) => {
-        w.style.transitionDelay = `${Math.min(i * 55, 700)}ms`;
+        w.style.transitionDelay = `${Math.min(i * 72, 900)}ms`;
       });
     });
 
@@ -82,29 +82,29 @@ export function ScrollMotion() {
             }
           }
         },
-        { threshold: 0, rootMargin: "300px 0px 300px 0px" },
+        { threshold: 0, rootMargin: "0px 0px -15% 0px" },
       );
 
       targets.forEach((el) => {
         if (el.hasAttribute("data-rs")) {
           Array.from(el.children).forEach((c, j) => {
-            (c as HTMLElement).style.transitionDelay = `${Math.min(j * 85, 900)}ms`;
+            (c as HTMLElement).style.transitionDelay = `${Math.min(j * 130, 1200)}ms`;
           });
         }
         io!.observe(el);
       });
 
-      /* The backstop. An element inside a clipping ancestor, or deep in a
-         frame the browser is throttling, can be missed by the observer
-         entirely, and invisible content is far worse than an animation
-         nobody caught. Twelve seconds is the deliberate number: a reader
-         meets the first sections within a few, so they see the motion, and
-         anything the observer lost still turns up. An earlier version used
-         1.8 seconds, which beat every reader to the page and revealed the
-         whole site before anyone had scrolled. */
+      /* The backstop, for an element the observer never reports at all.
+         Thirty seconds, because the trigger above is now correct and this
+         should essentially never run. Two earlier versions got this wrong
+         in opposite directions: 1.8 seconds revealed the whole page before
+         anyone had scrolled, and a +300px trigger margin finished every
+         reveal off-screen, so the section was already settled by the time
+         it appeared. The convention is GSAP's "top 85%", which is a
+         NEGATIVE bottom margin: fire just inside the viewport. */
       backstop = window.setTimeout(() => {
         targets.forEach((el) => el.classList.add("on", "done"));
-      }, 12000);
+      }, 30000);
     }
 
     /* This is the line that lets anything hide at all. */
