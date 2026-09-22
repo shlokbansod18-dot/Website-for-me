@@ -3,153 +3,192 @@
 import { useEffect } from "react";
 
 /**
- * The scroll engine.
+ * The motion engine.
  *
- * Reveals are CSS scroll-driven (see the SCROLL MOTION block in
- * globals.css). This file does the three things CSS cannot: run the
- * pinned gallery, condense the header, and stand in for scroll-driven
- * CSS on a browser that lacks it.
+ * Built on IntersectionObserver rather than scroll position. The reason is
+ * measured: when this page is embedded in a frame whose parent does the
+ * scrolling, the page's own document never scrolls, no scroll events arrive,
+ * and CSS scroll-driven animations never advance, which leaves every reveal
+ * frozen at opacity 0. The observer still fires in that case.
  *
- * There is deliberately no timer here. An earlier version had a 1.8
- * second failsafe that revealed every section before anybody scrolled,
- * which killed the animation entirely while every test still passed.
+ * The safety rule that follows: `html.anim` is what makes the hidden states
+ * apply, and it is added only once the observer is confirmed constructed. No
+ * script, no hiding, so the page always renders.
  */
 export function ScrollMotion() {
   useEffect(() => {
-    const supportsSD =
-      typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()");
-    const lessMotion = () =>
+    const root = document.documentElement;
+    const reduced = () =>
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      document.documentElement.classList.contains("still");
+      root.classList.contains("still");
 
-    document.documentElement.classList.add("js");
-
-    /* Split headlines into word spans so they can rise one at a time.
-       The per-word ranges are nth-child rules, so the spans must be
-       direct children of the split wrapper. */
-    document.querySelectorAll<HTMLElement>("[data-words]").forEach((el) => {
+    /* Split a headline into words. The sentence itself stays in the
+       accessibility tree; only the copy that animates is split. */
+    document.querySelectorAll<HTMLElement>("[data-w]").forEach((el) => {
       if (el.dataset.split === "1") return;
       el.dataset.split = "1";
       const text = el.textContent ?? "";
-      const vis = document.createElement("span");
-      vis.setAttribute("aria-hidden", "true");
+      const out = document.createElement("span");
+      out.setAttribute("aria-hidden", "true");
 
-      const walk = (node: Node, into: HTMLElement) => {
+      const walk = (node: Node, cls: string) => {
         if (node.nodeType === Node.TEXT_NODE) {
           for (const chunk of (node.textContent ?? "").split(/(\s+)/)) {
             if (chunk === "") continue;
             if (/^\s+$/.test(chunk)) {
-              into.append(document.createTextNode(" "));
+              out.append(document.createTextNode(" "));
               continue;
             }
             const w = document.createElement("span");
-            w.className = "wd";
+            w.className = cls ? `wd ${cls}` : "wd";
             w.textContent = chunk;
-            into.append(w);
+            out.append(w);
           }
           return;
         }
         if (node.nodeType === Node.ELEMENT_NODE) {
-          const src = node as HTMLElement;
-          /* Keep the styling of an inner element (the italic clause) by
-             copying its class onto each word it contains, rather than
-             nesting, which would break the nth-child stagger. */
-          src.childNodes.forEach((c) => walk(c, into));
-          into.querySelectorAll<HTMLElement>(".wd:not([data-styled])").forEach((w) => {
-            if (src.className) w.className = `wd ${src.className}`;
-            w.dataset.styled = "1";
-          });
+          const e = node as HTMLElement;
+          e.childNodes.forEach((c) => walk(c, e.className || cls));
         }
       };
+      Array.from(el.childNodes).forEach((n) => walk(n, ""));
 
-      Array.from(el.childNodes).forEach((n) => walk(n, vis));
       const sr = document.createElement("span");
       sr.className = "sr-only";
       sr.textContent = text;
       el.textContent = "";
-      el.append(sr, vis);
+      el.append(sr, out);
+      out.querySelectorAll<HTMLElement>(".wd").forEach((w, i) => {
+        w.style.transitionDelay = `${Math.min(i * 55, 700)}ms`;
+      });
     });
 
-    /* The pinned gallery: while the section is stuck, the rack slides
-       sideways by exactly as much as it overflows. */
-    const wrap = document.querySelector<HTMLElement>(".pinwrap");
-    const track = wrap?.querySelector<HTMLElement>(".pintrack") ?? null;
-    let travel = 0;
-
-    const measure = () => {
-      if (!wrap || !track) return;
-      if (lessMotion() || window.innerWidth <= 860) {
-        wrap.style.height = "";
-        track.style.transform = "";
-        travel = 0;
-        return;
-      }
-      travel = Math.max(0, track.scrollWidth - window.innerWidth);
-      wrap.style.height = `${window.innerHeight + travel}px`;
-    };
-
-    const mast = document.querySelector<HTMLElement>("header");
-    let stuck = false;
-    let ticking = false;
-
-    const draw = () => {
-      if (wrap && track && travel) {
-        const p = Math.min(1, Math.max(0, -wrap.getBoundingClientRect().top / travel));
-        track.style.transform = `translate3d(${-p * travel}px,0,0)`;
-      }
-      if (mast) {
-        const should = window.scrollY > 24;
-        if (should !== stuck) {
-          stuck = should;
-          mast.classList.toggle("stuck", should);
-        }
-      }
-    };
-
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        ticking = false;
-        draw();
-      });
-    };
-
-    /* Only where the browser cannot drive animation from scroll. No
-       timers: an element is shown while it is in view and hidden again
-       when it leaves, so it replays on every pass. */
+    const targets = document.querySelectorAll<HTMLElement>("[data-r],[data-rs],[data-w]");
     let io: IntersectionObserver | null = null;
-    if (!supportsSD && typeof IntersectionObserver !== "undefined") {
+    let backstop = 0;
+
+    if (typeof IntersectionObserver !== "undefined") {
       io = new IntersectionObserver(
         (entries) => {
-          entries.forEach((e) => e.target.classList.toggle("seen", e.isIntersecting));
+          for (const e of entries) {
+            if (!e.isIntersecting) continue; /* arrive once, and stay */
+            const el = e.target as HTMLElement;
+            el.classList.add("on");
+            io!.unobserve(el);
+            if (el.hasAttribute("data-rs")) {
+              /* Retire the stagger once it has played, or every later hover
+                 on those children waits out its entrance delay. */
+              window.setTimeout(() => el.classList.add("done"), 1400);
+            }
+          }
         },
-        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+        { threshold: 0, rootMargin: "300px 0px 300px 0px" },
       );
-      document
-        .querySelectorAll("[data-sd],[data-stagger],[data-words]")
-        .forEach((el) => io!.observe(el));
+
+      targets.forEach((el) => {
+        if (el.hasAttribute("data-rs")) {
+          Array.from(el.children).forEach((c, j) => {
+            (c as HTMLElement).style.transitionDelay = `${Math.min(j * 85, 900)}ms`;
+          });
+        }
+        io!.observe(el);
+      });
+
+      /* The backstop. An element inside a clipping ancestor, or deep in a
+         frame the browser is throttling, can be missed by the observer
+         entirely, and invisible content is far worse than an animation
+         nobody caught. Twelve seconds is the deliberate number: a reader
+         meets the first sections within a few, so they see the motion, and
+         anything the observer lost still turns up. An earlier version used
+         1.8 seconds, which beat every reader to the page and revealed the
+         whole site before anyone had scrolled. */
+      backstop = window.setTimeout(() => {
+        targets.forEach((el) => el.classList.add("on", "done"));
+      }, 12000);
     }
 
-    measure();
-    draw();
+    /* This is the line that lets anything hide at all. */
+    root.classList.toggle("anim", io !== null);
 
-    const onResize = () => {
-      measure();
-      onScroll();
+    /* Depth, from the observer's geometry rather than scroll position. */
+    const layers: { el: HTMLElement; r: number }[] = [];
+    let raf: number | null = null;
+    const pump = () => {
+      if (raf !== null || !layers.length) return;
+      raf = requestAnimationFrame(() => {
+        raf = null;
+        for (const l of layers) {
+          const amt = Number(l.el.dataset.par) || 14;
+          l.el.style.transform = `translate3d(0, ${(-(l.r - 0.5) * 2 * amt).toFixed(1)}px, 0)`;
+        }
+        if (layers.length) pump();
+      });
     };
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    addEventListener("scroll", onScroll, { passive: true });
-    addEventListener("resize", onResize);
-    mq.addEventListener("change", onResize);
+    let parIO: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== "undefined" && !reduced()) {
+      parIO = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            const el = e.target as HTMLElement;
+            const i = layers.findIndex((l) => l.el === el);
+            if (e.isIntersecting && i === -1) layers.push({ el, r: e.intersectionRatio });
+            else if (!e.isIntersecting && i !== -1) {
+              layers[i].el.style.transform = "";
+              layers.splice(i, 1);
+            } else if (i !== -1) layers[i].r = e.intersectionRatio;
+          }
+          pump();
+        },
+        { threshold: Array.from({ length: 21 }, (_, i) => i / 20) },
+      );
+      document.querySelectorAll("[data-par]").forEach((el) => parIO!.observe(el));
+    }
+
+    /* Numbers run up the first time their figure is seen. */
+    let countIO: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== "undefined") {
+      countIO = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            const n = e.target as HTMLElement;
+            countIO!.unobserve(n);
+            const to = Number(n.dataset.count);
+            const suffix = n.dataset.suffix ?? "";
+            const dp = String(n.dataset.count).includes(".") ? 1 : 0;
+            if (reduced()) {
+              n.textContent = to.toFixed(dp) + suffix;
+              continue;
+            }
+            const t0 = performance.now();
+            const step = (now: number) => {
+              const t = Math.min(1, (now - t0) / 1400);
+              n.textContent = (to * (1 - Math.pow(1 - t, 3))).toFixed(dp) + suffix;
+              if (t < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+          }
+        },
+        { threshold: 0.5 },
+      );
+      document.querySelectorAll("[data-count]").forEach((n) => countIO!.observe(n));
+    }
+
+    /* The hero plays the moment the page exists. It must never wait on a
+       scroll that, in an embedded frame, may never come. */
+    const lit = requestAnimationFrame(() =>
+      requestAnimationFrame(() => root.classList.add("lit")),
+    );
 
     return () => {
-      removeEventListener("scroll", onScroll);
-      removeEventListener("resize", onResize);
-      mq.removeEventListener("change", onResize);
       io?.disconnect();
+      parIO?.disconnect();
+      countIO?.disconnect();
+      window.clearTimeout(backstop);
+      cancelAnimationFrame(lit);
+      if (raf !== null) cancelAnimationFrame(raf);
     };
-  });
+  }, []);
 
   return null;
 }

@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import { headers } from "next/headers";
 
 import "./globals.css";
-import { Motion, PressRoom } from "@/components/motion";
+import { PressRoom } from "@/components/motion";
 import { ScrollMotion } from "@/components/scroll-motion";
 import { Reveal } from "@/components/reveal";
 import { SiteFooter } from "@/components/site-footer";
@@ -94,7 +94,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <SiteFooter />
         </div>
         <PressRoom />
-        <Motion />
         <ScrollMotion />
         <Reveal />
       </body>

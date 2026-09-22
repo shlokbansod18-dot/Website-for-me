@@ -34,7 +34,7 @@ export default function AboutPage() {
       <section className="on-ivory py-20 lg:py-32">
         <div className="shell">
           <p className="micro">About</p>
-          <h1 className="display mt-7 max-w-[14ch]" data-words>
+          <h1 className="display mt-7 max-w-[14ch]" data-w>
             A small shop, <span className="thin">run properly.</span>
           </h1>
           <p className="mt-9 max-w-[52ch] text-[1.0625rem] leading-relaxed text-ink-2">
@@ -47,10 +47,10 @@ export default function AboutPage() {
 
       <section className="on-stone alive py-20 lg:py-28">
         <div className="shell">
-          <h2 className="display-2 max-w-[16ch]" data-words>
+          <h2 className="display-2 max-w-[16ch]" data-w>
             What you get, every time
           </h2>
-          <dl data-stagger className="mt-14 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
+          <dl data-rs className="mt-14 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
             {PROMISES.map(([title, body]) => (
               <div key={title} className="bg-paper p-8 lg:p-10">
                 <dt className="font-sans text-[1.0625rem] font-semibold">{title}</dt>
@@ -66,7 +66,7 @@ export default function AboutPage() {
       <section className="on-ink py-20 lg:py-28">
         <div className="shell grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
           <div>
-            <h2 className="display-2 max-w-[13ch]" data-words>
+            <h2 className="display-2 max-w-[13ch]" data-w>
               Write to me <span className="thin">directly.</span>
             </h2>
             <p className="mt-7 max-w-[42ch] text-ink-2">

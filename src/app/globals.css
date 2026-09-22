@@ -509,200 +509,129 @@ body.hidden-tab *,body.hidden-tab *::before,body.hidden-tab *::after{
 }
 
 
+
 /* ═══════════════════════════════════════════════════════════════
-   SCROLL MOTION
+   MOTION, second attempt, built on what actually survives
 
-   Driven by the scrollbar itself through CSS scroll-driven
-   animations, not by a timer or an observer that can fire early.
-   Scroll down and it plays; scroll up and it plays backwards.
+   The previous version used CSS scroll-driven animations. Measured
+   inside the artifact's iframe, where the PARENT scrolls and the
+   page's own document never does, they never advance: every reveal
+   sits frozen at opacity 0 forever. Zero scroll events reach the
+   page. IntersectionObserver still fires, so that is the primitive
+   everything here is built on.
 
-   An earlier version used an IntersectionObserver with a 1.8s
-   safety net, and the safety net revealed every section before
-   anybody had scrolled. The animation was real and nobody could
-   ever see it. Tying motion to the scroll position removes the
-   whole class of bug: there is no timer to misfire.
+   The rule that follows from it: nothing is hidden unless the script
+   has confirmed it can show it again. Every hidden state below is
+   gated behind html.anim, a class added only once the observer is
+   running. No script, no hiding.
    ═══════════════════════════════════════════════════════════════ */
 
-@keyframes sd-rise {
-  from { opacity: 0; transform: translate3d(0, 44px, 0) }
-  to   { opacity: 1; transform: none }
-}
-@keyframes sd-rise-far {
-  from { opacity: 0; transform: translate3d(0, 78px, 0) scale(.965) }
-  to   { opacity: 1; transform: none }
-}
-@keyframes sd-deal {
-  from { opacity: 0; transform: translate3d(0, 64px, 0) rotate(var(--deal-rot, -3deg)) scale(.94) }
-  to   { opacity: 1; transform: none }
-}
-@keyframes sd-wipe {
-  from { clip-path: inset(0 100% 0 0) }
-  to   { clip-path: inset(0 0 0 0) }
-}
-@keyframes sd-line {
-  from { transform: scaleX(0) }
-  to   { transform: scaleX(1) }
-}
-/* Depth. The layer drifts against the page as it passes. */
-@keyframes sd-drift-slow { from { transform: translate3d(0, 7%, 0) }  to { transform: translate3d(0, -7%, 0) } }
-@keyframes sd-drift-fast { from { transform: translate3d(0, 14%, 0) } to { transform: translate3d(0, -14%, 0) } }
-@keyframes sd-tilt { from { transform: rotate(-4.5deg) translate3d(0,4%,0) } to { transform: rotate(1.5deg) translate3d(0,-4%,0) } }
-@keyframes sd-zoom { from { transform: scale(1.14) } to { transform: scale(1) } }
-@keyframes sd-grow { from { letter-spacing: .06em; opacity: .35 } to { letter-spacing: -.018em; opacity: 1 } }
-
-@supports (animation-timeline: view()) {
-  /* Every element that arrives from below. `both` keeps the start
-     state before entry and the end state after, so nothing flashes. */
-  [data-sd] {
-    animation: sd-rise linear both;
-    animation-timeline: view();
-    animation-range: entry 2% cover 26%;
-  }
-  [data-sd="far"]  { animation-name: sd-rise-far;  animation-range: entry 0% cover 34% }
-  [data-sd="deal"] { animation-name: sd-deal;      animation-range: entry 4% cover 30% }
-  [data-sd="wipe"] { animation-name: sd-wipe;      animation-range: entry 6% cover 32% }
-  [data-sd="grow"] { animation-name: sd-grow;      animation-range: entry 0% cover 40% }
-
-  /* Children arrive one after another. The stagger comes from the
-     range, not a transition-delay, so it is scrubbable both ways. */
-  [data-stagger] > * {
-    animation: sd-rise linear both;
-    animation-timeline: view();
-    animation-range: entry 2% cover 30%;
-  }
-  [data-stagger] > *:nth-child(2) { animation-range: entry 5%  cover 33% }
-  [data-stagger] > *:nth-child(3) { animation-range: entry 8%  cover 36% }
-  [data-stagger] > *:nth-child(4) { animation-range: entry 11% cover 39% }
-  [data-stagger] > *:nth-child(5) { animation-range: entry 14% cover 42% }
-  [data-stagger] > *:nth-child(6) { animation-range: entry 17% cover 45% }
-  [data-stagger] > *:nth-child(7) { animation-range: entry 20% cover 48% }
-  [data-stagger] > *:nth-child(8) { animation-range: entry 23% cover 51% }
-
-  [data-stagger="deal"] > * { animation-name: sd-deal }
-  [data-stagger="deal"] > *:nth-child(odd)  { --deal-rot: -3deg }
-  [data-stagger="deal"] > *:nth-child(even) { --deal-rot: 3deg }
-
-  /* Depth layers. These run across the whole time the section is in
-     view, which is what makes the page feel like it has a back and a
-     front rather than one flat plane. */
-  [data-depth] { animation: sd-drift-slow linear both; animation-timeline: view(); animation-range: cover }
-  [data-depth="fast"] { animation-name: sd-drift-fast }
-  [data-depth="tilt"] { animation-name: sd-tilt }
-  [data-depth="zoom"] { animation-name: sd-zoom; animation-range: entry 0% cover 60% }
-
-  /* A rule that draws itself across the page. */
-  [data-rule] {
-    transform-origin: left;
-    animation: sd-line linear both;
-    animation-timeline: view();
-    animation-range: entry 10% cover 40%;
-  }
-
-  /* A headline whose words rise one at a time, tied to scroll. */
-  [data-words] .wd {
-    display: inline-block;
-    animation: sd-rise linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 30%;
-  }
-  [data-words] .wd:nth-child(2) { animation-range: entry 3%  cover 33% }
-  [data-words] .wd:nth-child(3) { animation-range: entry 6%  cover 36% }
-  [data-words] .wd:nth-child(4) { animation-range: entry 9%  cover 39% }
-  [data-words] .wd:nth-child(5) { animation-range: entry 12% cover 42% }
-  [data-words] .wd:nth-child(6) { animation-range: entry 15% cover 45% }
-  [data-words] .wd:nth-child(7) { animation-range: entry 18% cover 48% }
-  [data-words] .wd:nth-child(8) { animation-range: entry 21% cover 51% }
-  [data-words] .wd:nth-child(n+9) { animation-range: entry 24% cover 54% }
-
-  /* A progress rule pinned to the whole document. */
-  .readbar { animation: sd-line linear both; animation-timeline: scroll(root); transform-origin: left }
+:root{
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease-soft:cubic-bezier(.33,1,.68,1);
+  --ease-back:cubic-bezier(.34,1.56,.64,1);
 }
 
-/* ── the pinned gallery ─────────────────────────────────────────
-   The shop's one piece of scrollytelling: the section sticks while
-   the shelf travels sideways, so scrolling down walks you along the
-   rack. Driven by scroll position, reversible, and it releases the
-   page the moment the rack runs out. */
-.pinwrap { position: relative }
-.pinstage {
-  position: sticky;
-  top: 0;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
+/* ── reveals ────────────────────────────────────────────────── */
+html.anim [data-r]{
+  opacity:0;
+  transform:translate3d(0,var(--r-y,40px),0) scale(var(--r-s,1));
+  transition:opacity .9s var(--ease-out), transform 1s var(--ease-out);
+  will-change:transform,opacity;
 }
-.pintrack {
-  display: flex;
-  gap: clamp(1rem, 2vw, 2rem);
-  padding-inline: var(--gutter);
-  will-change: transform;
-}
-.pintrack > * { flex: none; width: clamp(240px, 27vw, 360px) }
-@media (max-width: 860px) {
-  /* A phone scrolls the rack with a thumb instead. Pinning a section
-     on a small screen fights the native scroll and always loses. */
-  .pinwrap { height: auto !important }
-  .pinstage { position: static; min-height: 0 }
-  .pintrack { overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 1rem }
-  .pintrack > * { scroll-snap-align: start }
-}
+html.anim [data-r].on{ opacity:1; transform:none }
+html.anim [data-r="far"]{ --r-y:88px; --r-s:.94 }
+html.anim [data-r="left"]{ transform:translate3d(-56px,0,0) }
+html.anim [data-r="right"]{ transform:translate3d(56px,0,0) }
+html.anim [data-r="mask"]{ opacity:1; clip-path:inset(0 0 102% 0); transform:none;
+  transition:clip-path 1.1s var(--ease-out) }
+html.anim [data-r="mask"].on{ clip-path:inset(0 0 -2% 0) }
+html.anim [data-r="blur"]{ filter:blur(14px); transition:opacity .9s var(--ease-out),
+  transform 1s var(--ease-out), filter 1s var(--ease-out) }
+html.anim [data-r="blur"].on{ filter:none }
 
-/* ── the header answers the scroll ──────────────────────────── */
-.mast { transition: padding .35s var(--ease), background-color .35s var(--ease), box-shadow .35s var(--ease) }
-.mast.stuck {
-  background: color-mix(in srgb, var(--chrome-bg) 82%, transparent);
-  backdrop-filter: blur(14px) saturate(140%);
-  box-shadow: 0 1px 0 var(--chrome-edge), 0 12px 32px -24px rgb(23 23 23 / .5);
+/* Children arrive one after another. The delay is set inline by the
+   script, which also clears it once the group has arrived so a later
+   hover never waits for a stagger that already finished. */
+html.anim [data-rs] > *{
+  opacity:0;
+  transform:translate3d(0,54px,0) scale(.96);
+  transition:opacity .85s var(--ease-out), transform .95s var(--ease-out);
+  will-change:transform,opacity;
 }
-.mast.stuck .bar { height: 3.5rem }
-.mast .bar { transition: height .35s var(--ease) }
+html.anim [data-rs].on > *{ opacity:1; transform:none }
+html.anim [data-rs="deal"] > *{ transform:translate3d(0,80px,0) rotate(var(--rot,-4deg)) scale(.9) }
+html.anim [data-rs="deal"] > *:nth-child(even){ --rot:4deg }
+html.anim [data-rs].done > *{ transition-delay:0ms !important }
 
-/* ── reduced motion turns all of it off ─────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  [data-sd], [data-stagger] > *, [data-depth], [data-rule],
-  [data-words] .wd, .readbar {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    clip-path: none !important;
-  }
-  .pinwrap { height: auto !important }
-  .pinstage { position: static; min-height: 0 }
+/* Headlines arrive a word at a time. */
+html.anim [data-w] .wd{
+  display:inline-block;
+  opacity:0;
+  transform:translate3d(0,.7em,0) rotateX(-55deg);
+  transform-origin:center bottom;
+  transition:opacity .75s var(--ease-out), transform .85s var(--ease-out);
+  will-change:transform,opacity;
 }
-html.still [data-sd], html.still [data-stagger] > *, html.still [data-depth],
-html.still [data-rule], html.still [data-words] .wd, html.still .readbar {
-  animation: none !important;
-  opacity: 1 !important;
-  transform: none !important;
-  clip-path: none !important;
-}
-html.still .pinwrap { height: auto !important }
-html.still .pinstage { position: static; min-height: 0 }
+html.anim [data-w].on .wd{ opacity:1; transform:none }
+[data-w]{ perspective:900px }
 
-/* ── the fallback, for a browser without scroll-driven CSS ────
-   A class the script adds only when the feature is missing. No
-   timers: an element is revealed the moment it enters the viewport
-   and hidden again when it leaves, so it still plays on every pass. */
-@supports not (animation-timeline: view()) {
-  html.js [data-sd], html.js [data-stagger] > *, html.js [data-words] .wd {
-    opacity: 0;
-    transform: translate3d(0, 40px, 0);
-    transition: opacity .8s var(--ease), transform .8s var(--ease);
-  }
-  html.js [data-sd].seen, html.js [data-stagger].seen > *, html.js [data-words].seen .wd {
-    opacity: 1;
-    transform: none;
-  }
-  html.js [data-stagger].seen > *:nth-child(2) { transition-delay: 70ms }
-  html.js [data-stagger].seen > *:nth-child(3) { transition-delay: 140ms }
-  html.js [data-stagger].seen > *:nth-child(4) { transition-delay: 210ms }
-  html.js [data-stagger].seen > *:nth-child(5) { transition-delay: 280ms }
-  html.js [data-stagger].seen > *:nth-child(6) { transition-delay: 350ms }
-  html.js [data-words].seen .wd:nth-child(2) { transition-delay: 60ms }
-  html.js [data-words].seen .wd:nth-child(3) { transition-delay: 120ms }
-  html.js [data-words].seen .wd:nth-child(4) { transition-delay: 180ms }
-  html.js [data-words].seen .wd:nth-child(5) { transition-delay: 240ms }
-  html.js [data-words].seen .wd:nth-child(n+6) { transition-delay: 300ms }
+/* ── parallax and depth, driven by the observer's own numbers ── */
+html.anim [data-par]{ will-change:transform }
+
+/* ── ambient, always running, never dependent on scroll ─────── */
+.aura-wrap{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
+.aura{position:absolute; width:58vmax; height:58vmax; border-radius:50%; filter:blur(100px); opacity:.2}
+.aura.one{background:var(--burgundy); left:-16vmax; top:-14vmax; animation:aura-a 42s ease-in-out infinite -9s}
+.aura.two{background:var(--taupe); right:-20vmax; bottom:-18vmax; animation:aura-b 58s ease-in-out infinite -23s}
+@keyframes aura-a{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(14vw,18vh,0) scale(1.3)}}
+@keyframes aura-b{0%,100%{transform:translate3d(0,0,0) scale(1.15)}50%{transform:translate3d(-16vw,-12vh,0) scale(.85)}}
+
+/* A grain that breathes, so flat areas are never quite still. */
+.tooth{position:absolute; inset:0; opacity:.045; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:tooth 8s steps(4) infinite}
+@keyframes tooth{0%{transform:translate(0,0)}25%{transform:translate(-2%,1%)}50%{transform:translate(1%,-2%)}75%{transform:translate(-1%,-1%)}100%{transform:translate(0,0)}}
+
+/* ── the load sequence, the one thing that runs without scrolling ── */
+@keyframes lift{ from{opacity:0; transform:translate3d(0,26px,0)} to{opacity:1; transform:none} }
+@keyframes liftBig{ from{opacity:0; transform:translate3d(0,56px,0) scale(.94) rotate(-3deg)} to{opacity:1; transform:none} }
+@keyframes sweep{ from{clip-path:inset(0 100% 0 0)} to{clip-path:inset(0 0 0 0)} }
+html.anim .boot{ animation:lift .95s var(--ease-out) backwards; animation-delay:var(--d,0ms) }
+html.anim .boot-big{ animation:liftBig 1.2s var(--ease-out) backwards; animation-delay:var(--d,0ms) }
+html.anim .boot-sweep{ animation:sweep 1.1s var(--ease-out) backwards; animation-delay:var(--d,0ms) }
+
+/* ── hover, which needs no scroll at all ────────────────────── */
+.good .poster{ transition:transform .7s var(--ease-out), box-shadow .7s var(--ease-out) }
+.good:hover .poster{ transform:translateY(-10px) scale(1.025);
+  box-shadow:0 34px 62px -28px rgb(23 23 23 / .55) }
+.good .poster .name{ transition:transform .7s var(--ease-out) }
+.good:hover .poster .name{ transform:translateY(-4px) }
+.good .cap{ transition:transform .5s var(--ease-out) }
+.good:hover .cap{ transform:translateX(4px) }
+
+/* A magnetic pull on the primary controls, clamped so the label never
+   leaves its own hit box. */
+.btn{ transition:transform .45s var(--ease-back), color .28s var(--ease-out),
+  border-color .28s var(--ease-out), background-color .28s var(--ease-out) }
+
+/* A soft light that follows the pointer across the hero. */
+.spot{position:absolute; inset:0; pointer-events:none; opacity:0; z-index:0;
+  transition:opacity .6s var(--ease-out);
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),
+    color-mix(in srgb, var(--burgundy) 16%, transparent), transparent 62%)}
+.hero-spot:hover .spot{ opacity:1 }
+
+/* ── reduced motion turns every bit of it off ───────────────── */
+@media (prefers-reduced-motion:reduce){
+  html.anim [data-r], html.anim [data-rs] > *, html.anim [data-w] .wd{
+    opacity:1 !important; transform:none !important; clip-path:none !important;
+    filter:none !important; transition:none !important }
+  html.anim .boot, html.anim .boot-big, html.anim .boot-sweep{ animation:none !important }
+  .aura, .tooth{ animation:none !important }
+  .good:hover .poster, .good:hover .cap, .good:hover .poster .name{ transform:none }
 }
+html.still [data-r], html.still [data-rs] > *, html.still [data-w] .wd{
+  opacity:1 !important; transform:none !important; clip-path:none !important;
+  filter:none !important; transition:none !important }
+html.still .aura, html.still .tooth{ animation:none !important }
