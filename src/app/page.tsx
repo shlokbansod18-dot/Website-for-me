@@ -52,10 +52,10 @@ function Hero({
       <div className="grid gap-16 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-16">
         <div>
           <p className="micro">Soft System, since 2026</p>
-          <h1 className="display mt-7 max-w-[13ch]" data-enter="drift">
+          <h1 className="display mt-7 max-w-[13ch]" data-words>
             Digital things, <span className="thin">made beautifully.</span>
           </h1>
-          <p className="mt-8 max-w-[42ch] text-[1.0625rem] leading-relaxed text-ink-2">
+          <p data-sd className="mt-8 max-w-[42ch] text-[1.0625rem] leading-relaxed text-ink-2">
             Fonts, interfaces, presets, sound and whole systems, drawn here and sold here. Everything
             is in your library the second you pay, and it stays yours.
           </p>
@@ -79,6 +79,7 @@ function Hero({
                 title={lead.title}
                 category={lead.category}
                 size="lg"
+                data-depth="tilt"
                 className="aspect-[4/5] w-full shadow-[0_30px_60px_-30px_rgb(0_0_0/0.95)]"
               />
               <span className="absolute -bottom-4 -left-3 rounded-full bg-accent px-4 py-2 font-display text-[0.8125rem] font-semibold text-on-accent shadow-[var(--glow)]">
@@ -97,7 +98,7 @@ function Hero({
         ) : null}
       </div>
 
-      <dl className="enter mt-20 grid grid-cols-3 gap-8 border-t border-line pt-8 lg:mt-24">
+      <dl data-stagger className="mt-20 grid grid-cols-3 gap-8 border-t border-line pt-8 lg:mt-24">
         <Stat label="On the shelves" value={stats.products.toLocaleString()} />
         <Stat label="Downloads" value={`${(stats.sales / 1000).toFixed(1)}k`} />
         <Stat label="Day returns" value="14" />
@@ -179,7 +180,7 @@ function Featured({ products }: { products: Product[] }) {
   return (
     <section className="shell py-24 lg:py-36">
       <div className="mb-14 flex items-end justify-between gap-6" data-reveal>
-        <h2 className="display-2 max-w-[14ch]" data-enter="snap">
+        <h2 className="display-2 max-w-[14ch]" data-words>
           New this week
         </h2>
         <Link href="/products" className="link shrink-0 pb-1 text-[0.9375rem]">
@@ -212,10 +213,10 @@ function HowItWorks() {
   return (
     <section className="on-stone alive py-24 lg:py-32">
       <div className="shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
-        <h2 className="display-2 max-w-[11ch]" data-enter="punch">
+        <h2 className="display-2 max-w-[11ch]" data-words>
           Pay once. <span className="thin">Keep it forever.</span>
         </h2>
-        <dl className="enter grid gap-12 sm:grid-cols-2 lg:gap-x-12">
+        <dl data-stagger className="grid gap-12 sm:grid-cols-2 lg:gap-x-12">
           {points.map(([title, body], i) => (
             <div key={title} data-reveal data-reveal-delay={i * 70}>
               <dt className="font-display text-[1.3rem] leading-snug">{title}</dt>
@@ -247,10 +248,10 @@ function TheStudio() {
       <div className="shell grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-24">
         <div>
           <p className="micro">The studio</p>
-          <h2 className="display-2 mt-6 max-w-[13ch]" data-enter="part">
+          <h2 className="display-2 mt-6 max-w-[13ch]" data-words>
             One shop, <span className="thin">one pair of hands.</span>
           </h2>
-          <p className="mt-7 max-w-[40ch] text-ink-2">
+          <p data-sd className="mt-7 max-w-[40ch] text-ink-2">
             This is not a marketplace. Nobody else lists here, so nothing on these shelves is a
             reseller&rsquo;s copy or a bundle of somebody else&rsquo;s work.
           </p>
@@ -259,7 +260,7 @@ function TheStudio() {
           </ButtonLink>
         </div>
 
-        <dl className="enter grid gap-px overflow-hidden border border-line bg-line">
+        <dl data-stagger className="grid gap-px overflow-hidden border border-line bg-line">
           {notes.map(([title, body]) => (
             <div key={title} className="bg-paper p-8">
               <dt className="font-sans text-[1.0625rem] font-semibold">{title}</dt>
@@ -278,7 +279,7 @@ function Closing() {
   return (
     <section className="on-burgundy alive py-24 lg:py-32">
       <div className="shell" data-reveal>
-        <h2 className="display max-w-[13ch]" data-enter="rise">
+        <h2 className="display max-w-[13ch]" data-words>
           Take something home.
         </h2>
         <div className="mt-10 flex flex-wrap gap-4">

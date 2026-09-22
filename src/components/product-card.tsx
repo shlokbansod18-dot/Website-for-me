@@ -69,7 +69,7 @@ export function ProductCard({ product }: { product: Product }) {
 
 export function ProductGrid({ products }: { products: Product[] }) {
   return (
-    <div className="enter deal grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+    <div data-stagger="deal" className="grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
       {products.map((product, i) => (
         <div key={product.id} data-reveal data-reveal-delay={Math.min(i, 5) * 50}>
           <ProductCard product={product} />

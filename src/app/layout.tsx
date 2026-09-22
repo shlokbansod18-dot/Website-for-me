@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 
 import "./globals.css";
 import { Motion, PressRoom } from "@/components/motion";
+import { ScrollMotion } from "@/components/scroll-motion";
 import { Reveal } from "@/components/reveal";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -94,6 +95,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </div>
         <PressRoom />
         <Motion />
+        <ScrollMotion />
         <Reveal />
       </body>
     </html>
