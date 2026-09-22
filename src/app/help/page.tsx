@@ -48,7 +48,7 @@ const SECTIONS = [
       },
       {
         q: "Can I get a refund?",
-        a: "Yes — within 14 days, as long as you have not downloaded the file more than a couple of times. Digital goods cannot be returned, so the window is about mistakes and misdescriptions rather than change of mind after use. The full policy is at /legal/refunds.",
+        a: "Yes, within 14 days, as long as you have not downloaded the file more than a couple of times. Digital goods cannot be returned, so the window is about mistakes and misdescriptions rather than change of mind after use. The full policy is at /legal/refunds.",
       },
       {
         q: "Where is my invoice?",
@@ -73,7 +73,7 @@ const SECTIONS = [
       },
       {
         q: "Can I take a product down?",
-        a: "Yes. Unpublishing hides it from the shop immediately. If people have already bought it, their downloads keep working — that purchase was already paid for.",
+        a: "Yes. Unpublishing hides it from the shop immediately. If people have already bought it, their downloads keep working, that purchase was already paid for.",
       },
       {
         q: "Can other sellers see my products or customers?",
@@ -90,7 +90,7 @@ const SECTIONS = [
       },
       {
         q: "Can I get a copy of my data?",
-        a: "Yes — /account/privacy has a button that downloads everything we hold about you as a JSON file. No request form, no waiting period.",
+        a: "Yes, /account/privacy has a button that downloads everything we hold about you as a JSON file. No request form, no waiting period.",
       },
       {
         q: "How do I delete my account?",
@@ -107,7 +107,7 @@ const SECTIONS = [
     items: [
       {
         q: "I found a security problem.",
-        a: `Please tell us before telling anyone else, and give us a reasonable window to fix it. Send the details to ${SITE.securityEmail} with steps to reproduce. Do not test against other people's accounts or data — we would rather hear about a theoretical issue than have a real customer affected by a proof of concept.`,
+        a: `Please tell us before telling anyone else, and give us a reasonable window to fix it. Send the details to ${SITE.securityEmail} with steps to reproduce. Do not test against other people's accounts or data, we would rather hear about a theoretical issue than have a real customer affected by a proof of concept.`,
       },
     ],
   },
@@ -122,7 +122,7 @@ export default function HelpPage() {
         <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink-2">
           If the answer is not here, email{" "}
           <a
-            href={mailto(SITE.supportEmail, "softsystem — question")}
+            href={mailto(SITE.supportEmail, "softsystem, question")}
             className="text-accent underline-offset-4 hover:underline"
           >
             {SITE.supportEmail}

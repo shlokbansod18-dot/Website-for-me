@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
           with and a name to put on your receipts.
         </li>
         <li>
-          <strong>A scrypt hash of your password.</strong> Not the password — a one-way hash of it,
+          <strong>A scrypt hash of your password.</strong> Not the password, a one-way hash of it,
           which lets us check a sign-in without ever being able to read what you typed.
         </li>
         <li>
@@ -37,7 +37,7 @@ export default function PrivacyPolicyPage() {
           legally needs it. This is encrypted with AES-256-GCM before it is written to disk.
         </li>
         <li>
-          <strong>Your panel brand and its last four digits.</strong> Never the panel number itself —
+          <strong>Your panel brand and its last four digits.</strong> Never the panel number itself , 
           see below.
         </li>
         <li>
@@ -51,7 +51,7 @@ export default function PrivacyPolicyPage() {
       <p>
         Your panel number, your phone number, your date of birth, your location, your behaviour on
         other websites, or any profile assembled by an advertising network. This site loads no
-        third-party scripts, fonts, or pixels of any kind — you can verify that in your
+        third-party scripts, fonts, or pixels of any kind, you can verify that in your
         browser&rsquo;s network tab.
       </p>
 
@@ -73,7 +73,7 @@ export default function PrivacyPolicyPage() {
 
       <h2>Who else sees your data</h2>
       <p>
-        Nobody. We do not sell, rent, trade or share personal data — there is no arrangement under
+        Nobody. We do not sell, rent, trade or share personal data, there is no arrangement under
         which we could. The only exception would be a valid, binding legal order, and we would tell
         you it had happened unless we were legally prohibited from doing so.
       </p>
@@ -93,22 +93,22 @@ export default function PrivacyPolicyPage() {
       <h2>Your controls</h2>
       <ul>
         <li>
-          <strong>See everything</strong> — <a href="/account/privacy">/account/privacy</a> lists
+          <strong>See everything</strong>, <a href="/account/privacy">/account/privacy</a> lists
           every category of data we hold about you.
         </li>
         <li>
-          <strong>Take a copy</strong> — one button downloads all of it as a JSON file.
+          <strong>Take a copy</strong>, one button downloads all of it as a JSON file.
         </li>
         <li>
-          <strong>Correct it</strong> — change your name and email preferences at{" "}
+          <strong>Correct it</strong>, change your name and email preferences at{" "}
           <a href="/account/settings">/account/settings</a>.
         </li>
         <li>
-          <strong>Delete it</strong> — one button, password-confirmed, immediate and permanent. No
+          <strong>Delete it</strong>, one button, password-confirmed, immediate and permanent. No
           cooling-off period and no email chase.
         </li>
         <li>
-          <strong>Sign out everywhere</strong> — revoke any device from{" "}
+          <strong>Sign out everywhere</strong>, revoke any device from{" "}
           <a href="/account/security">/account/security</a>.
         </li>
       </ul>
@@ -139,7 +139,7 @@ export default function PrivacyPolicyPage() {
       <h2>Contact</h2>
       <p>
         Privacy questions and security reports both go to{" "}
-        <a href={mailto(SITE.privacyEmail, "softsystem — privacy")}>{SITE.privacyEmail}</a>. For a
+        <a href={mailto(SITE.privacyEmail, "softsystem, privacy")}>{SITE.privacyEmail}</a>. For a
         security issue, please read the disclosure note on the{" "}
         <a href="/help">help page</a> first.
       </p>

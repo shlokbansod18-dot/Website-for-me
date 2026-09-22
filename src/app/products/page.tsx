@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Browse every product",
   description:
-    "Templates, UI kits, fonts, presets, sound packs and courses — delivered the moment you buy them.",
+    "Templates, UI kits, fonts, presets, sound packs and courses, delivered the moment you buy them.",
 };
 
 type Search = { q?: string; category?: string; sort?: string };

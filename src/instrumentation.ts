@@ -20,7 +20,7 @@ export async function register() {
   if (problems.length > 0) {
     const lines = problems.map((p) => `  · ${p}`).join("\n");
     throw new Error(
-      `\n\nsoftsystem cannot start — the environment is incomplete:\n\n${lines}\n\n` +
+      `\n\nsoftsystem cannot start, the environment is incomplete:\n\n${lines}\n\n` +
         "Generate each key with:\n" +
         "  node -e \"console.log(require('crypto').randomBytes(32).toString('hex'))\"\n\n" +
         "Then set them in your host's environment settings. See DEPLOY.md.\n",

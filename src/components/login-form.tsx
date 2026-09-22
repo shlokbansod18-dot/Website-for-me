@@ -69,7 +69,7 @@ export function LoginForm({ next }: { next: string }) {
       </button>
 
       <p className="text-center text-[0.6875rem] leading-relaxed text-ink-3">
-        After eight wrong attempts an account locks itself for fifteen minutes. That is deliberate —
+        After eight wrong attempts an account locks itself for fifteen minutes. That is deliberate , 
         it makes guessing your password impractical.
       </p>
     </form>

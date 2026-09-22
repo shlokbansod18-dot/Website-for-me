@@ -28,7 +28,7 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
           [&_p]:mb-4 [&_p]:text-[0.9375rem] [&_p]:leading-relaxed [&_p]:text-ink-2
           [&_ul]:mb-4 [&_ul]:space-y-2.5 [&_ul]:text-[0.9375rem] [&_ul]:leading-relaxed [&_ul]:text-ink-2
           [&_li]:relative [&_li]:pl-6
-          [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:text-accent [&_li]:before:content-['—']
+          [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:text-accent [&_li]:before:content-[', ']
           [&_strong]:font-medium [&_strong]:text-ink
           [&_a]:text-accent [&_a]:underline-offset-4 hover:[&_a]:underline
           [&_code]:rounded [&_code]:bg-surface-2 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-xs [&_code]:text-accent
@@ -41,7 +41,7 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
         <p className="text-[0.8125rem] leading-relaxed text-ink-2">
           <strong className="font-medium text-ink">A note on these documents.</strong> They are
           written in plain English and describe exactly what this software does. They are a starting
-          point, not legal advice — before you sell to the public, have someone qualified in your
+          point, not legal advice, before you sell to the public, have someone qualified in your
           jurisdiction check them, particularly around consumer rights, tax on digital sales, and
           whichever privacy law applies where your customers live.
         </p>

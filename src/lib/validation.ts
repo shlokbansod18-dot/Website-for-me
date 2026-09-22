@@ -29,7 +29,7 @@ export const passwordSchema = z
   .string()
   .min(10, "Use at least 10 characters.")
   .max(200, "That is longer than 200 characters.")
-  .refine((v) => !BANNED_PASSWORDS.has(v.toLowerCase()), "That password is too common — try another.")
+  .refine((v) => !BANNED_PASSWORDS.has(v.toLowerCase()), "That password is too common, try another.")
   .refine((v) => !/^(.)\1+$/.test(v), "That password is too repetitive.");
 
 export const emailSchema = trimmed(254)

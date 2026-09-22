@@ -51,11 +51,11 @@ function Hero({
     <section className="shell pt-14 lg:pt-24">
       <div className="grid gap-16 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-16">
         <div>
-          <h1 className="display max-w-[15ch]">
+          <h1 className="display max-w-[15ch]" data-enter="drift">
             <span className="thin">Everything here</span> was made by somebody.
           </h1>
           <p className="mt-8 max-w-[44ch] text-[1.0625rem] leading-relaxed text-ink-2">
-            A shop for digital work — type, templates, kits, presets, courses. Upload a file, set a
+            A shop for digital work, type, templates, kits, presets, courses. Upload a file, set a
             price, and the buyer has it a second later.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -96,7 +96,7 @@ function Hero({
         ) : null}
       </div>
 
-      <dl className="mt-20 grid grid-cols-3 gap-8 border-t border-line pt-8 lg:mt-24">
+      <dl className="enter mt-20 grid grid-cols-3 gap-8 border-t border-line pt-8 lg:mt-24">
         <Stat label="Products" value={stats.products.toLocaleString()} />
         <Stat label="Downloads" value={`${(stats.sales / 1000).toFixed(1)}k`} />
         <Stat label="Creators keep" value="95%" />
@@ -178,8 +178,8 @@ function Featured({ products }: { products: Product[] }) {
   return (
     <section className="shell py-24 lg:py-36">
       <div className="mb-14 flex items-end justify-between gap-6" data-reveal>
-        <h2 className="display-2 max-w-[14ch]">
-          <span className="thin">New</span> this week
+        <h2 className="display-2 max-w-[14ch]" data-enter="snap">
+          New this week
         </h2>
         <Link href="/products" className="link shrink-0 pb-1 text-[0.9375rem]">
           All products
@@ -200,7 +200,7 @@ function HowItWorks() {
     ],
     [
       "Yours to keep",
-      "Every purchase stays in the library for good, re-downloadable from any device — and creators ship updates to past buyers free.",
+      "Every purchase stays in the library for good, re-downloadable from any device, and creators ship updates to past buyers free.",
     ],
     [
       "Nobody is watching",
@@ -209,13 +209,12 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="on-persimmon py-24 lg:py-32">
+    <section className="on-persimmon alive py-24 lg:py-32">
       <div className="shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
-        <h2 className="display-2 max-w-[10ch]" data-reveal>
-          Pay once.<br />
-          <span className="thin">Keep it forever.</span>
+        <h2 className="display-2 max-w-[10ch]" data-enter="punch">
+          Pay once. Keep it forever.
         </h2>
-        <dl className="grid gap-12 sm:grid-cols-2 lg:gap-x-12">
+        <dl className="enter grid gap-12 sm:grid-cols-2 lg:gap-x-12">
           {points.map(([title, body], i) => (
             <div key={title} data-reveal data-reveal-delay={i * 70}>
               <dt className="font-display text-[1.3rem] leading-snug">{title}</dt>
@@ -243,12 +242,11 @@ function ForCreators() {
   ];
 
   return (
-    <section className="on-violet py-24 lg:py-36">
+    <section className="on-violet alive py-24 lg:py-36">
       <div className="shell grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-24">
         <div data-reveal>
-          <h2 className="display-2 max-w-[14ch]">
-            If you make things,<br />
-            <span className="thin">this is your shop.</span>
+          <h2 className="display-2 max-w-[14ch]" data-enter="part">
+            If you make things, this is your shop.
           </h2>
           <p className="mt-7 max-w-[42ch] text-ink-2">
             No storefront to build, no payment plumbing, no delivery emails to write. A flat 5% when
@@ -259,7 +257,7 @@ function ForCreators() {
           </ButtonLink>
         </div>
 
-        <ol className="grid gap-px overflow-hidden rounded border border-line bg-line">
+        <ol className="enter grid gap-px overflow-hidden border border-line bg-line">
           {steps.map(([title, body], i) => (
             <li
               key={title}
@@ -284,10 +282,10 @@ function ForCreators() {
 
 function Closing() {
   return (
-    <section className="on-chartreuse py-24 lg:py-32">
+    <section className="on-chartreuse alive py-24 lg:py-32">
       <div className="shell" data-reveal>
-        <h2 className="display max-w-[11ch]">
-          Go and <span className="thin">get paid.</span>
+        <h2 className="display max-w-[11ch]" data-enter="rise">
+          Go and get paid.
         </h2>
         <div className="mt-10 flex flex-wrap gap-4">
           <ButtonLink href="/signup" size="lg">

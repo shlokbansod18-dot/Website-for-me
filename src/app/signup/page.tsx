@@ -52,7 +52,7 @@ export default async function SignupPage({
       panel={{
         heading: "The shortest sign-up we could get away with.",
         points: [
-          "We collect an email, a name and a password — nothing else",
+          "We collect an email, a name and a password, nothing else",
           "Marketing email is off unless you switch it on",
           "Download everything we hold about you whenever you like",
           "Delete your account for real, in one click, with no email chase",

@@ -87,7 +87,7 @@ export function SignupForm({ next }: { next: string }) {
             </div>
             <p className="mt-1.5 text-[0.6875rem] text-ink-3" aria-live="polite">
               Strength: <span className="text-ink-2">{STRENGTH_LABELS[score]}</span>
-              {score < 3 ? " — add length, or mix in a symbol." : " — that will do nicely."}
+              {score < 3 ? ", add length, or mix in a symbol." : ", that will do nicely."}
             </p>
           </div>
         ) : null}
@@ -127,7 +127,7 @@ export function SignupForm({ next }: { next: string }) {
       </button>
 
       <p className="text-center text-[0.6875rem] leading-relaxed text-ink-3">
-        Your password is hashed with scrypt before it is stored. Nobody here — including us — can
+        Your password is hashed with scrypt before it is stored. Nobody here, including us, can
         read it back.
       </p>
     </form>

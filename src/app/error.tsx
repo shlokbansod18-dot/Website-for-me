@@ -27,7 +27,7 @@ export default function Error({
         </p>
         <h1 className="display-2 mt-4">Something broke</h1>
         <p className="mx-auto mt-5 max-w-sm text-ink-2">
-          That is on us, not you. Try again — and if it keeps happening, send support the reference
+          That is on us, not you. Try again, and if it keeps happening, send support the reference
           below.
         </p>
 

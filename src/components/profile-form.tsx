@@ -42,7 +42,7 @@ export function ProfileForm({ user }: { user: PublicUser }) {
         />
         <p className="mt-1.5 text-[0.6875rem] text-ink-3">
           Your email is your sign-in and where receipts go. Changing it needs a verification step we
-          have not built yet — for now, contact support.
+          have not built yet. For now, contact support.
         </p>
       </div>
 

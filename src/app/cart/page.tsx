@@ -107,7 +107,7 @@ export default async function CartPage() {
                 <Link href="/signup?next=/checkout" className="text-accent hover:underline">
                   Create an account
                 </Link>{" "}
-                — it takes about twenty seconds.
+               , it takes about twenty seconds.
               </p>
             )}
 

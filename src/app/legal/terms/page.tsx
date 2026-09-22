@@ -64,7 +64,7 @@ export default function TermsPage() {
           softsystem takes 5% of each sale. There are no listing fees and no monthly charges.
         </li>
         <li>
-          You may unpublish anything at any time. People who already bought it keep their download —
+          You may unpublish anything at any time. People who already bought it keep their download , 
           that sale was already made.
         </li>
         <li>
@@ -84,7 +84,7 @@ export default function TermsPage() {
         <li>Using the site to break the law where you are, or where we are.</li>
       </ul>
       <p>
-        Security researchers are welcome — see the disclosure note on the <a href="/help">help
+        Security researchers are welcome, see the disclosure note on the <a href="/help">help
         page</a>. Test against your own accounts, not other people&rsquo;s.
       </p>
 
@@ -99,7 +99,7 @@ export default function TermsPage() {
       <p>
         To the extent the law allows, our liability for any claim connected with the service is
         limited to what you paid us in the twelve months before the claim. Nothing here limits
-        liability that cannot legally be limited — including for death, personal injury, or fraud.
+        liability that cannot legally be limited, including for death, personal injury, or fraud.
       </p>
 
       <h2>Ending things</h2>
@@ -117,7 +117,7 @@ export default function TermsPage() {
 
       <h2>Contact</h2>
       <p>
-        <a href={mailto(SITE.supportEmail, "softsystem — question")}>{SITE.supportEmail}</a>
+        <a href={mailto(SITE.supportEmail, "softsystem, question")}>{SITE.supportEmail}</a>
       </p>
     </>
   );

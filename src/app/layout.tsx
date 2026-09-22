@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { headers } from "next/headers";
 
 import "./globals.css";
+import { Motion, PressRoom } from "@/components/motion";
 import { Reveal } from "@/components/reveal";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -71,7 +72,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en" data-theme="dark" suppressHydrationWarning>
       <body className={`${grotesque.variable} ${sans.variable} grain antialiased`}>
         {/* Marks the document as script-enabled and applies the saved theme,
-            both before first paint — no flash, and no scroll animation that
+            both before first paint, no flash, and no scroll animation that
             could leave content stranded at opacity 0 if script never runs. */}
         <script
           nonce={nonce}
@@ -91,6 +92,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </main>
           <SiteFooter />
         </div>
+        <PressRoom />
+        <Motion />
         <Reveal />
       </body>
     </html>

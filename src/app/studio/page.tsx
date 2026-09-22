@@ -48,7 +48,7 @@ export default async function StudioPage({
 
       {saved ? (
         <div className="mb-8 rounded border border-accent/35 bg-accent/10 px-5 py-3.5 text-[0.8125rem] text-accent">
-          Saved. {products[0]?.status === "draft" ? "It is a draft — publish it when you are ready." : "It is live in the shop."}
+          Saved. {products[0]?.status === "draft" ? "It is a draft, publish it when you are ready." : "It is live in the shop."}
         </div>
       ) : null}
 
@@ -160,7 +160,7 @@ export default async function StudioPage({
       )}
 
       <p className="mt-6 text-[0.6875rem] leading-relaxed text-ink-3">
-        Deleting a product that people have already bought only unpublishes it — their downloads
+        Deleting a product that people have already bought only unpublishes it, their downloads
         keep working. A product nobody has bought is removed outright, file and all.
       </p>
     </div>

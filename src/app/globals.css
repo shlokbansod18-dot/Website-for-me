@@ -40,7 +40,12 @@
 
   --lift: 0 1px 1px rgb(0 0 0 / 0.4), 0 18px 48px -24px rgb(0 0 0 / 0.9);
   --grain-opacity: 0.04;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --out: cubic-bezier(0.16, 1, 0.3, 1);
+  --both: cubic-bezier(0.65, 0.05, 0.36, 1);
+  --t-fast: 180ms;
+  --t-mid: 420ms;
+  --t-slow: 780ms;
+
 }
 
 :root[data-theme="light"] {
@@ -97,6 +102,10 @@
 @layer base {
   * { border-color: var(--line); }
 
+  /* hidden first as the fallback; clip also stops script from scrolling
+     the page sideways, and both elements need it. */
+  html, body { overflow-x: hidden; overflow-x: clip; }
+
   html {
     color-scheme: dark;
     -webkit-text-size-adjust: 100%;
@@ -112,7 +121,6 @@
     letter-spacing: -0.006em;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
   }
 
   /* The grotesque carries every heading. It is wide and low-contrast, so it
@@ -164,6 +172,159 @@
 }
 
 @layer components {
+/* ── the environment ────────────────────────────────────────────
+   One fixed layer behind everything: paper tooth, plus two ink
+   blooms drifting on a 96-second cycle. Scrolling then feels like
+   moving through a place instead of past stacked sections. */
+.press-room{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
+.press-room .tooth{position:absolute; inset:0; opacity:.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E")}
+.press-room .bloom{position:absolute; width:52vmax; height:52vmax; border-radius:50%;
+  filter:blur(90px); opacity:.16; will-change:transform}
+.press-room .bloom.a{background:var(--persimmon); left:-14vmax; top:-10vmax;
+  animation:ss-drift-a 96s var(--both) infinite -22s}
+.press-room .bloom.b{background:var(--violet); right:-18vmax; bottom:-14vmax;
+  animation:ss-drift-b 124s var(--both) infinite -51s}
+@keyframes ss-drift-a{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(16vw,22vh,0) scale(1.25)}
+}
+@keyframes ss-drift-b{
+  0%,100%{transform:translate3d(0,0,0) scale(1.1)}
+  50%{transform:translate3d(-18vw,-16vh,0) scale(.85)}
+}
+
+/* ── entrances ──────────────────────────────────────────────────
+   An IntersectionObserver adds .in. Children arrive in sequence.
+   Both states are prefixed with the container class so a later rule
+   cannot silently cancel them. */
+.enter > *{opacity:0; transform:translateY(22px);
+  transition:opacity var(--t-slow) var(--out), transform var(--t-slow) var(--out)}
+.enter.in > *{opacity:1; transform:none}
+.enter.in > *:nth-child(1){transition-delay:0ms}
+.enter.in > *:nth-child(2){transition-delay:70ms}
+.enter.in > *:nth-child(3){transition-delay:140ms}
+.enter.in > *:nth-child(4){transition-delay:210ms}
+.enter.in > *:nth-child(5){transition-delay:280ms}
+.enter.in > *:nth-child(6){transition-delay:350ms}
+.enter.in > *:nth-child(7){transition-delay:420ms}
+.enter.in > *:nth-child(8){transition-delay:490ms}
+/* Retire the stagger once the entrance is done, or every hover on the
+   later children lags by its delay forever. This selector has to beat
+   the :nth-child rules above, so it carries the same class weight. */
+.enter.done.in > *:nth-child(n){transition-delay:0ms !important}
+
+/* Sheets deal in rather than rise, because that is what a sheet does. */
+.enter.deal > *{opacity:0; transform:translateY(34px) rotate(var(--deal-rot,-2.5deg)) scale(.97)}
+.enter.deal.in > *{opacity:1; transform:none}
+
+/* ── text assembly ──────────────────────────────────────────────
+   Headlines split into word and character spans at load, then
+   assemble off --k, which the scroll drive writes. Fully reversible.
+   Each section gets a different entrance; the entrance echoes what
+   the section is about. */
+.split{display:inline}
+.split .w{display:inline-block; white-space:nowrap}
+.split .c{display:inline-block; will-change:transform,opacity}
+
+/* (a) drift-down: ink settling onto paper. The hero. */
+[data-enter="drift"] .w{
+  --kc:clamp(0,(var(--k,1) - var(--th,0))*2.8,1);
+  opacity:var(--kc);
+  transform:translateY(calc((1 - var(--kc)) * -26px))}
+
+/* (b) grid snap: sheets sliding square into a rack. */
+[data-enter="snap"] .c{
+  --kc:clamp(0,(var(--k,1) - var(--th,0))*3.2,1);
+  opacity:var(--kc);
+  transform:translateX(calc((1 - var(--kc)) * var(--jx,14px)))}
+
+/* (c) punch: the stamp landing, with an overshoot that settles. */
+[data-enter="punch"] .w{
+  --kc:clamp(0,(var(--k,1) - var(--th,0))*3,1);
+  --ks:clamp(0,(var(--k,1) - var(--th,0) - .14)*2.8,1);
+  opacity:var(--kc);
+  transform:scale(calc(.68 + .46*var(--kc) - .14*var(--ks)))}
+
+/* (d) halves parting: two columns of type opening like a fold. */
+[data-enter="part"] .w{
+  --kc:clamp(0,(var(--k,1) - var(--th,0))*2.6,1);
+  opacity:var(--kc);
+  transform:translateX(calc((1 - var(--kc)) * var(--jx,0px)))}
+
+/* (e) rise into a staged settle: the closing beat. */
+[data-enter="rise"] .w{
+  --kc:clamp(0,(var(--k,1) - var(--th,0))*2.4,1);
+  opacity:var(--kc);
+  transform:translateY(calc((1 - var(--kc)) * 30px))}
+
+/* Any clipped reveal needs room for the tails on g, y and p. */
+.clip{overflow:hidden; padding-bottom:.18em; margin-bottom:-.18em}
+
+/* ── registration marks ─────────────────────────────────────────
+   What a real press sheet carries in its margins. They draw
+   themselves as their spread arrives, so the structure is telling
+   the truth about the subject rather than decorating it. */
+.regmark{position:absolute; width:56px; height:56px; pointer-events:none; opacity:.42}
+.regmark path,.regmark circle{
+  stroke:currentColor; stroke-width:1.2; fill:none;
+  stroke-dasharray:var(--len,120); stroke-dashoffset:var(--len,120);
+  transition:stroke-dashoffset 1.1s var(--out)}
+.in .regmark path,.in .regmark circle{stroke-dashoffset:0}
+.regmark.tl{top:1.5rem; left:1.5rem}
+.regmark.br{bottom:1.5rem; right:1.5rem; transform:rotate(180deg)}
+@media (max-width:760px){ .regmark{display:none} }
+
+/* ── living details ─────────────────────────────────────────────
+   One per spread, at whisper level, four seconds or longer, mid
+   cycle at first paint. Paused when off-screen and on hidden tabs. */
+.alive .pulse::after{content:""; position:absolute; inset:-30%; border-radius:50%;
+  background:radial-gradient(circle,currentColor 0%,transparent 66%);
+  opacity:0; pointer-events:none}
+.alive.live .pulse::after{animation:ss-pulse 6.5s ease-in-out infinite -2.4s}
+@keyframes ss-pulse{0%,100%{opacity:.06}50%{opacity:.2}}
+.alive .sway{will-change:transform}
+.alive.live .sway{animation:ss-sway 11s ease-in-out infinite -3.7s}
+@keyframes ss-sway{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(.7deg)}}
+
+/* animation-play-state does not inherit, so it has to be aimed at
+   every element and every pseudo-element by name. */
+body.hidden-tab *,body.hidden-tab *::before,body.hidden-tab *::after{
+  animation-play-state:paused !important}
+
+/* ── the press: the one interactive moment ──────────────────────
+   Hold the lever and the sheet prints, one ink at a time. Let go
+   early and it eases back rather than snapping. Finish it and the
+   sheet is a real product you can put in your bag. */
+.press{position:relative; display:grid; gap:clamp(2rem,4vw,4rem); grid-template-columns:1fr}
+@media (min-width:900px){ .press{grid-template-columns:1fr 1fr; align-items:center} }
+.sheet-stack{position:relative; aspect-ratio:3/4; max-width:26rem; width:100%}
+.sheet-stack .ink{position:absolute; inset:0; mix-blend-mode:multiply;
+  opacity:calc(clamp(0,(var(--pull,0) - var(--at,0)) * 4,1));
+  transform:translate(calc((1 - clamp(0,(var(--pull,0) - var(--at,0)) * 4,1)) * var(--ox,0px)),
+                      calc((1 - clamp(0,(var(--pull,0) - var(--at,0)) * 4,1)) * var(--oy,0px)));
+  transition:none; will-change:transform,opacity}
+.sheet-stack .paper{position:absolute; inset:0; background:var(--sheet);
+  box-shadow:0 24px 60px -28px rgb(0 0 0 / .8)}
+.sheet-stack .reveal{position:absolute; inset:0; display:grid; place-content:center;
+  text-align:center; gap:.75rem; padding:2rem;
+  opacity:clamp(0,(var(--pull,0) - .82) * 6,1);
+  transform:scale(calc(.96 + .04 * clamp(0,(var(--pull,0) - .82) * 6,1)))}
+.lever{position:relative; display:inline-flex; align-items:center; gap:.85rem;
+  border:1.5px solid var(--fg); background:transparent; color:var(--fg);
+  padding:0 1.6rem; height:56px; cursor:grab; overflow:hidden; isolation:isolate;
+  font-family:var(--display); font-weight:600; font-size:1.0625rem; letter-spacing:-.02em;
+  touch-action:none; user-select:none; -webkit-user-select:none}
+.lever:active{cursor:grabbing}
+.lever::before{content:""; position:absolute; inset:0; z-index:-1; background:var(--fg);
+  transform:scaleX(var(--pull,0)); transform-origin:left}
+.lever[data-pulled="1"]{border-color:var(--mark); background:var(--mark); color:var(--on-mark)}
+.lever .glyph{display:block; width:13px; height:13px; background:currentColor;
+  transform:rotate(calc(var(--pull,0) * 180deg))}
+.press-read{font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.8125rem;
+  color:var(--fg-3)}
+
+
   /* A fine tooth. Keeps large flat areas from looking like flat fills. */
   .grain::before {
     content: "";

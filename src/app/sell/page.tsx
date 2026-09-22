@@ -66,7 +66,7 @@ export default async function SellPage() {
               <span className="text-accent">Now sell it.</span>
             </h1>
             <p className="mt-8 max-w-xl text-[1.0625rem] leading-relaxed text-ink-2">
-              A storefront, a payment flow, file delivery, licence keys and a customer library —
+              A storefront, a payment flow, file delivery, licence keys and a customer library , 
               all of it, without building any of it. Upload your work and start taking money today.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
@@ -154,7 +154,7 @@ export default async function SellPage() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:col-span-2">
             {[
-              ["Checkout", "Validated, rate-limited, and priced from the database — not from the browser."],
+              ["Checkout", "Validated, rate-limited, and priced from the database, not from the browser."],
               ["File delivery", "Uploads sit outside the web root and are only ever streamed to accounts that bought them."],
               ["Licence keys", "A unique key generated per purchase and shown on the receipt."],
               ["Customer library", "Every buyer gets a permanent page listing everything they own."],

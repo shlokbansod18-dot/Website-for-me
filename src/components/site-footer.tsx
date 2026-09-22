@@ -25,7 +25,7 @@ const COLUMNS = [
   {
     title: "Company",
     links: [
-      { href: mailto(SITE.email, "softsystem — hello"), label: "Contact us" },
+      { href: mailto(SITE.email, "softsystem, hello"), label: "Contact us" },
       { href: "/security", label: "Security & privacy" },
       { href: "/legal/privacy", label: "Privacy policy" },
       { href: "/legal/terms", label: "Terms of service" },
@@ -51,7 +51,7 @@ export function SiteFooter() {
             <p className="mt-5 text-sm">
               <span className="text-ink-3">Get in touch: </span>
               <a
-                href={mailto(SITE.email, "softsystem — hello")}
+                href={mailto(SITE.email, "softsystem, hello")}
                 className="text-accent underline-offset-4 transition-opacity hover:underline"
               >
                 {SITE.email}

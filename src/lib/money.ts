@@ -9,7 +9,7 @@ export function formatMoney(cents: number, currency = "USD"): string {
 }
 
 export function formatBytes(bytes: number | null | undefined): string {
-  if (!bytes || bytes < 0) return "—";
+  if (!bytes || bytes < 0) return ", ";
   const units = ["B", "KB", "MB", "GB"];
   let value = bytes;
   let unit = 0;

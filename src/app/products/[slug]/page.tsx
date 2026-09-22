@@ -61,7 +61,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       {/*
         Explicit grid placement so the order differs by screen. On a phone the
-        DOM order wins: cover, then price and Add to bag, then the long copy —
+        DOM order wins: cover, then price and Add to bag, then the long copy , 
         nobody should have to scroll past three paragraphs to find the button.
         From lg up the copy returns to the left column and the buy box sits in
         a sticky right column.
@@ -142,7 +142,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
             <dl className="mt-7 space-y-3 border-t border-line pt-6 text-[0.8125rem]">
               <Row label="Version" value={product.version} />
-              <Row label="File" value={product.fileName ?? "—"} mono />
+              <Row label="File" value={product.fileName ?? ", "} mono />
               <Row label="Size" value={formatBytes(product.fileSize)} />
               <Row label="Updated" value={formatDate(product.updatedAt)} />
               <Row label="Licence" value={product.licence} wrap />

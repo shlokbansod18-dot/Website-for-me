@@ -62,7 +62,7 @@ export function AddToCart({
     return (
       <a href="/cart" className={buttonClass("outline", size, `border-accent/40 text-accent ${className}`)}>
         <CheckIcon />
-        In your bag — view
+        In your bag, view
       </a>
     );
   }

@@ -22,7 +22,7 @@ export function Logo({ className = "" }: { className?: string }) {
     <Link
       href="/"
       className={`inline-flex items-baseline gap-2 ${className}`}
-      aria-label="softsystem — home"
+      aria-label="softsystem, home"
     >
       <LogoMark className="size-[1.05rem] translate-y-[0.08rem] text-accent" />
       <span className="font-display text-[1.3rem] font-bold leading-none tracking-[-0.045em] text-ink">

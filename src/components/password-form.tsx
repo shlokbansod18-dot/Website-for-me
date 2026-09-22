@@ -80,7 +80,7 @@ export function PasswordForm() {
       </button>
 
       <p className="text-[0.6875rem] leading-relaxed text-ink-3">
-        Changing your password signs out every other device immediately — which is exactly what you
+        Changing your password signs out every other device immediately, which is exactly what you
         want if you are changing it because you think someone else has it.
       </p>
     </form>

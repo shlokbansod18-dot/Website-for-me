@@ -100,7 +100,7 @@ export default async function SecurityPage() {
         </ul>
 
         <p className="mt-4 text-[0.6875rem] leading-relaxed text-ink-3">
-          We record a rough device label and a keyed hash of the IP address you signed in from —
+          We record a rough device label and a keyed hash of the IP address you signed in from , 
           never the address itself. It is enough to spot a session you do not recognise, and not
           enough to build a location history.
         </p>

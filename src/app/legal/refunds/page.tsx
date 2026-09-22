@@ -32,7 +32,7 @@ export default function RefundsPage() {
         <li>The file is corrupt, incomplete, or will not open in the software it names.</li>
         <li>You were charged twice for the same thing.</li>
         <li>You bought it by mistake and have not downloaded it.</li>
-        <li>The purchase was not made by you — tell us immediately and change your password.</li>
+        <li>The purchase was not made by you, tell us immediately and change your password.</li>
       </ul>
 
       <h2>Usually not refunded</h2>
@@ -44,7 +44,7 @@ export default function RefundsPage() {
           You did not read what was included. Every product page lists this before you buy.
         </li>
         <li>
-          You lack the software the product requires — the product page states what you need.
+          You lack the software the product requires, the product page states what you need.
         </li>
         <li>The 14 days have passed.</li>
       </ul>
@@ -55,8 +55,8 @@ export default function RefundsPage() {
 
       <h2>How to ask</h2>
       <p>
-        Email <a href={mailto(SITE.supportEmail, "softsystem — refund request")}>{SITE.supportEmail}</a> with your order number — it is on your
-        receipt and at <a href="/account/orders">/account/orders</a> — and a sentence about what
+        Email <a href={mailto(SITE.supportEmail, "softsystem, refund request")}>{SITE.supportEmail}</a> with your order number, it is on your
+        receipt and at <a href="/account/orders">/account/orders</a>, and a sentence about what
         went wrong. You do not need to fill in a form or justify yourself at length.
       </p>
       <p>
@@ -80,7 +80,7 @@ export default function RefundsPage() {
       <h2>For sellers</h2>
       <p>
         When a buyer is refunded, the sale is reversed and the platform fee is returned to you as
-        well — we do not keep a commission on a sale that did not stand. A product attracting an
+        well, we do not keep a commission on a sale that did not stand. A product attracting an
         unusual number of refunds gets reviewed, because that usually means the page promises
         something the file does not deliver.
       </p>

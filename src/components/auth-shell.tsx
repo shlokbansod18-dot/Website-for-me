@@ -68,7 +68,7 @@ export function AuthShell({
           <Link href="/legal/privacy" className="underline underline-offset-2 hover:text-ink-2">
             privacy policy
           </Link>{" "}
-          — it is short on purpose.
+         , it is short on purpose.
         </p>
       </aside>
     </div>

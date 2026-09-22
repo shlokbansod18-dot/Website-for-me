@@ -146,7 +146,7 @@ export default async function SuccessPage({
       </div>
 
       <p className="mt-8 text-center text-[0.6875rem] leading-relaxed text-ink-3">
-        Changed your mind? Digital products are refundable within 14 days —{" "}
+        Changed your mind? Digital products are refundable within 14 days , {" "}
         <Link href="/legal/refunds" className="underline underline-offset-2 hover:text-ink-2">
           read the policy
         </Link>

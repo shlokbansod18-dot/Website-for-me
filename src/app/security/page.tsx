@@ -33,7 +33,7 @@ const PILLARS = [
   {
     glyph: "🚧",
     title: "Nothing injected, nothing framed",
-    body: "Every page carries a Content-Security-Policy with a fresh nonce, so an injected script simply does not run — the attack that skims checkout pages elsewhere is inert here. Framing is refused outright, and every database query is a prepared statement with bound parameters, which is what puts SQL injection out of reach.",
+    body: "Every page carries a Content-Security-Policy with a fresh nonce, so an injected script simply does not run, the attack that skims checkout pages elsewhere is inert here. Framing is refused outright, and every database query is a prepared statement with bound parameters, which is what puts SQL injection out of reach.",
   },
   {
     glyph: "⏱",
@@ -43,7 +43,7 @@ const PILLARS = [
   {
     glyph: "📦",
     title: "Files only reach the people who bought them",
-    body: "Uploads are stored outside the public folder under randomised names — there is no URL that serves them directly. Every download goes through a check that the signed-in account owns that exact purchase, and is always sent as a plain attachment so nothing can execute in your browser.",
+    body: "Uploads are stored outside the public folder under randomised names, there is no URL that serves them directly. Every download goes through a check that the signed-in account owns that exact purchase, and is always sent as a plain attachment so nothing can execute in your browser.",
   },
   {
     glyph: "👁",
@@ -57,7 +57,7 @@ const PROMISES = [
   "We collect a name, an email and a password. Not a phone number, not a birthday.",
   "Marketing email is off unless you deliberately switch it on.",
   "Export everything we hold about you as JSON, any time, from your account.",
-  "Delete your account and it is gone immediately — no thirty-day window.",
+  "Delete your account and it is gone immediately, no thirty-day window.",
 ];
 
 export default function SecurityPage() {
@@ -135,12 +135,12 @@ export default function SecurityPage() {
           </h2>
           <p className="mt-4 text-[0.875rem] leading-relaxed text-ink-2">
             This project ships with a self-contained demo payment processor so the whole flow works
-            out of the box. It is written the way a real integration should be — the panel number
-            never leaves the function that authorises it — but it does not move money and it is not
+            out of the box. It is written the way a real integration should be, the panel number
+            never leaves the function that authorises it, but it does not move money and it is not
             a substitute for a real provider.
           </p>
           <p className="mt-4 text-[0.875rem] leading-relaxed text-ink-2">
-            When you go live, put a hosted provider in front of it — Stripe Checkout, Paddle or
+            When you go live, put a hosted provider in front of it, Stripe Checkout, Paddle or
             Lemon Squeezy. Their iframe collects the panel so the number never reaches your server at
             all, which keeps you outside PCI-DSS scope entirely. Only the body of{" "}
             <code className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-xs text-accent">
@@ -159,7 +159,7 @@ export default function SecurityPage() {
         </div>
 
         <p className="mx-auto mt-8 max-w-3xl text-center text-[0.6875rem] leading-relaxed text-ink-3">
-          Found something wrong? Tell us before you tell anyone else — see{" "}
+          Found something wrong? Tell us before you tell anyone else, see{" "}
           <Link href="/help" className="underline underline-offset-2 hover:text-ink-2">
             responsible disclosure
           </Link>

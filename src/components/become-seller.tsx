@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { becomeSellerAction } from "@/actions/studio";
 
 const PERKS = [
-  "Keep 95% of every sale — one flat fee, no listing charges",
+  "Keep 95% of every sale, one flat fee, no listing charges",
   "Cover art generated for you, so you can publish without a design tool",
   "Files delivered automatically, only to accounts that paid",
   "Licence keys issued per purchase, no work on your side",
@@ -47,7 +47,7 @@ export function BecomeSeller({ name }: { name: string }) {
           </h1>
           <p className="mt-5 max-w-md text-[0.9375rem] leading-relaxed text-ink-2">
             Your account can start selling right now. No application, no waiting list, no interview
-            — turn it on and upload your first product.
+           , turn it on and upload your first product.
           </p>
 
           <ul className="mt-8 space-y-3.5">

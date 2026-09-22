@@ -126,7 +126,7 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
           <LockIcon />
           <span>
             This address is encrypted with AES-256-GCM before it is written to disk. It is used for
-            your invoice and nothing else — never for advertising, never shared, never sold.
+            your invoice and nothing else, never for advertising, never shared, never sold.
           </span>
         </p>
       </section>
@@ -213,12 +213,12 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
 
         <details className="mt-4 text-[0.6875rem] text-ink-3">
           <summary className="cursor-pointer transition-colors hover:text-ink-2">
-            This is a demo processor — what should I type?
+            This is a demo processor. What should I type?
           </summary>
           <div className="mt-3 space-y-1.5 border-l border-line pl-4 font-mono">
-            <p>4242 4242 4242 4242 — approved</p>
-            <p>4000 0000 0000 0002 — declined by bank</p>
-            <p>4000 0000 0000 0119 — network timeout</p>
+            <p>4242 4242 4242 4242, approved</p>
+            <p>4000 0000 0000 0002, declined by bank</p>
+            <p>4000 0000 0000 0119, network timeout</p>
             <p className="font-sans">Any future expiry date and any 3-digit code will do.</p>
           </div>
         </details>

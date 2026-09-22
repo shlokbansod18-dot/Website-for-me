@@ -17,7 +17,7 @@ export function keyProblem(name: SecretName): string | null {
   const raw = (process.env[name] || "").trim();
   if (HEX_64.test(raw)) return null;
   return raw
-    ? `${name} is malformed — it must be exactly 64 hex characters.`
+    ? `${name} is malformed, it must be exactly 64 hex characters.`
     : `${name} is not set. It must be 64 hex characters.`;
 }
 
@@ -45,7 +45,7 @@ export function configProblems(): string[] {
     problems.push("APP_URL is not set. Invoices and links would point at localhost.");
   } else if (!appUrl.startsWith("https://") && !isLoopback(appUrl)) {
     problems.push(
-      `APP_URL is "${appUrl}". It has to start with https:// in production — session ` +
+      `APP_URL is "${appUrl}". It has to start with https:// in production, session ` +
         "cookies are marked Secure, and a browser will not send those over plain HTTP.",
     );
   }

@@ -141,7 +141,7 @@ export async function saveProductAction(
   if (data.status === "published" && !file && !existing?.fileName) {
     return {
       ok: false,
-      fieldErrors: { file: "Upload the product file before publishing — buyers need something to download." },
+      fieldErrors: { file: "Upload the product file before publishing, buyers need something to download." },
       values: keep,
     };
   }

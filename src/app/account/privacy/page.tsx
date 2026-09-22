@@ -75,7 +75,7 @@ export default async function PrivacyPage() {
           <p className="text-[0.8125rem] leading-relaxed text-ink-2">
             <span className="text-ink">What we do not have:</span> your panel number, your phone
             number, your date of birth, your browsing history on other sites, or any profile
-            assembled by an advertising network. This site loads no third-party scripts at all —
+            assembled by an advertising network. This site loads no third-party scripts at all , 
             check the network tab.
           </p>
         </div>
@@ -97,7 +97,7 @@ export default async function PrivacyPage() {
         <div className="mb-6">
           <h2 className="font-display text-xl">Delete everything</h2>
           <p className="mt-1 text-[0.8125rem] text-ink-2">
-            Immediate and permanent — no cooling-off period, no email chase, no retention window.
+            Immediate and permanent, no cooling-off period, no email chase, no retention window.
           </p>
         </div>
         <div className="panel p-7">

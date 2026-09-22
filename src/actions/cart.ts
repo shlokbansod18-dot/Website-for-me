@@ -56,7 +56,7 @@ export async function applyCouponAction(
     ok: true,
     message:
       coupon.kind === "percent"
-        ? `${coupon.code} applied — ${coupon.value}% off.`
+        ? `${coupon.code} applied, ${coupon.value}% off.`
         : `${coupon.code} applied.`,
   };
 }

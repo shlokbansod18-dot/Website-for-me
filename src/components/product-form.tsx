@@ -192,7 +192,7 @@ export function ProductForm({
               {fileName ?? (product?.fileName ? "Replace the current file" : "Choose a file")}
             </span>
             <span className="text-[0.6875rem] text-ink-3">
-              zip, pdf, font, image, audio, video, 3D — up to 24 MB
+              zip, pdf, font, image, audio, video, 3D, up to 24 MB
             </span>
             <input
               id="file"
@@ -271,8 +271,8 @@ export function ProductForm({
             name="status"
             defaultValue={kept.status ?? product?.status ?? "draft"}
           >
-            <option value="draft">Draft — only you can see it</option>
-            <option value="published">Published — live in the shop</option>
+            <option value="draft">Draft, only you can see it</option>
+            <option value="published">Published, live in the shop</option>
           </Select>
 
           <button
