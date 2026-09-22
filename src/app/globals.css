@@ -1,0 +1,637 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════
+   softsystem — the brand sheet, applied exactly
+
+   Warm Ivory ground, Ink Black type, Muted Burgundy spent only where the
+   sheet says: small highlights and the premium accent. Warm Taupe and
+   Stone do the shapes, cards and borders. Soft White is the type on dark.
+
+   Instrument Serif carries headlines, statements and product names.
+   Inter carries everything a person has to read quickly: descriptions,
+   labels, buttons, prices, dates.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* The sheet, verbatim. */
+  --ivory: #f4f0e8;
+  --ink-black: #171717;
+  --taupe: #a79c8e;
+  --stone: #d8d0c4;
+  --burgundy: #6e3038;
+  --soft-white: #faf9f6;
+
+  /* Two derived tones the sheet does not name, because body text needs a
+     grey that actually passes on ivory. Taupe is a shape colour: at 2.1:1
+     on ivory it fails as text, so secondary copy uses a darker sibling
+     mixed from the same family. */
+  --taupe-deep: #6b6157;   /* 5.9:1 on ivory — secondary text */
+  --taupe-mid: #8a8075;    /* 3.6:1 — large text and interface borders */
+
+  --paper: var(--ivory);
+  --surface: var(--soft-white);
+  --surface-2: var(--stone);
+  --line: rgb(23 23 23 / 0.12);
+  --line-2: rgb(23 23 23 / 0.26);
+  --ink: var(--ink-black);
+  --ink-2: var(--taupe-deep);
+  --ink-3: var(--taupe-mid);
+  --accent: var(--burgundy);
+  --accent-soft: #f0e3e4;
+  --on-accent: var(--soft-white);
+  --accent-2: var(--taupe-deep);
+  --positive: #2f6b4f;
+  --alert: #9a2b21;
+
+  --lift: 0 1px 1px rgb(23 23 23 / 0.04), 0 18px 44px -26px rgb(23 23 23 / 0.4);
+  --grain-opacity: 0.03;
+
+  --out: cubic-bezier(0.16, 1, 0.3, 1);
+  --both: cubic-bezier(0.65, 0.05, 0.36, 1);
+  --t-fast: 180ms;
+  --t-mid: 420ms;
+  --t-slow: 780ms;
+}
+
+/* The dark screens the sheet calls for: Ink Black ground, Soft White type. */
+:root[data-theme="dark"] {
+  --paper: var(--ink-black);
+  --surface: #1f1f1e;
+  --surface-2: #2a2926;
+  --line: rgb(250 249 246 / 0.14);
+  --line-2: rgb(250 249 246 / 0.28);
+  --ink: var(--soft-white);
+  --ink-2: #b8ada0;
+  --ink-3: #8a8075;
+  --accent: #c4707a;          /* burgundy lifted so it reads on ink black */
+  --accent-soft: #33191c;
+  --on-accent: #1a0c0e;
+  --accent-2: var(--taupe);
+  --positive: #7cc4a0;
+  --alert: #e08878;
+  --lift: 0 1px 1px rgb(0 0 0 / 0.5), 0 18px 48px -26px rgb(0 0 0 / 0.9);
+  --grain-opacity: 0.045;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
+  --color-on-accent: var(--on-accent);
+  --color-positive: var(--positive);
+  --color-alert: var(--alert);
+
+  --font-display: var(--font-serif), "Iowan Old Style", Palatino, Georgia, serif;
+  --font-sans: var(--font-sans-ui), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+
+  --radius-sm: var(--r-sm);
+  --radius: var(--r);
+  --radius-lg: var(--r-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Cascade layers. Tailwind declares theme, base, components, utilities.
+   Anything outside a layer beats every layered rule regardless of
+   specificity — a bare `button { color: inherit }` out here would silently
+   defeat every text-* utility. So everything below sits in its layer.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  * { border-color: var(--line); }
+
+  /* hidden first as the fallback; clip also stops script from scrolling
+     the page sideways, and both elements need it. */
+  html, body { overflow-x: hidden; overflow-x: clip; }
+
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+  html[data-theme="dark"] { color-scheme: dark; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: -0.006em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* The grotesque carries every heading. It is wide and low-contrast, so it
+     wants real negative tracking and very little leading to read as display. */
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.018em;
+    line-height: 1.0;
+    text-wrap: balance;
+  }
+  h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.012em;
+  }
+
+  p { text-wrap: pretty; }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  :focus:not(:focus-visible) { outline: none; }
+
+  input, textarea, select, button { font: inherit; color: inherit; }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--ink);
+    -webkit-box-shadow: 0 0 0 1000px var(--surface) inset;
+    caret-color: var(--ink);
+  }
+
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line-2);
+    border: 4px solid var(--paper);
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+/* ── the environment ────────────────────────────────────────────
+   One fixed layer behind everything: paper tooth, plus two ink
+   blooms drifting on a 96-second cycle. Scrolling then feels like
+   moving through a place instead of past stacked sections. */
+.press-room{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
+.press-room .tooth{position:absolute; inset:0; opacity:.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E")}
+.press-room .bloom{position:absolute; width:52vmax; height:52vmax; border-radius:50%;
+  filter:blur(90px); opacity:.16; will-change:transform}
+.press-room .bloom.a{background:var(--persimmon); left:-14vmax; top:-10vmax;
+  animation:ss-drift-a 96s var(--both) infinite -22s}
+.press-room .bloom.b{background:var(--violet); right:-18vmax; bottom:-14vmax;
+  animation:ss-drift-b 124s var(--both) infinite -51s}
+@keyframes ss-drift-a{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(16vw,22vh,0) scale(1.25)}
+}
+@keyframes ss-drift-b{
+  0%,100%{transform:translate3d(0,0,0) scale(1.1)}
+  50%{transform:translate3d(-18vw,-16vh,0) scale(.85)}
+}
+
+  /* Entrances are CSS scroll-driven now, at the end of this file. The
+     opacity:0 rules that used to live here depended on a script adding
+     .in; when that script changed, anything still carrying the class was
+     invisible for good. Tying the reveal to the scrollbar removes the
+     dependency. */
+
+/* ── text assembly ──────────────────────────────────────────────
+   Headlines split into word and character spans at load, then
+   assemble off --k, which the scroll drive writes. Fully reversible.
+   Each section gets a different entrance; the entrance echoes what
+   the section is about. */
+.split{display:inline}
+.split .w{display:inline-block; white-space:nowrap}
+.split .c{display:inline-block; will-change:transform,opacity}
+
+/* (a) drift-down: ink settling onto paper. The hero. */
+[data-enter="drift"] .w{
+  --kc:clamp(0,(var(--k,1) - var(--th,0))*2.8,1);
+  opacity:var(--kc);
+  transform:translateY(calc((1 - var(--kc)) * -26px))}
+
+/* (b) grid snap: sheets sliding square into a rack. */
+[data-enter="snap"] .c{
+  --kc:clamp(0,(var(--k,1) - var(--th,0))*3.2,1);
+  opacity:var(--kc);
+  transform:translateX(calc((1 - var(--kc)) * var(--jx,14px)))}
+
+/* (c) punch: the stamp landing, with an overshoot that settles. */
+[data-enter="punch"] .w{
+  --kc:clamp(0,(var(--k,1) - var(--th,0))*3,1);
+  --ks:clamp(0,(var(--k,1) - var(--th,0) - .14)*2.8,1);
+  opacity:var(--kc);
+  transform:scale(calc(.68 + .46*var(--kc) - .14*var(--ks)))}
+
+/* (d) halves parting: two columns of type opening like a fold. */
+[data-enter="part"] .w{
+  --kc:clamp(0,(var(--k,1) - var(--th,0))*2.6,1);
+  opacity:var(--kc);
+  transform:translateX(calc((1 - var(--kc)) * var(--jx,0px)))}
+
+/* (e) rise into a staged settle: the closing beat. */
+[data-enter="rise"] .w{
+  --kc:clamp(0,(var(--k,1) - var(--th,0))*2.4,1);
+  opacity:var(--kc);
+  transform:translateY(calc((1 - var(--kc)) * 30px))}
+
+/* Any clipped reveal needs room for the tails on g, y and p. */
+.clip{overflow:hidden; padding-bottom:.18em; margin-bottom:-.18em}
+
+/* ── registration marks ─────────────────────────────────────────
+   What a real press sheet carries in its margins. They draw
+   themselves as their spread arrives, so the structure is telling
+   the truth about the subject rather than decorating it. */
+.regmark{position:absolute; width:56px; height:56px; pointer-events:none; opacity:.42}
+.regmark path,.regmark circle{
+  stroke:currentColor; stroke-width:1.2; fill:none;
+  stroke-dasharray:var(--len,120); stroke-dashoffset:var(--len,120);
+  transition:stroke-dashoffset 1.1s var(--out)}
+.in .regmark path,.in .regmark circle{stroke-dashoffset:0}
+.regmark.tl{top:1.5rem; left:1.5rem}
+.regmark.br{bottom:1.5rem; right:1.5rem; transform:rotate(180deg)}
+@media (max-width:760px){ .regmark{display:none} }
+
+/* ── living details ─────────────────────────────────────────────
+   One per spread, at whisper level, four seconds or longer, mid
+   cycle at first paint. Paused when off-screen and on hidden tabs. */
+.alive .pulse::after{content:""; position:absolute; inset:-30%; border-radius:50%;
+  background:radial-gradient(circle,currentColor 0%,transparent 66%);
+  opacity:0; pointer-events:none}
+.alive.live .pulse::after{animation:ss-pulse 6.5s ease-in-out infinite -2.4s}
+@keyframes ss-pulse{0%,100%{opacity:.06}50%{opacity:.2}}
+.alive .sway{will-change:transform}
+.alive.live .sway{animation:ss-sway 11s ease-in-out infinite -3.7s}
+@keyframes ss-sway{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(.7deg)}}
+
+/* animation-play-state does not inherit, so it has to be aimed at
+   every element and every pseudo-element by name. */
+body.hidden-tab *,body.hidden-tab *::before,body.hidden-tab *::after{
+  animation-play-state:paused !important}
+
+/* ── the press: the one interactive moment ──────────────────────
+   Hold the lever and the sheet prints, one ink at a time. Let go
+   early and it eases back rather than snapping. Finish it and the
+   sheet is a real product you can put in your bag. */
+.press{position:relative; display:grid; gap:clamp(2rem,4vw,4rem); grid-template-columns:1fr}
+@media (min-width:900px){ .press{grid-template-columns:1fr 1fr; align-items:center} }
+.sheet-stack{position:relative; aspect-ratio:3/4; max-width:26rem; width:100%}
+.sheet-stack .ink{position:absolute; inset:0; mix-blend-mode:multiply;
+  opacity:calc(clamp(0,(var(--pull,0) - var(--at,0)) * 4,1));
+  transform:translate(calc((1 - clamp(0,(var(--pull,0) - var(--at,0)) * 4,1)) * var(--ox,0px)),
+                      calc((1 - clamp(0,(var(--pull,0) - var(--at,0)) * 4,1)) * var(--oy,0px)));
+  transition:none; will-change:transform,opacity}
+.sheet-stack .paper{position:absolute; inset:0; background:var(--sheet);
+  box-shadow:0 24px 60px -28px rgb(0 0 0 / .8)}
+.sheet-stack .reveal{position:absolute; inset:0; display:grid; place-content:center;
+  text-align:center; gap:.75rem; padding:2rem;
+  opacity:clamp(0,(var(--pull,0) - .82) * 6,1);
+  transform:scale(calc(.96 + .04 * clamp(0,(var(--pull,0) - .82) * 6,1)))}
+.lever{position:relative; display:inline-flex; align-items:center; gap:.85rem;
+  border:1.5px solid var(--fg); background:transparent; color:var(--fg);
+  padding:0 1.6rem; height:56px; cursor:grab; overflow:hidden; isolation:isolate;
+  font-family:var(--display); font-weight:600; font-size:1.0625rem; letter-spacing:-.02em;
+  touch-action:none; user-select:none; -webkit-user-select:none}
+.lever:active{cursor:grabbing}
+.lever::before{content:""; position:absolute; inset:0; z-index:-1; background:var(--fg);
+  transform:scaleX(var(--pull,0)); transform-origin:left}
+.lever[data-pulled="1"]{border-color:var(--mark); background:var(--mark); color:var(--on-mark)}
+.lever .glyph{display:block; width:13px; height:13px; background:currentColor;
+  transform:rotate(calc(var(--pull,0) * 180deg))}
+.press-read{font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.8125rem;
+  color:var(--fg-3)}
+
+
+  /* A fine tooth. Keeps large flat areas from looking like flat fills. */
+  .grain::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .shell {
+    width: 100%;
+    max-width: 82rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 900px) {
+    .shell { padding-inline: 2.5rem; }
+  }
+
+  /* Small caps label. The only place letter-spacing goes positive. */
+  /* Sentence case, no tracking, no shouting. An all-caps tracked-out
+     eyebrow over every section is template chrome. */
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--ink-2);
+  }
+
+  /* Display sizes. The grotesque is set big and tight on purpose — at this
+     scale its width is the design. */
+  .display {
+    font-size: clamp(3.2rem, 9vw, 7.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.045em;
+    font-weight: 600;
+  }
+  .display-2 {
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+  }
+  .display-3 {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+  }
+
+  /* Emphasis is the serif's italic, carried across a whole clause. A single
+     tinted word in every heading is the commonest tell of a generated page;
+     a clause set in italic is an editorial device instead. */
+  .thin { font-style: italic; }
+
+  /* The wordmark, per the brand sheet: Inter Medium, tracking expanded. */
+  .wordmark {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Small uppercase labels, also Inter Medium per the sheet. */
+  .micro {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .numeric {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  /* A panel. Most things sit directly on the ground — a border everywhere
+     flattens the hierarchy — so this is for things that are really objects. */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 0;
+  }
+
+  .rule {
+    border: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .link {
+    color: var(--accent-2);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent-2) 40%, transparent);
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 0.15s ease, color 0.15s ease;
+  }
+  .link:hover { text-decoration-color: var(--accent-2); }
+
+  /* A soft aura behind the hero art and the primary button. This is the only
+     glow on the site; spent anywhere else it stops meaning anything. */
+  .aura { box-shadow: var(--glow); }
+
+  /* Sections printed on the sheet's own stocks. */
+  .on-ivory { background: var(--ivory); --paper: var(--ivory); --surface: var(--soft-white);
+    --ink: var(--ink-black); --ink-2: var(--taupe-deep); --ink-3: var(--taupe-mid);
+    --line: rgb(23 23 23 / .12); --line-2: rgb(23 23 23 / .26);
+    --accent: var(--burgundy); --on-accent: var(--soft-white); color: var(--ink); }
+  .on-stone { background: var(--stone); --paper: var(--stone); --surface: var(--soft-white);
+    --ink: var(--ink-black); --ink-2: #5f564c; --ink-3: #7d7264;
+    --line: rgb(23 23 23 / .14); --line-2: rgb(23 23 23 / .3);
+    --accent: var(--burgundy); --on-accent: var(--soft-white); color: var(--ink); }
+  .on-taupe { background: var(--taupe); --paper: var(--taupe); --surface: rgb(250 249 246 / .34);
+    --ink: #1d1a16; --ink-2: #453e35; --ink-3: #574f44;
+    --line: rgb(29 26 22 / .2); --line-2: rgb(29 26 22 / .4);
+    --accent: var(--burgundy); --on-accent: var(--soft-white); color: var(--ink); }
+  .on-ink { background: var(--ink-black); --paper: var(--ink-black); --surface: #1f1f1e;
+    --ink: var(--soft-white); --ink-2: #b8ada0; --ink-3: #8a8075;
+    --line: rgb(250 249 246 / .16); --line-2: rgb(250 249 246 / .32);
+    --accent: #c4707a; --on-accent: #1a0c0e; color: var(--ink); }
+  .on-burgundy { background: var(--burgundy); --paper: var(--burgundy); --surface: rgb(250 249 246 / .12);
+    --ink: var(--soft-white); --ink-2: #e0c4c7; --ink-3: #c79ea3;
+    --line: rgb(250 249 246 / .22); --line-2: rgb(250 249 246 / .42);
+    --accent: var(--soft-white); --on-accent: var(--burgundy); color: var(--ink); }
+
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    padding: 0.7rem 1.1rem;
+    border-radius: var(--r-pill);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 600;
+    transform: translateY(-250%);
+    transition: transform 0.18s ease;
+  }
+  .skip-link:focus { transform: none; }
+
+  /* Ticker of what just sold. Real content, moving slowly enough to read. */
+  .ticker {
+    display: flex;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .ticker > div {
+    display: flex;
+    flex: none;
+    gap: 2.5rem;
+    padding-right: 2.5rem;
+    animation: ss-slide 48s linear infinite;
+  }
+  .ticker:hover > div { animation-play-state: paused; }
+}
+
+/* ── Motion ────────────────────────────────────────────────────────────── */
+
+@keyframes ss-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes ss-spin { to { transform: rotate(360deg); } }
+@keyframes ss-slide { to { transform: translateX(-100%); } }
+
+@layer components {
+  .spin { animation: ss-spin 0.7s linear infinite; }
+}
+
+/* Scroll reveals are scoped to html.js, a class the inline boot script adds
+   before first paint. If script never runs, nothing is hidden — content must
+   never depend on JavaScript to be readable. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.js [data-reveal].is-visible {
+  animation: ss-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .js [data-reveal] { opacity: 1; transform: none; }
+  .ticker > div { animation: none; }
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MOTION, second attempt, built on what actually survives
+
+   The previous version used CSS scroll-driven animations. Measured
+   inside the artifact's iframe, where the PARENT scrolls and the
+   page's own document never does, they never advance: every reveal
+   sits frozen at opacity 0 forever. Zero scroll events reach the
+   page. IntersectionObserver still fires, so that is the primitive
+   everything here is built on.
+
+   The rule that follows from it: nothing is hidden unless the script
+   has confirmed it can show it again. Every hidden state below is
+   gated behind html.anim, a class added only once the observer is
+   running. No script, no hiding.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root{
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease-soft:cubic-bezier(.33,1,.68,1);
+  --ease-back:cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ── reveals ────────────────────────────────────────────────── */
+html.anim [data-r]{
+  opacity:0;
+  transform:translate3d(0,var(--r-y,84px),0) scale(var(--r-s,.96));
+  transition:opacity 1s var(--ease-out), transform 1.15s var(--ease-out);
+  will-change:transform,opacity;
+}
+html.anim [data-r].on{ opacity:1; transform:none }
+html.anim [data-r="far"]{ --r-y:132px; --r-s:.9 }
+html.anim [data-r="left"]{ transform:translate3d(-56px,0,0) }
+html.anim [data-r="right"]{ transform:translate3d(56px,0,0) }
+html.anim [data-r="mask"]{ opacity:1; clip-path:inset(0 0 102% 0); transform:none;
+  transition:clip-path 1.1s var(--ease-out) }
+html.anim [data-r="mask"].on{ clip-path:inset(0 0 -2% 0) }
+html.anim [data-r="blur"]{ filter:blur(14px); transition:opacity .9s var(--ease-out),
+  transform 1s var(--ease-out), filter 1s var(--ease-out) }
+html.anim [data-r="blur"].on{ filter:none }
+
+/* Children arrive one after another. The delay is set inline by the
+   script, which also clears it once the group has arrived so a later
+   hover never waits for a stagger that already finished. */
+html.anim [data-rs] > *{
+  opacity:0;
+  transform:translate3d(0,90px,0) scale(.93);
+  transition:opacity .85s var(--ease-out), transform .95s var(--ease-out);
+  will-change:transform,opacity;
+}
+html.anim [data-rs].on > *{ opacity:1; transform:none }
+html.anim [data-rs="deal"] > *{ transform:translate3d(0,120px,0) rotate(var(--rot,-6deg)) scale(.84) }
+html.anim [data-rs="deal"] > *:nth-child(even){ --rot:4deg }
+html.anim [data-rs].done > *{ transition-delay:0ms !important }
+
+/* Headlines arrive a word at a time. */
+html.anim [data-w] .wd{
+  display:inline-block;
+  opacity:0;
+  transform:translate3d(0,1em,0) rotateX(-78deg);
+  transform-origin:center bottom;
+  transition:opacity .75s var(--ease-out), transform .85s var(--ease-out);
+  will-change:transform,opacity;
+}
+html.anim [data-w].on .wd{ opacity:1; transform:none }
+[data-w]{ perspective:900px }
+
+/* ── parallax and depth, driven by the observer's own numbers ── */
+html.anim [data-par]{ will-change:transform }
+
+/* ── ambient, always running, never dependent on scroll ─────── */
+.aura-wrap{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
+.aura{position:absolute; width:58vmax; height:58vmax; border-radius:50%; filter:blur(100px); opacity:.2}
+.aura.one{background:var(--burgundy); left:-16vmax; top:-14vmax; animation:aura-a 42s ease-in-out infinite -9s}
+.aura.two{background:var(--taupe); right:-20vmax; bottom:-18vmax; animation:aura-b 58s ease-in-out infinite -23s}
+@keyframes aura-a{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(14vw,18vh,0) scale(1.3)}}
+@keyframes aura-b{0%,100%{transform:translate3d(0,0,0) scale(1.15)}50%{transform:translate3d(-16vw,-12vh,0) scale(.85)}}
+
+/* A grain that breathes, so flat areas are never quite still. */
+.tooth{position:absolute; inset:0; opacity:.045; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:tooth 8s steps(4) infinite}
+@keyframes tooth{0%{transform:translate(0,0)}25%{transform:translate(-2%,1%)}50%{transform:translate(1%,-2%)}75%{transform:translate(-1%,-1%)}100%{transform:translate(0,0)}}
+
+/* ── the load sequence, the one thing that runs without scrolling ── */
+@keyframes lift{ from{opacity:0; transform:translate3d(0,26px,0)} to{opacity:1; transform:none} }
+@keyframes liftBig{ from{opacity:0; transform:translate3d(0,56px,0) scale(.94) rotate(-3deg)} to{opacity:1; transform:none} }
+@keyframes sweep{ from{clip-path:inset(0 100% 0 0)} to{clip-path:inset(0 0 0 0)} }
+html.anim .boot{ animation:lift .95s var(--ease-out) backwards; animation-delay:var(--d,0ms) }
+html.anim .boot-big{ animation:liftBig 1.2s var(--ease-out) backwards; animation-delay:var(--d,0ms) }
+html.anim .boot-sweep{ animation:sweep 1.1s var(--ease-out) backwards; animation-delay:var(--d,0ms) }
+
+/* ── hover, which needs no scroll at all ────────────────────── */
+.good .poster{ transition:transform .7s var(--ease-out), box-shadow .7s var(--ease-out) }
+.good:hover .poster{ transform:translateY(-10px) scale(1.025);
+  box-shadow:0 34px 62px -28px rgb(23 23 23 / .55) }
+.good .poster .name{ transition:transform .7s var(--ease-out) }
+.good:hover .poster .name{ transform:translateY(-4px) }
+.good .cap{ transition:transform .5s var(--ease-out) }
+.good:hover .cap{ transform:translateX(4px) }
+
+/* A magnetic pull on the primary controls, clamped so the label never
+   leaves its own hit box. */
+.btn{ transition:transform .45s var(--ease-back), color .28s var(--ease-out),
+  border-color .28s var(--ease-out), background-color .28s var(--ease-out) }
+
+/* A soft light that follows the pointer across the hero. */
+.spot{position:absolute; inset:0; pointer-events:none; opacity:0; z-index:0;
+  transition:opacity .6s var(--ease-out);
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),
+    color-mix(in srgb, var(--burgundy) 16%, transparent), transparent 62%)}
+.hero-spot:hover .spot{ opacity:1 }
+
+/* ── reduced motion turns every bit of it off ───────────────── */
+@media (prefers-reduced-motion:reduce){
+  html.anim [data-r], html.anim [data-rs] > *, html.anim [data-w] .wd{
+    opacity:1 !important; transform:none !important; clip-path:none !important;
+    filter:none !important; transition:none !important }
+  html.anim .boot, html.anim .boot-big, html.anim .boot-sweep{ animation:none !important }
+  .aura, .tooth{ animation:none !important }
+  .good:hover .poster, .good:hover .cap, .good:hover .poster .name{ transform:none }
+}
+html.still [data-r], html.still [data-rs] > *, html.still [data-w] .wd{
+  opacity:1 !important; transform:none !important; clip-path:none !important;
+  filter:none !important; transition:none !important }
+html.still .aura, html.still .tooth{ animation:none !important }

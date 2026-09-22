@@ -1,0 +1,130 @@
+/**
+ * Cover art, generated per product.
+ *
+ * Every product is a card from the brand's own stock: one of the sheet's
+ * neutrals, the category set small in Inter at the top, and the product name
+ * set large in Instrument Serif across the bottom. The palette is deliberately
+ * quiet, because the sheet reserves Muted Burgundy for small highlights and a
+ * wall of saturated tiles would spend it everywhere.
+ */
+
+export const TINTS = {
+  stone:    { ground: "#d8d0c4", ink: "#171717", label: "Stone"    },
+  taupe:    { ground: "#a79c8e", ink: "#171717", label: "Taupe"    },
+  ink:      { ground: "#171717", ink: "#faf9f6", label: "Ink"      },
+  burgundy: { ground: "#6e3038", ink: "#faf9f6", label: "Burgundy" },
+  ivory:    { ground: "#f4f0e8", ink: "#171717", label: "Ivory"    },
+  clay:     { ground: "#c8b7a6", ink: "#171717", label: "Clay"     },
+  sage:     { ground: "#b2b5a4", ink: "#171717", label: "Sage"     },
+  dusk:     { ground: "#8d8391", ink: "#faf9f6", label: "Dusk"     },
+} as const;
+
+function hash(seed: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return Math.abs(h);
+}
+
+export type TintName = keyof typeof TINTS;
+export const TINT_NAMES = Object.keys(TINTS) as TintName[];
+
+/**
+ * Honours an explicit tint, and otherwise derives one from the seed. Products
+ * created under an older palette carry names that mean nothing here — without
+ * the fallback every one of them would come out the same colour and the
+ * catalogue would read as a single swatch.
+ */
+export function tintOf(name: string, seed = ""): (typeof TINTS)[TintName] {
+  if ((name as TintName) in TINTS) return TINTS[name as TintName];
+  return TINTS[TINT_NAMES[hash(seed || name) % TINT_NAMES.length]];
+}
+
+export function ProductCover({
+  seed,
+  accent,
+  title,
+  category,
+  className = "",
+  size = "md",
+}: {
+  seed: string;
+  accent: string;
+  title?: string;
+  category?: string;
+  className?: string;
+  size?: "sm" | "md" | "lg";
+}) {
+  const tint = tintOf(accent, seed);
+  const h = hash(seed);
+  const words = (title ?? seed).trim().split(/\s+/).filter(Boolean);
+
+  // Two lines at most. A third line on a card this size sets too small to
+  // read as display type, and the poster stops being a poster.
+  const lines = words.length > 3 ? [words.slice(0, 2).join(" "), words.slice(2).join(" ")] : words;
+
+  // A quiet plotted arc, placed per product so no two sheets are identical.
+  const arcX = 20 + (h % 60);
+  const arcY = 30 + ((h >> 5) % 40);
+  const arcR = 26 + ((h >> 10) % 22);
+  const scale = size === "sm" ? 0.82 : size === "lg" ? 1.12 : 1;
+
+  return (
+    <div
+      className={`relative isolate overflow-hidden ${className}`}
+      // Container units below need a size container, so the type scales with
+      // the box rather than with whatever font-size it happens to inherit.
+      style={{ background: tint.ground, containerType: "size" }}
+      aria-hidden
+    >
+      <svg
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        className="absolute inset-0 size-full"
+        style={{ opacity: 0.13 }}
+      >
+        <circle cx={arcX} cy={arcY} r={arcR} fill="none" stroke={tint.ink} strokeWidth="0.5" />
+        <circle cx={arcX} cy={arcY} r={arcR * 0.66} fill="none" stroke={tint.ink} strokeWidth="0.5" />
+        <circle cx={arcX} cy={arcY} r={arcR * 0.33} fill="none" stroke={tint.ink} strokeWidth="0.5" />
+      </svg>
+
+      {category ? (
+        <span
+          className="absolute font-sans font-medium uppercase"
+          style={{
+            left: "7%",
+            top: "7%",
+            fontSize: `min(${5.5 * scale}cqh, ${4.6 * scale}cqw)`,
+            letterSpacing: "0.14em",
+            color: tint.ink,
+            opacity: 0.7,
+          }}
+        >
+          {category}
+        </span>
+      ) : null}
+
+      <span
+        className="absolute font-display"
+        style={{
+          left: "7%",
+          right: "7%",
+          bottom: "7%",
+          fontSize: `min(${18 * scale}cqh, ${15 * scale}cqw)`,
+          lineHeight: 0.98,
+          letterSpacing: "-0.018em",
+          color: tint.ink,
+          textWrap: "balance",
+        }}
+      >
+        {lines.map((line, i) => (
+          <span key={i} className="block">
+            {line}
+          </span>
+        ))}
+      </span>
+    </div>
+  );
+}
